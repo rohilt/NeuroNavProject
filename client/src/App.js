@@ -3,6 +3,8 @@ import { Route, Switch, Redirect  } from 'react-router-dom';
 import Home from "./views/Home/Home";
 import NotFound from "./views/NotFound";
 import NavBar from "./components/Header/NavBar";
+import Directions from "./Directions";
+
 
 const App = () => {
   return (
@@ -13,10 +15,25 @@ const App = () => {
         <Route exact path="/">
           <Redirect to="/Home" />
         </Route>
-        <Route component={NotFound}/>
+        
+        <Route exact path="/Directions" component={Directions} />
+        <Route exact path="/">
+          <Redirect to="/Directions" />
+        </Route>
+
+        {/* <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/">
+          <Redirect to="/login" />
+        </Route> */}
+
+
+        
+
       </Switch>
     </div>
   );
 }
 
 export default App;
+
+

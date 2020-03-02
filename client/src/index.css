@@ -1,0 +1,6 @@
+.Clinic{
+    float: left;
+	width: 100%;
+	padding: 10px;
+	align-self: flex-start;
+}
