@@ -6,7 +6,7 @@ import PatientView from "./views/PatientView"
 import Admin from "./views/Admin"
 import NotFound from "./views/NotFound";
 import NavBar from "./components/Header/NavBar";
-import Directions from "./Directions";
+import Directions from "./components/Directions/Directions";
 
 
 const App = () => {
