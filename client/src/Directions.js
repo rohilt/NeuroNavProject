@@ -9,14 +9,13 @@ function Directions() {
     return (
         <div className = "background">
         <div className="Wrapper">
-        
-        <div className="Clinic" style={{display: 'flex',  justifyContent:'left', height: '100vh'}}>
-        <Clinic/> 
-        </div>
-
 
         <div className="Garage" style={{display: 'flex',  justifyContent:'right', height: '100vh'}}>
         <Garage/>
+        </div>
+        
+        <div className="Clinic" style={{display: 'flex',  justifyContent:'left', height: '100vh'}}>
+        <Clinic/> 
         </div>
 
         </div>

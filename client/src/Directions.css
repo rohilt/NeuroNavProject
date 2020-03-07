@@ -11,14 +11,14 @@ background: linear-gradient(to right, #F56217, #0B486B); /* W3C, IE 10+/ Edge, F
 }
 
 .Clinic{
-    float:left;
+    float:right;
     padding-top: 5%;
-    padding-left: 7%;
+    padding-right: 7%;
 }
 
 .Garage{
-    float:right;
+    float:left;
     padding-top: 5%;
-    padding-right: 10%;
+    padding-left: 10%;
 }
 
