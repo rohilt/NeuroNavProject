@@ -14,6 +14,9 @@ const AddPatient = (props) => {
     axios.post('/patient?name=' + name + '&emailAddress=' + email + '&address=' + address).then(response => console.log(response));
     props.setUpdated(props.updated+1);
     setOpenDialog(false);
+    setName("");
+    setEmail("");
+    setAddress("");
   };
   return (
     <div>

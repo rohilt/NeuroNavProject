@@ -27,8 +27,8 @@ const PatientList = (props) => {
           {patientList.map(entry => (
             <TableRow key={entry.name}>
               <TableCell>{entry.name}</TableCell>
-              <TableCell>{entry.emailAddress}</TableCell>
               <TableCell>{entry.address}</TableCell>
+              <TableCell>{entry.emailAddress}</TableCell>
             </TableRow>
           ))}
         </TableBody>

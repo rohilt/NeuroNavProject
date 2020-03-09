@@ -20,14 +20,16 @@ const AppointmentList = (props) => {
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell>Date and Time</TableCell>
+            <TableCell>Date</TableCell>
+            <TableCell>Time</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {appointmentList.map(entry => (
             <TableRow key={entry.date}>
               <TableCell>{entry.name}</TableCell>
-              <TableCell>{entry.date}</TableCell>
+              <TableCell>{entry.date.substring(0, 10)}</TableCell>
+              <TableCell>{entry.date.substring(11, 16)}</TableCell>
             </TableRow>
           ))}
         </TableBody>
