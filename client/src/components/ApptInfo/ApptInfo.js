@@ -18,14 +18,17 @@ function ApptInfo() {
                 </div>
 
                 <div className="ApptBlock">
-                    <b>Tomorrow:</b>
+                    <h2>Tomorrow:</h2>
+                    <p>No Appointments to show!</p>
                 </div>
 
                 <div className="ApptBlock">
-                    <b>This Week:</b>
+                    <h2>Later This Week:</h2>
+                    <Appt/>
+                    <Appt/>
                 </div>
 
-                <button>View All</button>
+                <button className = "ApptBlock">View All</button>
 
             </div>
         </div>
