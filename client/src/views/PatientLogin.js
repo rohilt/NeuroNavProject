@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
-      width: 200,
+      width: 300,
     },
   },
   asd: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     color: 'blue',
     height: 48,
-    padding: '0 80px', 
+    padding: '0 120px', 
   },
   user: {
     
@@ -29,17 +29,16 @@ const PatientLogin = () => {
   const classes = useStyles();
   
         return (
-        //<div className = "background">
-        //<div className="Wrapper">
 
-                // <div className={classes.root}>
-                //         This is the login page <br />
+                 <div>
+                         
                         <Grid  container
                         spacing={0}
                         direction="column"
                         alignItems="center"
                         justify="center"
                         style={{ minHeight: '100vh' }}  >
+                          <h3>Login</h3>
                       <form className={classes.root} noValidate autoComplete="off">
                     
                         <TextField className={classes.user} id="outlined-basic" label="Username" variant="outlined" />
