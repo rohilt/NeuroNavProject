@@ -11,6 +11,11 @@ import {
   DirectionsRenderer
 } from "react-google-maps";
 
+let distString = "Loading..";
+let durString = "Loading..";
+var loadState = 0;
+var jsonParsed;
+
 
 
 export class MapContainer extends Component {
@@ -68,11 +73,33 @@ export class MapContainer extends Component {
 
   }
 
-
-
   onMarkerClick = () => {
     {window.open("https://www.google.com/maps/dir//Parking+Garage+10,+Gainesville,+FL+32601/@29.640861,-82.341648,18z/data=!4m8!4m7!1m0!1m5!1m1!1s0x88e8a39ee4f0ef5f:0x69423fe6af8aa344!2m2!1d-82.3416286!2d29.6406474?hl=en")}
   }
+
+  getDistTime ()
+  {
+    var xhr = new XMLHttpRequest()
+    
+    // get a callback when the server responds
+    xhr.addEventListener('load', () => {
+      // update the state of the component with the result here
+      console.log(xhr.responseText)
+      jsonParsed = JSON.parse(xhr.responseText)
+      distString = jsonParsed["distance"]
+      durString = jsonParsed["duration"]
+      if(loadState == 0)
+      {
+        this.setState({ state: this.state });
+      }
+     loadState = 1;
+    })
+    // open the request with the verb and the url
+    xhr.open('GET', 'http://localhost:3000/directions?')
+    // send the request
+    xhr.send()
+  }
+  
   render() {
     const { lat, lng } = this.state;
     const GoogleMapExample = withGoogleMap(props => (
@@ -86,6 +113,7 @@ export class MapContainer extends Component {
   <Marker />
       </GoogleMap>
     ));
+    this.getDistTime();
 
     return (
       <div>
@@ -103,6 +131,16 @@ export class MapContainer extends Component {
           containerElement={<div style={{ height: `450px`, width: "450px" }} />}
           mapElement={<div style={{ height: `100%` }} />}
         />
+        <div>
+        <b>
+        Distance: {distString}
+        </b> 
+        </div>
+        <div>
+        <b>
+        Estimated Time: {durString}
+        </b>
+        </div>
       </div>
     );
   }
