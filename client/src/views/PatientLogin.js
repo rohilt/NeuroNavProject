@@ -7,6 +7,8 @@ const PatientLogin = () => {
                 <div>
                         This is the login page <br />
                         <Button component={Link} to="/patientview" variant="outlined" color="primary">Login</Button>
+                        <Button component={Link} to="/admin" variant="outlined" color="primary">Admin Login</Button>
+
                 </div>
         )
                         
