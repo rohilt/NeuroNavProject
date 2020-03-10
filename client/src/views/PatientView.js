@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import Directions from '../components/Directions/Directions';
 import ApptInfo from '../components/ApptInfo/ApptInfo';
 import NavBar from '../components/Header/NavBar';
+import PatientAppointmentList from '../components/PatientAppointments/PatientAppointmentList';
+
 
 
 const PatientView = () => {
@@ -10,10 +12,9 @@ const PatientView = () => {
           <div>
           <NavBar setTabValue={setTabValue} tabValue={tabValue} />
           {tabValue == 0 ? <Directions/> : null}
-          {tabValue == 1 ? <ApptInfo/> : null}
+//           {tabValue == 1 ? <ApptInfo/> : null}
+          {tabValue == 1 ? <PatientAppointmentList /> : null}
           {/* change the first null to the second tab component */}
-          {tabValue == 2 ? null : null}
-          {/* change the first null to the third tab component */}
           </div>
         )
 }

@@ -1,7 +1,7 @@
 /*global google*/
 import React, { Component,useState } from "react";
-import { Map,GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
-import {withGoogleMap,GoogleMap,DirectionsRenderer} from "react-google-maps";
+import { Map,GoogleApiWrapper, InfoWindow } from 'google-maps-react';
+import {withGoogleMap,GoogleMap,DirectionsRenderer,Marker} from "react-google-maps";
 
 
 
@@ -31,6 +31,7 @@ export class MapContainer extends Component {
 
     const origin = { lat: 29.640749, lng: -82.341621 };
     const destination = { lat: 29.639418, lng: -82.341230 };
+    
 
     directionsService.route(
       {
@@ -77,7 +78,9 @@ export class MapContainer extends Component {
     );
   }
 
-  
+  onMarkerClick = () => {
+    {window.open("https://www.google.com/maps/dir/Parking+Garage+10,+Gainesville,+FL+32601/1505+Southwest+Archer+Road,+Gainesville,+FL/@29.6399896,-82.3438497,17z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x88e8a39ee4f0ef5f:0x69423fe6af8aa344!2m2!1d-82.3416286!2d29.6406474!1m5!1m1!1s0x88e8a39f1ea3f735:0x14befcadd5cd624d!2m2!1d-82.3412409!2d29.6394103!3e2?hl=en")}
+  }
 
   render() {
     
@@ -86,10 +89,15 @@ export class MapContainer extends Component {
         
       >
 
+
         <DirectionsRenderer
           directions={this.state.directions}
         />
         
+<Marker onClick={this.onMarkerClick}
+        name={'Clinic'}
+        position={{lat: 29.639418, lng: -82.341230 }} />
+  <Marker />
       </GoogleMap>
       
     ));

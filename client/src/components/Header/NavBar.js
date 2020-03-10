@@ -35,8 +35,7 @@ const NavBar = (props) => {
                 </Toolbar> */}
                 <Tabs value={props.tabValue} onChange={(e, newValue) => props.setTabValue(newValue)}>
                     <Tab label="Directions"/>
-                    <Tab label="Appointments"/>
-                    <Tab label="Tab three"/>
+                    <Tab label="My Appointments"/>
                 </Tabs>
             </AppBar>
  
