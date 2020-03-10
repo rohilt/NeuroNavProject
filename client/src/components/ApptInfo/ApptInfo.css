@@ -1,0 +1,34 @@
+.background{
+    background: #0B486B;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #F56217, #0B486B);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #F56217, #0B486B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+
+.Wrapper {
+    overflow: hidden;
+}
+
+.ApptBlock{
+    color : white;
+    background-color : #2C2F33;
+    padding : 2%;
+    margin : 2%;
+    border-radius: 50px;
+}
+
+.Appt {
+    background-color: #7289DA;
+    padding : 5px 15px 5px 15px;
+    margin : 20px;
+    border-radius: 25px;
+}
+
+.ApptButton {
+    margin : 5px;
+    min-width: 500px;
+    min-height: 50px;
+    background-color: lightgray;
+    border: none;
+}
