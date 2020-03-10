@@ -97,6 +97,17 @@ export default function SignIn() {
           >
             Sign In
           </Button>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            component={Link} to="/admin"
+
+          >
+            Admin Login
+          </Button>
           <Grid container>
             <Grid item xs>
             </Grid>
