@@ -22,6 +22,11 @@ const useStyles = makeStyles(theme => ({
     title: {
       flexGrow: 1,
     },
+    butt: {
+        '& > *': {
+          margin: theme.spacing(1),
+        },
+      },
   }));
 
 const NavBar = (props) => {
@@ -49,7 +54,10 @@ const NavBar = (props) => {
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6"  className={classes.title} >Patient View</Typography>
-                    <Button component={Link} to="/login" variant="outlined" color="secondary">Logout</Button>
+                    <div className={classes.butt}>
+                    <Button component={Link} to="/profile" variant="contained" color="default">My Account</Button>
+                    <Button component={Link} to="/login" variant="contained" color="default">Logout</Button>
+                    </div>
                 </Toolbar>
                 <Tabs value={props.tabValue} onChange={(e, newValue) => props.setTabValue(newValue)}>
                     <Tab label="Directions"/>
