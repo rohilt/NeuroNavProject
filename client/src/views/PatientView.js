@@ -12,8 +12,8 @@ const PatientView = () => {
           <div>
           <NavBar setTabValue={setTabValue} tabValue={tabValue} />
           {tabValue == 0 ? <Directions/> : null}
-//           {tabValue == 1 ? <ApptInfo/> : null}
-          {tabValue == 1 ? <PatientAppointmentList /> : null}
+          {tabValue == 1 ? <div><PatientAppointmentList/><ApptInfo/></div> : null}
+          {/* {tabValue == 1 ? <PatientAppointmentList /> : null} */}
           {/* change the first null to the second tab component */}
           </div>
         )
