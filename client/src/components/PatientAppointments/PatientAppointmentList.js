@@ -28,7 +28,7 @@ const PatientAppointmentList = (props) => {
         </TableHead>
         <TableBody>
           {appointmentList.map(entry => entry.name == "SamplePatient" ? (
-            <TableRow key={entry.date}>
+            <TableRow key={entry._id}>
               <TableCell>{entry.date.substring(0, 10)}</TableCell>
               <TableCell>{entry.date.substring(11, 16)}</TableCell>
             </TableRow>
