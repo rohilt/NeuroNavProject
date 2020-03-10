@@ -9,9 +9,27 @@ import axios from 'axios';
 import { TableContainer } from '@material-ui/core';
 
 const PatientList = (props) => {
-  const [patientList, setPatientList] = useState([]);
+  // const [patientList, setPatientList] = useState([]);
+  const [newPatientList, setNewPatientList] = useState([]);
   useEffect(() => {
-    axios.get('/patient').then(response => setPatientList(response.data));
+    axios.get('/patient').then(response => {
+      // setPatientList(response.data);
+      response.data.forEach((element) => {
+        axios.get('/directions?name=' + element.name).then(newResponse => {
+          console.log(newPatientList); 
+          setNewPatientList(newPatientList => [...newPatientList, {
+            _id: element._id,
+            name: element.name,
+            address: element.address,
+            emailAddress: element.emailAddress,
+            duration: newResponse.data.duration
+        
+          }]);
+        });
+      });
+      // console.log(patientList);
+      // console.log(newPatientList);
+    });
   }, [props.updated]);
   return (
     <TableContainer component={Paper}>
@@ -21,14 +39,16 @@ const PatientList = (props) => {
             <TableCell>Name</TableCell>
             <TableCell>Address</TableCell>
             <TableCell>Email</TableCell>
+            <TableCell>Time Needed</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {patientList.map(entry => (
-            <TableRow key={entry.name}>
+          {newPatientList.map((entry) => (
+            <TableRow key={entry._id}>
               <TableCell>{entry.name}</TableCell>
               <TableCell>{entry.address}</TableCell>
               <TableCell>{entry.emailAddress}</TableCell>
+              <TableCell>{entry.duration}</TableCell>
             </TableRow>
           ))}
         </TableBody>
