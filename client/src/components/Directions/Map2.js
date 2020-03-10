@@ -95,7 +95,7 @@ export class MapContainer extends Component {
      loadState = 1;
     })
     // open the request with the verb and the url
-    xhr.open('GET', 'http://localhost:3000/directions?name=SamplePatient')
+    xhr.open('GET', '/directions?name=SamplePatient')
     // send the request
     xhr.send()
   }
