@@ -99,14 +99,19 @@ export default function SignIn() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Links href="#" variant="body2">
-                Forgot password?
-              </Links>
             </Grid>
-            <Grid item>
+            <Grid item 
+            container
+            justify="center"
+            alignItems="center"> 
+                Don't have an account or need assistance signing in?
+                <br />
               <Links href="tel:9047088717" variant="body2">
-                {"Don't have an account? Call Your Doctor"}
+                {"Click here to call UF Neurosurgery Department Office"}
+                <br />
+                {"(352) 273-9000"}
               </Links>
+              <br />
             </Grid>
           </Grid>
         </form>
