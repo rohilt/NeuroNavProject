@@ -49,10 +49,9 @@ const NavBar = (props) => {
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6"  className={classes.title} >Patient View</Typography>
-                    <Button component={Link} to="/login" variant="outlined" color="secondary">Logout</Button>
+                    <Button component={Link} to="/login" color="inherit">Logout</Button>
                 </Toolbar>
                 <Tabs value={props.tabValue} onChange={(e, newValue) => props.setTabValue(newValue)}>
-                    <Tab label="Directions"/>
                     <Tab label="My Appointments"/>
                     
                 </Tabs>

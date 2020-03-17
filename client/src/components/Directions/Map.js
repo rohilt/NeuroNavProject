@@ -16,6 +16,7 @@ export class MapContainer extends Component {
 
     this.state = {
       directions: null,
+      directions2:null
       
     };
   }
@@ -32,23 +33,66 @@ export class MapContainer extends Component {
     const origin = { lat: 29.640749, lng: -82.341621 };
     const destination = { lat: 29.639418, lng: -82.341230 };
     
-
-    directionsService.route(
-      {
-        origin: origin,
-        destination: destination,
-        travelMode: google.maps.TravelMode.WALKING
-      },
-      (result, status) => {
-        if (status === google.maps.DirectionsStatus.OK) {
-          this.setState({
-            directions: result
-          });
-        } else {
-          console.error(`error fetching directions ${result}`);
-        }
+    directionsService.route({
+      origin: new google.maps.LatLng(29.649183, -82.338116),
+      destination: new google.maps.LatLng(29.639418, -82.341230),
+      //destination: new google.maps.LatLng(29.640749, -82.341621),
+      travelMode: google.maps.TravelMode.WALKING,
+      waypoints: [
+           {
+              location: new google.maps.LatLng(29.640749, -82.341621)
+           }
+      ]
+   }, (result, status) => {
+      if (status === google.maps.DirectionsStatus.OK) {
+         this.setState({
+            directions: result,
+         });
+      } else {
+        console.error(`error fetching directions ${result}`);
       }
-    );
+   });
+
+   directionsService.route({
+    origin: new google.maps.LatLng(29.640749, -82.341621),
+    destination: new google.maps.LatLng(29.639418, -82.341230),
+    //destination: new google.maps.LatLng(29.640749, -82.341621),
+    travelMode: google.maps.TravelMode.WALKING,
+    // waypoints: [
+    //      {
+    //         location: new google.maps.LatLng(29.640749, -82.341621)
+    //      }
+    // ]
+ }, (result, status) => {
+    if (status === google.maps.DirectionsStatus.OK) {
+       this.setState({
+          directions2: result,
+       });
+    } else {
+      console.error(`error fetching directions ${result}`);
+    }
+ });
+
+    // directionsService.route(
+    //   {
+    //     origin: origin,
+    //     destination: destination,
+    //     waypoints:[
+    //       {
+    //          location: new google.maps.LatLng(26.639418, -82.341230)
+    //       }],
+    //     travelMode: google.maps.TravelMode.DRIVING
+    //   },
+    //   (result, status) => {
+    //     if (status === google.maps.DirectionsStatus.OK) {
+    //       this.setState({
+    //         directions: result
+    //       });
+    //     } else {
+    //       console.error(`error fetching directions ${result}`);
+    //     }
+    //   }
+    // );
 
     duration.getDistanceMatrix({
       origins: [origin],
@@ -86,18 +130,35 @@ export class MapContainer extends Component {
     
     const GoogleMapExample = withGoogleMap(props => (
       <GoogleMap
-        
+      
       >
 
 
         <DirectionsRenderer
+          
           directions={this.state.directions}
+          options={{
+            // polylineOptions: {
+            //     strokeOpacity: 0.5,
+            //     strokeColor: '#FF0000',
+            // },
+            // markerOptions:{
+            //   visible:true,
+              
+            // }
+      
+        }}
         />
+         {/* <DirectionsRenderer
+          directions={this.state.directions2}
+        /> */}
+
         
-<Marker onClick={this.onMarkerClick}
+        
+{/* <Marker onClick={this.onMarkerClick}
         name={'Clinic'}
         position={{lat: 29.639418, lng: -82.341230 }} />
-  <Marker />
+  <Marker /> */}
       </GoogleMap>
       
     ));
@@ -126,7 +187,7 @@ export class MapContainer extends Component {
         />
 
         <div>
-          {duration[0]}
+          
         </div>
         
       </div>
@@ -137,5 +198,7 @@ export class MapContainer extends Component {
 
 export default GoogleApiWrapper({
   apiKey: 'AIzaSyD37HaMa828w2lvGbwkVZ2Y4dKAGoULOe4'
+  // apiKey: 'AIzaSyDBa6zDWNZyeAGZRbMb6F1gyYNgsd2_gUw'
+
 })(MapContainer);
 

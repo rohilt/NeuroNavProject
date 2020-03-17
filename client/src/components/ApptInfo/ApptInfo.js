@@ -2,15 +2,46 @@ import React from 'react';
 import Appt from './Appt';
 import './ApptInfo.css'
 
+import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import Toolbar from '@material-ui/core/Toolbar';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+
+
+const useStyles = makeStyles(theme => ({
+    root: {
+      flexGrow: 1,
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    title: {
+      flexGrow: 1,
+    },
+  }));
 
 function ApptInfo() {
-    return (
-        <div className = "background">
-            <div className="Wrapper">
+    const classes = useStyles();
 
-                <div>
-                    <h1>Upcoming Appointment Information:</h1>
-                </div>
+    return (
+        
+            <div className="Wrapper">
+                <Toolbar>
+                <Typography variant="h6"  className={classes.title} >Upcoming Appointment Information:</Typography>
+                <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                  
+                    component={Link} to="./viewAll"
+
+                >
+                View All
+                </Button>
+                </Toolbar>
+
+                
 
                 <div className = "ApptBlock">
                     <h2>Today:</h2>
@@ -28,10 +59,11 @@ function ApptInfo() {
                     <Appt/>
                 </div>
 
-                <button className = "ApptBlock">View All</button>
+                {/* <button className = "ApptBlock" component={Link} to={viewAll}>View All</button> */}
+
 
             </div>
-        </div>
+        
     );
 }
 

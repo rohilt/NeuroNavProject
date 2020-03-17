@@ -14,11 +14,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link } from 'react-router-dom';
 
+
 // Material UI Template used to create login forms design
 // https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/sign-in
 
 function Copyright() {
   return (
+    
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Links color="inherit" href="https://material-ui.com/">
@@ -54,6 +56,14 @@ export default function SignIn() {
   const classes = useStyles();
 
   return (
+    
+      <div>
+
+      <div>
+      <Button component={Link} to="/" variant="contained" color="primary">Back</Button>
+
+      </div>
+    
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -131,5 +141,6 @@ export default function SignIn() {
         <Copyright />
       </Box>
     </Container>
+    </div>
   );
 }
