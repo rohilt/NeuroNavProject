@@ -1,5 +1,5 @@
 import React from 'react';
-import './ApptInfo.css'
+
 
 
 
@@ -12,8 +12,10 @@ function Appt(){
             <p>3009 SW Williston Rd, Gainesville, FL 32608</p>
             <p>Special Instructions:</p>
             <p>Fast for 12 hours before the appointment</p>
-            <button className = "ApptButton">Cancel or Reschedule Appointment</button>
-            <a href="http://localhost:3000/patientview">
+            <a href="tel:9047088717">
+                <button className = "ApptButton">Cancel or Reschedule</button>
+            </a>
+            <a href="http://localhost:3000/Directions2">
                 <button className = "ApptButton">Get Directions</button>
             </a>
         </div>

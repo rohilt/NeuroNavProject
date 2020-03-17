@@ -15,7 +15,7 @@ function Directions() {
         {/* <Button component={Link} to="/admin" variant="outlined" color="primary">Logout</Button> */}
 
         <div>
-        <Button component={Link} to="/home" variant="contained" color="primary">Back</Button>
+        <Button component={Link} to="/patientView" variant="contained" color="primary">Back</Button>
             </div>
 
 

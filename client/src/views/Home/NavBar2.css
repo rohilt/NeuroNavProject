@@ -1,0 +1,45 @@
+
+.header {
+    background: #2962ff;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 1%;
+}
+
+.nav-logo {
+    display:flex;
+    height: 50px;
+    width: 50px;
+    padding: 10%;
+}
+
+.nav-logo:hover {
+
+}
+
+.text{
+    color: white;
+    display: flex;
+    padding-left: 1%;
+  justify-content: center;
+}
+
+.nav-items {
+    display:flex;
+    margin-left: auto;
+    margin-right: 5%;
+    align-items: center;
+}
+
+.nav-link {
+    background-color: #dd661e ;
+    color: black;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    background-color: rgb(253, 140, 48);
+}
