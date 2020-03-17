@@ -15,7 +15,7 @@ function Appt(){
             <a href="tel:9047088717">
                 <button className = "ApptButton">Cancel or Reschedule</button>
             </a>
-            <a href="http://localhost:3000/Directions2">
+            <a href="/Directions2">
                 <button className = "ApptButton">Get Directions</button>
             </a>
         </div>
