@@ -13,6 +13,7 @@ import {
 
 let distString = "Loading..";
 let durString = "Loading..";
+let address = "..."
 var loadState = 0;
 var jsonParsed;
 
@@ -26,50 +27,38 @@ export class MapContainer extends Component {
 
     this.state = {
       directions: null,
-      // lat: 0,
-      // lng: 0,
+      currentLatLng: {
+        lat: 0,
+        lng: 0
+      }
     };
   }
 
+  showCurrentLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          this.setState(prevState => ({
+            currentLatLng: {
+              ...prevState.currentLatLng,
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            },
+            isMarkerShown: true
+          }))
+        }
+      )
+    } else {
+      
+    }
+  }
+
+
+
   componentDidMount(){
     const directionsService = new google.maps.DirectionsService();
-
-    // if (!!navigator.geolocation) {
-    //   navigator.geolocation.watchPosition((position) => {
-    //     this.setState({
-    //       lat: position.coords.latitude,
-    //       lng: position.coords.longitude,
-    //     });
-        
-    //   },
-    //   (err) => console.log(err),
-    //   { enableHighAccuracy: true, timeout: 10000, maximumAge: 10000 },
-    //   );
-    // } else {
-      
-     
-    // }
-  
-    // const origin = { lat: lat, lng: lng };
-    // const destination = { lat: 29.640749, lng: -82.341230 };
-
-    // directionsService.route(
-    //   {
-    //     origin: origin,
-    //     destination: destination,
-    //     travelMode: google.maps.TravelMode.WALKING
-    //   },
-    //   (result, status) => {
-    //     if (status === google.maps.DirectionsStatus.OK) {
-    //       this.setState({
-    //         directions: result
-    //       });
-    //     } else {
-    //       console.error(`error fetching directions ${result}`);
-    //     }
-    //   }
-    // );
-
+    this.showCurrentLocation();
+    
 
   }
 
@@ -88,6 +77,7 @@ export class MapContainer extends Component {
       jsonParsed = JSON.parse(xhr.responseText)
       distString = jsonParsed["distance"]
       durString = jsonParsed["duration"]
+      address = jsonParsed["address"]
       if(loadState == 0)
       {
         this.setState({ state: this.state });
@@ -104,12 +94,12 @@ export class MapContainer extends Component {
     const { lat, lng } = this.state;
     const GoogleMapExample = withGoogleMap(props => (
       <GoogleMap
-        defaultCenter={{ lat: 29.640749, lng: -82.341621}}
+        defaultCenter={this.state.currentLatLng}
         defaultZoom={18}
       >
         <Marker onClick={this.onMarkerClick}
         name={'Parking Lot 10'}
-        position={{lat: 29.640749, lng: -82.341621}} />
+        position={this.state.currentLatLng} />
   <Marker />
       </GoogleMap>
     ));

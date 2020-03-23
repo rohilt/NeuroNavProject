@@ -6,14 +6,10 @@
 }
 
 .Clinic{
-    float:right;
-    padding-top: 5%;
-    padding-right: 7%;
+  
+    display: flex;
+  justify-content: center;
 }
 
-.Garage{
-    float:left;
-    padding-top: 5%;
-    padding-left: 10%;
-}
+
 

@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link } from 'react-router-dom';
+import NavBar from '../views/Home/NavBar2';
 
 
 // Material UI Template used to create login forms design
@@ -59,10 +60,7 @@ export default function SignIn() {
     
       <div>
 
-      <div>
-      <Button component={Link} to="/" variant="contained" color="primary">Back</Button>
-
-      </div>
+    <NavBar />
     
     <Container component="main" maxWidth="xs">
       <CssBaseline />

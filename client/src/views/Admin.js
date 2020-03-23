@@ -39,7 +39,7 @@ const Admin = () => {
                 <Toolbar>
                     <Typography variant="h6"  className={classes.title} >Admin View</Typography>
                     
-                    <Button component={Link} to="/login" color="inherit">Logout</Button>
+                    <Button component={Link} to="/home" color="inherit">Logout</Button>
                 </Toolbar>
                 <Tabs value={value} onChange={(e, newValue) => {setValue(newValue)}} indicatorColor="primary" textColor="inherit" centered>
                                 <Tab label="Patients"/>
