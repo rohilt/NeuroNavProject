@@ -117,6 +117,9 @@ export function Home() {
               At the University of Florida Department of Neurosurgery our goal is to deliver Excellence in 
               Patient Care, Excellence in Resident Education, and Excellence in Research.
             </Typography>
+            <Typography variant="h6" align="center" color="textPrimary" gutterButtom>
+             New Appointments: (352)-273-6990
+            </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
                 <Grid item>

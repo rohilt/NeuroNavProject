@@ -15,12 +15,17 @@ import Container from '@material-ui/core/Container';
 import { Link } from 'react-router-dom';
 import NavBar from '../views/Home/NavBar2';
 
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import orange from '@material-ui/core/colors/orange';
+import blue from '@material-ui/core/colors/blue';
+
 
 // Material UI Template used to create login forms design
 // https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/sign-in
 
 function Copyright() {
   return (
+    
     
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
@@ -33,6 +38,24 @@ function Copyright() {
   );
 }
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: '#757ce8',
+      main: '#3f50b5',
+      dark: '#002884',
+      contrastText: '#fff',
+    },
+    secondary: {
+      light: '#fb8c00',
+      main: '#f57c00',
+      dark: '#ef6c00',
+      contrastText: '#000',
+    },
+  },
+});
+
+
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -42,7 +65,7 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: "orange",
+    backgroundColor: '#f57c00',
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -51,12 +74,20 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  palette: {
+    primary: blue,
+    secondary: {
+      main: '#f57c00',
+    }
+  }
 }));
 
 export default function SignIn() {
+  
   const classes = useStyles();
 
   return (
+    <MuiThemeProvider theme={theme}>
     
       <div>
 
@@ -108,8 +139,8 @@ export default function SignIn() {
           <Button
             type="submit"
             fullWidth
-            variant="contained"
-            color="primary"
+            variant="outlined"
+            color="secondary"
             className={classes.submit}
             component={Link} to="/admin"
 
@@ -140,5 +171,6 @@ export default function SignIn() {
       </Box>
     </Container>
     </div>
+    </MuiThemeProvider>
   );
 }
