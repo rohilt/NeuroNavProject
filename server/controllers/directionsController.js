@@ -4,8 +4,11 @@ const Patient = require('../models/PatientModel.js')
 const config = require('../config/config.js')
 
 exports.getDirections = async (req, res) => {
+  
   try {
     Patient.findOne({name: req.query.name}, async (err, listing) => {
+      
+      
       if (err) throw err;
       const origin = listing.address;
       const response = await axios.get('https://maps.googleapis.com/maps/api/directions/json?key=' + config.directions.key + '&origin=' + origin + '&destination=Parking Garage 10 Newell Dr, Gainesville, FL 32603');

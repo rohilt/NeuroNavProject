@@ -16,11 +16,11 @@ function Directions() {
         <div className="Wrapper">
         <NavBar />
 
-        {/* <div className="Garage" style={{display: 'flex',  justifyContent:'right', height: '100vh'}}>
+        <div className="Garage" style={{display: 'flex',  justifyContent:'left', height: '100vh'}}>
         <Garage/>
-        </div> */}
+        </div>
         
-        <div className="Clinic">
+        <div className="Clinic" style={{display: 'flex',  justifyContent:'right', height: '100vh'}}>
         <Clinic/> 
         </div>
 

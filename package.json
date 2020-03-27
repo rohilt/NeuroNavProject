@@ -36,11 +36,13 @@
     "morgan": "^1.9.1",
     "nodemon": "^1.18.10",
     "react-dom": "^16.13.0",
+    "react-geolocated": "^3.0.1",
     "react-google-maps": "^9.4.5",
     "react-hook-form": "^5.0.3",
     "react-router-dom": "^5.1.2",
     "should": "^13.2.3",
-    "supertest": "^4.0.2"
+    "supertest": "^4.0.2",
+    "use-position": "0.0.6"
   },
   "homepage": "https://github.com/UFWebApps/React_Template_Repo#readme"
 }

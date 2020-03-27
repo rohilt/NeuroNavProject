@@ -1,4 +1,4 @@
-
+/* 
 
 
 .Wrapper {
@@ -12,4 +12,22 @@
 }
 
 
+ */
 
+
+
+.Wrapper {
+  overflow: hidden;
+}
+
+.Garage{
+  float:right;
+  padding-top: 5%;
+  padding-right: 7%;
+}
+
+.Clinic{
+  float:left;
+  padding-top: 5%;
+  padding-left: 10%;
+}
