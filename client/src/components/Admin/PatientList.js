@@ -15,17 +15,14 @@ const PatientList = (props) => {
     axios.get('/patient').then(response => {
       // setPatientList(response.data);
       response.data.forEach((element) => {
-        axios.get('/directions?name=' + element.name).then(newResponse => {
-          console.log(newPatientList); 
-          setNewPatientList(newPatientList => [...newPatientList, {
-            _id: element._id,
-            name: element.name,
-            address: element.address,
-            emailAddress: element.emailAddress,
-            duration: newResponse.data.duration
-        
-          }]);
-        });
+        setNewPatientList(newPatientList => [...newPatientList, {
+          _id: element._id,
+          name: element.name,
+          address: element.address,
+          emailAddress: element.emailAddress,
+          duration: element.timeToClinic
+      
+        }]);
       });
       // console.log(patientList);
       // console.log(newPatientList);
