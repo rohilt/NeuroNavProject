@@ -1,8 +1,11 @@
 /*global google*/
 import React, { Component,useState } from "react";
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
 import { Map,GoogleApiWrapper, InfoWindow } from 'google-maps-react';
 import {withGoogleMap,GoogleMap,DirectionsRenderer,Marker,Polyline} from "react-google-maps";
 import { geolocated } from "react-geolocated";
+import { CardHeader, CardActions, CardMedia, CardContent, Typography } from "@material-ui/core";
 
 
 
@@ -192,40 +195,23 @@ export class MapContainer extends Component {
 
     this.getDistTime();
     return (
-      
-      <div>
-        <div>
-        <b>
-        NEUROMEDICINE HOSPITAL
-        </b>
-        </div>
-        <div>
-        <button onClick={this.onClick}>
-          View Directions to Parking Lot
-        </button>
-        <button onClick={this.onClick2}>
-          View Walking Directions to Hospital
-        </button>
-        </div>
-        <div>
-          
-        </div>
-        
+      <Card variant="outlined">
+        <CardHeader title="Neuromedicine Hospital">
+        </CardHeader>
+        <CardMedia>
         <GoogleMapExample
           containerElement={<div style={{ height: `450px`, width: "450px" }} />}
           mapElement={<div style={{ height: `100%` }} />}
         />
+        </CardMedia>
 
-      <div>
-        <b>
+      <CardContent>
+        <Typography variant="body2" color="textSecondary" component="p">
         Distance: {distString}
-        </b> 
-        </div>
-        <div>
-        <b>
+        <br/>
         Estimated Time: {durString}
-        </b>
-        </div>
+        </Typography>
+        </CardContent>
         {/* <div>
         <b>
         latitude: {this.props.coords.latitude}
@@ -236,7 +222,16 @@ export class MapContainer extends Component {
         longitude: {this.props.coords.longitude}
         </b>
         </div> */}
-      </div>
+        <CardActions>
+        <Button variant="contained" onClick={this.onClick}>
+          View Directions to Parking
+        </Button>
+        <br/>
+        <Button variant="contained" onClick={this.onClick2}>
+          Walking Directions
+        </Button>
+        </CardActions>
+      </Card>
      
     );
   }

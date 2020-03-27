@@ -3,6 +3,10 @@ import React, { Component,useState } from "react";
 import { Map,GoogleApiWrapper, InfoWindow } from 'google-maps-react';
 import {withGoogleMap,GoogleMap,DirectionsRenderer,Marker,Polyline} from "react-google-maps";
 import { geolocated } from "react-geolocated";
+import Card from '@material-ui/core/Card';
+import Button from '@material-ui/core/Button';
+import { CardHeader, CardActions, CardMedia, CardContent, Typography } from "@material-ui/core";
+
 
 
 
@@ -184,37 +188,23 @@ export class MapContainer extends Component {
 
     this.getDistTime();
     return (
-      
-      <div>
-        <div>
-        <b>
-        NORMAN FIXEL INSTITUTE
-        </b>
-        </div>
-        <div>
-        <button onClick={this.onMarkerClick}>
-          View in Maps
-        </button>
-        </div>
-        <div>
-          
-        </div>
-        
+      <Card variant="outlined">
+        <CardHeader title="Norman Fixel Institute">
+        </CardHeader>
+        <CardMedia>
         <GoogleMapExample
           containerElement={<div style={{ height: `450px`, width: "450px" }} />}
           mapElement={<div style={{ height: `100%` }} />}
         />
+        </CardMedia>
 
-      <div>
-        <b>
+      <CardContent>
+        <Typography variant="body2" color="textSecondary" component="p">
         Distance: {distString}
-        </b> 
-        </div>
-        <div>
-        <b>
+        <br/>
         Estimated Time: {durString}
-        </b>
-        </div>
+        </Typography>
+        </CardContent>
         {/* <div>
         <b>
         latitude: {this.props.coords.latitude}
@@ -225,7 +215,53 @@ export class MapContainer extends Component {
         longitude: {this.props.coords.longitude}
         </b>
         </div> */}
-      </div>
+        <CardActions>
+        <Button variant="contained" onClick={this.onMarkerClick}>
+          View in Maps
+        </Button>
+        </CardActions>
+      </Card>
+      // <div>
+      //   <div>
+      //   <b>
+      //   NORMAN FIXEL INSTITUTE
+      //   </b>
+      //   </div>
+      //   <div>
+      //   <button onClick={this.onMarkerClick}>
+      //     View in Maps
+      //   </button>
+      //   </div>
+      //   <div>
+          
+      //   </div>
+        
+      //   <GoogleMapExample
+      //     containerElement={<div style={{ height: `450px`, width: "450px" }} />}
+      //     mapElement={<div style={{ height: `100%` }} />}
+      //   />
+
+      // <div>
+      //   <b>
+      //   Distance: {distString}
+      //   </b> 
+      //   </div>
+      //   <div>
+      //   <b>
+      //   Estimated Time: {durString}
+      //   </b>
+      //   </div>
+      //   {/* <div>
+      //   <b>
+      //   latitude: {this.props.coords.latitude}
+      //   </b>
+      //   </div>
+      //   <div>
+      //   <b>
+      //   longitude: {this.props.coords.longitude}
+      //   </b>
+      //   </div> */}
+      // </div>
      
     );
   }
