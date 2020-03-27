@@ -14,7 +14,7 @@ function Directions() {
     return (
        
         <div className="Wrapper">
-        <NavBar />
+        
 
         <div className="Garage" style={{display: 'flex',  justifyContent:'left', height: '100vh'}}>
         <Garage/>
