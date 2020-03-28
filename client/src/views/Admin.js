@@ -3,6 +3,7 @@ import AddPatient from '../components/Admin/AddPatient';
 import AddAppointment from '../components/Admin/AddAppointment';
 import PatientList from '../components/Admin/PatientList';
 import AppointmentList from '../components/Admin/AppointmentList';
+
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Divider from '@material-ui/core/Divider';

@@ -3,7 +3,7 @@ import NavBar from "./NavBar2"
 
 import './Home.css';
 
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
@@ -23,6 +23,29 @@ import { Link } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import orange from '@material-ui/core/colors/orange';
 import blue from '@material-ui/core/colors/blue';
+
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import HomeIcon from '@material-ui/icons/Home';
+import DirectionsIcon from '@material-ui/icons/Directions';
+import LoginIcon from '@material-ui/icons/VpnKey';
+import ScheduleIcon from '@material-ui/icons/Schedule';
+import Drawer from '@material-ui/core/Drawer';
+import Tab from '@material-ui/core/Tab';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+
+
+import {ListItemText, ClickAwayListener } from '@material-ui/core';
+
+import Directions from "../../components/Directions/Directions";
+import HomeView from "../../views/Home/HomeView";
+import Login from '../../views/PatientLogin';
+
 
 
 const theme = createMuiTheme({
@@ -44,120 +67,79 @@ const theme = createMuiTheme({
 
 
 const useStyles = makeStyles((theme) => ({
-  icon: {
+  
+  root: {
+    display: 'flex',
+  },
+  content: {
+    flewGrow: 1,
+    height: '100vh',
+    overflow: 'auto'
+  },
+  menuButton: {
     marginRight: theme.spacing(2),
   },
-  heroContent: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
-  },
-  heroButtons: {
-    marginTop: theme.spacing(4),
-  },
-  cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
-  },
-  card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  cardMedia: {
-    paddingTop: '56.25%', // 16:9
-  },
-  cardContent: {
+  appBarSpacer: theme.mixins.toolbar,
+  title: {
     flexGrow: 1,
-  },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6),
-  },
-  palette: {
-    primary: blue,
-    secondary: {
-      main: '#f44336',
-    }
   }
 }));
 
-  function Copyright() {
-    return (
-      
-      <Typography variant="body2" color="textSecondary" align="center">
-        {'Copyright © '}
-        <Links color="inherit" href="https://material-ui.com/">
-          UF Neurosurgery Department
-        </Links>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
-
-  const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export function Home() {
   const classes = useStyles();
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [view, setView] = useState(0);
+  const [updated, setUpdated] = useState(0);
 
   return (
     <MuiThemeProvider theme={theme}>
-    <NavBar />
-    <React.Fragment>
-      <CssBaseline />
+    <div>
+      <AppBar position="fixed" className={classes.root}>
+        <Toolbar>
+        <IconButton color="inherit" onClick={() => setDrawerOpen(true)} edge="start">
+              <MenuIcon />
+            </IconButton>
+          <Typography variant="h6" className={classes.title} >
+            UF DEPARTMENT OF NEUROSURGERY
+          </Typography>
+          
+          
 
-      <main>
-        {/* Hero unit */}
-        <div className={classes.heroContent}>
-          <Container maxWidth="sm">
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-              UF Department of Neurosurgery 
-            </Typography>
-            <Typography variant="h5" align="center" color="textSecondary" paragraph>
-              At the University of Florida Department of Neurosurgery our goal is to deliver Excellence in 
-              Patient Care, Excellence in Resident Education, and Excellence in Research.
-            </Typography>
-            <Typography variant="h6" align="center" color="textPrimary" gutterButtom>
-             New Appointments: (352)-273-6990
-            </Typography>
-            <div className={classes.heroButtons}>
-              <Grid container spacing={2} justify="center">
-                <Grid item>
-                  <Button 
-                  type="submit"
-                  variant="contained" 
-                  color="secondary"
-                  component={Link} to="/login">
-                    Login for Appointment Information 
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button
-                  type="submit"
-                  variant="contained"
-                  color="secondary"
-                  component={Link} to="/directions">
-                    Click for Directions
-                  </Button>
-                </Grid>
-              </Grid>
-            </div>
-          </Container>
+        </Toolbar>
+      </AppBar>
+      <Drawer open={drawerOpen} variant="temporary">
+          <div>
+            <IconButton onClick={() => setDrawerOpen(false)}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </div>
+          <Divider />
+          <List>
+            <ListItem button onClick={() => {setView(0);setDrawerOpen(false)}} key={"home"}>
+              <ListItemIcon><HomeIcon/></ListItemIcon>
+              <ListItemText primary="Home"/>
+            </ListItem>
+            <ListItem button onClick={() => {setView(1);setDrawerOpen(false)}} key={"directions"}>
+              <ListItemIcon><DirectionsIcon/></ListItemIcon>
+              <ListItemText primary="Directions"/>
+            </ListItem>
+            <ListItem button onClick={() => {setView(2);setDrawerOpen(false)}} key={"login"}>
+              <ListItemIcon><LoginIcon /></ListItemIcon>
+              <ListItemText primary="Login"/>
+            </ListItem>
+          </List>
+        </Drawer>
+        <div className={classes.content}>
+          <div className={classes.appBarSpacer}/>
+          {view == 0 ? <div><HomeView updated={updated} setUpdated={setUpdated}/> </div> : null}
+          {view == 1 ? <div><Directions updated={updated} setUpdated={setUpdated}/></div> : null}
+          {view == 2 ? <div><Login updated={updated} setUpdated={setUpdated}/></div> : null}
+
+
         </div>
-        
-      </main>
-      {/* Footer */}
-      <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          UF Health
-        </Typography>
-        <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-        UF Health is a collaboration of the University of Florida Health Science Center, Shands hospitals and other health care entities.
-        </Typography>
-        <Copyright />
-      </footer>
-      {/* End footer */}
-    </React.Fragment>
+    </div>
+    
     </MuiThemeProvider>
   );
 }

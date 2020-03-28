@@ -91,7 +91,7 @@ export default function SignIn() {
     
       <div>
 
-    <NavBar />
+    
     
     <Container component="main" maxWidth="xs">
       <CssBaseline />
