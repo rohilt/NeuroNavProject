@@ -30,9 +30,9 @@ import axios from 'axios';
 
 
 const useStyles = makeStyles(theme => ({
-        root: {
-          display: 'flex',
-        },
+  root: {
+    flexGrow: 1,
+  },
         content: {
           flewGrow: 1,
           height: '100vh',
@@ -73,16 +73,17 @@ const Admin = () => {
   const [updated, setUpdated] = useState(0);
   return (
     <MuiThemeProvider theme={theme}>
-      <div>
+      <div >
         <CssBaseline/>
-        <AppBar position="fixed" className={classes.root}>
+        <AppBar position="static" className={classes.root}>
           <Toolbar>
-            <IconButton color="inherit" onClick={() => setDrawerOpen(true)} edge="start">
+            <IconButton className={classes.menuButton} color="inherit" onClick={() => setDrawerOpen(true)} edge="start">
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap>
+            <Typography variant="h6" className={classes.title}>
               Administrator View
             </Typography>
+            <Button component={Link} to="/home" color="inherit">Logout</Button>
           </Toolbar>
         </AppBar>
         <Drawer open={drawerOpen} variant="temporary">
@@ -93,26 +94,26 @@ const Admin = () => {
           </div>
           <Divider />
           <List>
-            <ListItem button onClick={() => setView(0)} key={"patient"}>
+            <ListItem button onClick={() => {setView(0);setDrawerOpen(false)}} key={"patient"}>
               <ListItemIcon><PeopleIcon/></ListItemIcon>
               <ListItemText primary="Patients"/>
             </ListItem>
-            <ListItem button onClick={() => setView(1)} key={"appointments"}>
+            <ListItem button onClick={() => {setView(1);setDrawerOpen(false)}} key={"appointments"}>
               <ListItemIcon><ScheduleIcon/></ListItemIcon>
               <ListItemText primary="Appointments"/>
             </ListItem>
-            <ListItem button onClick={() => setView(2)} key={"add-patient"}>
+            <ListItem button onClick={() => {setView(2);setDrawerOpen(false)}} key={"add-patient"}>
               <ListItemIcon><PersonAddIcon /></ListItemIcon>
               <ListItemText primary="Add Patient"/>
             </ListItem>
-            <ListItem button onClick={() => setView(3)} key={"calendar"}>
+            <ListItem button onClick={() => {setView(3);setDrawerOpen(false)}} key={"calendar"}>
               <ListItemIcon><EventNoteIcon /></ListItemIcon>
               <ListItemText primary="Calendar"/>
             </ListItem>
           </List>
         </Drawer>
         <div className={classes.content}>
-          <div className={classes.appBarSpacer}/>
+          
           {view == 0 ? <div><AddPatient updated={updated} setUpdated={setUpdated}/> <PatientList updated={updated}/></div> : null}
           {view == 1 ? <div><AddAppointment updated={updated} setUpdated={setUpdated}/><AppointmentList updated={updated}/></div> : null}
         </div>
