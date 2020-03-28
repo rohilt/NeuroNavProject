@@ -53,6 +53,7 @@ import { Button, CssBaseline, ListItemText, ClickAwayListener } from '@material-
 import axios from 'axios';
 import Directions from '../components/Directions/Directions';
 import ApptInfo from '../components/ApptInfo/ApptInfo';
+import Profile from '../components/Profile/Profile';
 
 
 const useStyles = makeStyles(theme => ({
@@ -126,11 +127,11 @@ const Admin = () => {
           <List>
             <ListItem button onClick={() => {setView(0);setDrawerOpen(false)}} key={"patient"}>
               <ListItemIcon><ProfileIcon/></ListItemIcon>
-              <ListItemText primary="Profile"/>
+              <ListItemText primary="View Profile"/>
             </ListItem>
             <ListItem button onClick={() => {setView(1);setDrawerOpen(false)}} key={"appointments"}>
               <ListItemIcon><ScheduleIcon/></ListItemIcon>
-              <ListItemText primary="My Appointments"/>
+              <ListItemText primary="View Appointments"/>
             </ListItem>
             <ListItem button onClick={() => {setView(2);setDrawerOpen(false)}} key={"add-patient"}>
               <ListItemIcon><DirectionsIcon /></ListItemIcon>
@@ -141,7 +142,7 @@ const Admin = () => {
         </Drawer>
         <div className={classes.content}>
           
-          {/* {view == 0 ? <div><HomeView updated={updated} setUpdated={setUpdated}/> </div> : null} */}
+          {view == 0 ? <div><Profile updated={updated} setUpdated={setUpdated}/> </div> : null}
           {view == 1 ? <div><ApptInfo updated={updated} setUpdated={setUpdated}/></div> : null}
           {view == 2 ? <div><Directions updated={updated} setUpdated={setUpdated}/></div> : null}
           
