@@ -75,6 +75,7 @@ export class MapContainer extends Component {
     const directionsService = new google.maps.DirectionsService();
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
+        
         position => {
           
           latitude = position.coords.latitude
@@ -100,7 +101,8 @@ export class MapContainer extends Component {
             }
 
           })
-        }
+        },
+        
       )
       console.log(latitude)
     } else {

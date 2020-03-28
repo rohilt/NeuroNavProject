@@ -69,7 +69,7 @@ const theme = createMuiTheme({
 const useStyles = makeStyles((theme) => ({
   
   root: {
-    display: 'flex',
+    flexGrow: 1,
   },
   content: {
     flewGrow: 1,
@@ -94,16 +94,16 @@ export function Home() {
 
   return (
     <MuiThemeProvider theme={theme}>
-    <div>
-      <AppBar position="fixed" className={classes.root}>
+    <div className={classes.root}>
+      <AppBar position="static" >
         <Toolbar>
-        <IconButton color="inherit" onClick={() => setDrawerOpen(true)} edge="start">
+        <IconButton className={classes.menuButton} color="inherit" onClick={() => setDrawerOpen(true)} edge="start">
               <MenuIcon />
             </IconButton>
           <Typography variant="h6" className={classes.title} >
             UF DEPARTMENT OF NEUROSURGERY
           </Typography>
-          
+          <Button component={Link} to="/login" color="inherit">Login</Button>
           
 
         </Toolbar>
@@ -131,7 +131,7 @@ export function Home() {
           </List>
         </Drawer>
         <div className={classes.content}>
-          <div className={classes.appBarSpacer}/>
+          
           {view == 0 ? <div><HomeView updated={updated} setUpdated={setUpdated}/> </div> : null}
           {view == 1 ? <div><Directions updated={updated} setUpdated={setUpdated}/></div> : null}
           {view == 2 ? <div><Login updated={updated} setUpdated={setUpdated}/></div> : null}
