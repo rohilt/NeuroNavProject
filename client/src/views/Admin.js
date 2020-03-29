@@ -3,6 +3,7 @@ import AddPatient from '../components/Admin/AddPatient';
 import AddAppointment from '../components/Admin/AddAppointment';
 import PatientList from '../components/Admin/PatientList';
 import AppointmentList from '../components/Admin/AppointmentList';
+import SendText from '../components/Admin/SendText'
 
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
@@ -16,6 +17,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import ScheduleIcon from '@material-ui/icons/Schedule';
+import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import Drawer from '@material-ui/core/Drawer';
 import Tab from '@material-ui/core/Tab';
 import IconButton from '@material-ui/core/IconButton';
@@ -72,6 +74,9 @@ const Admin = () => {
   const [view, setView] = useState(0);
   const [value, setValue] = useState(0);
   const [updated, setUpdated] = useState(0);
+  const sendTextMessage = () => {
+    // add in that here
+  }
   return (
     <MuiThemeProvider theme={theme}>
       <div >
@@ -111,12 +116,17 @@ const Admin = () => {
               <ListItemIcon><EventNoteIcon /></ListItemIcon>
               <ListItemText primary="Calendar"/>
             </ListItem>
+            <ListItem button onClick={() => setView(4)} key={"texting"}>
+              <ListItemIcon><ChatBubbleOutlineIcon/></ListItemIcon>
+              <ListItemText primary="Send Text"/>
+            </ListItem>
           </List>
         </Drawer>
         <div className={classes.content}>
           
           {view == 0 ? <div><AddPatient updated={updated} setUpdated={setUpdated}/> <PatientList updated={updated}/></div> : null}
           {view == 1 ? <div><AddAppointment updated={updated} setUpdated={setUpdated}/><AppointmentList updated={updated}/></div> : null}
+          {view == 4 ? <div><SendText updated={updated} setUpdated={setUpdated}/></div> : null}
           {view == 3 ? (
             <Container fixed>
             <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=bmV1cm9uYXZ1ZkBnbWFpbC5jb20&amp;color=%23039BE5&amp;showTitle=0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
