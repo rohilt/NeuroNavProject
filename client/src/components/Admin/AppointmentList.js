@@ -6,7 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
-import { TableContainer } from '@material-ui/core';
+import { TableContainer, Container} from '@material-ui/core';
 
 
 const AppointmentList = (props) => {
@@ -15,26 +15,28 @@ const AppointmentList = (props) => {
     axios.get('/appointment').then(response => setAppointmentList(response.data));
   }, [props.updated]);
   return (
+    <Container>
     <TableContainer component={Paper}>
       <Table>
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell>Date</TableCell>
-            <TableCell>Time</TableCell>
+            <TableCell>Start</TableCell>
+            <TableCell>End</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {appointmentList.map(entry => (
             <TableRow key={entry._id}>
-              <TableCell>{entry.name}</TableCell>
-              <TableCell>{entry.date.substring(0, 10)}</TableCell>
-              <TableCell>{entry.date.substring(11, 16)}</TableCell>
+              <TableCell>{entry.patientName}</TableCell>
+              <TableCell>{entry.startTime}</TableCell>
+              <TableCell>{entry.endTime}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
+    </Container>
   )
 }
 

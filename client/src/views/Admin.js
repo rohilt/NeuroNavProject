@@ -8,6 +8,7 @@ import SendText from '../components/Admin/SendText'
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Divider from '@material-ui/core/Divider';
+import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -32,9 +33,9 @@ import axios from 'axios';
 
 
 const useStyles = makeStyles(theme => ({
-        root: {
-          display: 'flex',
-        },
+  root: {
+    flexGrow: 1,
+  },
         content: {
           flewGrow: 1,
           height: '100vh',
@@ -78,16 +79,17 @@ const Admin = () => {
   }
   return (
     <MuiThemeProvider theme={theme}>
-      <div>
+      <div >
         <CssBaseline/>
-        <AppBar position="fixed" className={classes.root}>
+        <AppBar position="static" className={classes.root}>
           <Toolbar>
-            <IconButton color="inherit" onClick={() => setDrawerOpen(true)} edge="start">
+            <IconButton className={classes.menuButton} color="inherit" onClick={() => setDrawerOpen(true)} edge="start">
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap>
+            <Typography variant="h6" className={classes.title}>
               Administrator View
             </Typography>
+            <Button component={Link} to="/home" color="inherit">Logout</Button>
           </Toolbar>
         </AppBar>
         <Drawer open={drawerOpen} variant="temporary">
@@ -98,19 +100,19 @@ const Admin = () => {
           </div>
           <Divider />
           <List>
-            <ListItem button onClick={() => setView(0)} key={"patient"}>
+            <ListItem button onClick={() => {setView(0);setDrawerOpen(false)}} key={"patient"}>
               <ListItemIcon><PeopleIcon/></ListItemIcon>
               <ListItemText primary="Patients"/>
             </ListItem>
-            <ListItem button onClick={() => setView(1)} key={"appointments"}>
+            <ListItem button onClick={() => {setView(1);setDrawerOpen(false)}} key={"appointments"}>
               <ListItemIcon><ScheduleIcon/></ListItemIcon>
               <ListItemText primary="Appointments"/>
             </ListItem>
-            <ListItem button onClick={() => setView(2)} key={"add-patient"}>
+            <ListItem button onClick={() => {setView(2);setDrawerOpen(false)}} key={"add-patient"}>
               <ListItemIcon><PersonAddIcon /></ListItemIcon>
               <ListItemText primary="Add Patient"/>
             </ListItem>
-            <ListItem button onClick={() => setView(3)} key={"calendar"}>
+            <ListItem button onClick={() => {setView(3);setDrawerOpen(false)}} key={"calendar"}>
               <ListItemIcon><EventNoteIcon /></ListItemIcon>
               <ListItemText primary="Calendar"/>
             </ListItem>
@@ -121,11 +123,15 @@ const Admin = () => {
           </List>
         </Drawer>
         <div className={classes.content}>
-          <div className={classes.appBarSpacer}/>
+          
           {view == 0 ? <div><AddPatient updated={updated} setUpdated={setUpdated}/> <PatientList updated={updated}/></div> : null}
           {view == 1 ? <div><AddAppointment updated={updated} setUpdated={setUpdated}/><AppointmentList updated={updated}/></div> : null}
-
           {view == 4 ? <div><SendText updated={updated} setUpdated={setUpdated}/></div> : null}
+          {view == 3 ? (
+            <Container fixed>
+            <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=bmV1cm9uYXZ1ZkBnbWFpbC5jb20&amp;color=%23039BE5&amp;showTitle=0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+            </Container>
+          ) : null}
         </div>
         {/* <AppBar position="static">
           <Toolbar>

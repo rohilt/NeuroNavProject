@@ -36,8 +36,8 @@ const NavBar = (props) => {
                     <Button component={Link} to="/home" color="inherit">Logout</Button>
                 </Toolbar>
                 <Tabs value={props.tabValue} onChange={(e, newValue) => props.setTabValue(newValue)}>
-                    <Tab label="Profile"/>
-                    <Tab label="My Appointments"/>
+                    <Tab label="View Profile"/>
+                    <Tab label="View Appointments"/>
                     <Tab label="Directions"/>
                     
                 </Tabs>
