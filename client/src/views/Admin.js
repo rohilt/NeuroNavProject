@@ -72,6 +72,9 @@ const Admin = () => {
   const [view, setView] = useState(0);
   const [value, setValue] = useState(0);
   const [updated, setUpdated] = useState(0);
+  const sendTextMessage = () => {
+    // add in that here
+  }
   return (
     <MuiThemeProvider theme={theme}>
       <div>
@@ -120,6 +123,7 @@ const Admin = () => {
           <div className={classes.appBarSpacer}/>
           {view == 0 ? <div><AddPatient updated={updated} setUpdated={setUpdated}/> <PatientList updated={updated}/></div> : null}
           {view == 1 ? <div><AddAppointment updated={updated} setUpdated={setUpdated}/><AppointmentList updated={updated}/></div> : null}
+          {view == 4 ? <Button variant="contained" onClick={sendTextMessage}>Send a text message</Button>: null}
         </div>
         {/* <AppBar position="static">
           <Toolbar>

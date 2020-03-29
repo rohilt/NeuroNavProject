@@ -1,5 +1,5 @@
 const db = require('../controllers/databaseController.js'),
-    directions = require('../controllers/directionsController.js')
+    directions = require('../controllers/directionsController.js'),
     express = require('express'), 
     router = express.Router()
 
