@@ -25,7 +25,7 @@ class SMSForm extends Component {
   onSubmit(event) {
     event.preventDefault();
     this.setState({ submitting: true });
-    fetch('/api/messages', {
+    fetch('/text', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
