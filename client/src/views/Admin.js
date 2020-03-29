@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import AddPatient from '../components/Admin/AddPatient';
+import AddPatientPage from '../components/Admin/AddPatientPage';
 import AddAppointment from '../components/Admin/AddAppointment';
 import PatientList from '../components/Admin/PatientList';
 import AppointmentList from '../components/Admin/AppointmentList';
@@ -13,6 +14,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import PeopleIcon from '@material-ui/icons/People';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import EventNoteIcon from '@material-ui/icons/EventNote';
@@ -38,7 +40,6 @@ const useStyles = makeStyles(theme => ({
   },
         content: {
           flewGrow: 1,
-          height: '100vh',
           overflow: 'auto'
         },
         menuButton: {
@@ -126,6 +127,7 @@ const Admin = () => {
           
           {view == 0 ? <div><AddPatient updated={updated} setUpdated={setUpdated}/> <PatientList updated={updated}/></div> : null}
           {view == 1 ? <div><AddAppointment updated={updated} setUpdated={setUpdated}/><AppointmentList updated={updated}/></div> : null}
+          {view == 2 ? <div><AddPatientPage setUpdated={setUpdated} updated={updated}/></div> : null}
           {view == 4 ? <div><SendText updated={updated} setUpdated={setUpdated}/></div> : null}
           {view == 3 ? (
             <Container fixed>

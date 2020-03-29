@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { TableContainer } from '@material-ui/core';
+import MaterialTable from "material-table";
 
 const PatientList = (props) => {
   // const [patientList, setPatientList] = useState([]);
@@ -34,7 +35,18 @@ const PatientList = (props) => {
   return (
     <Container>
     <TableContainer component={Paper}>
-      <Table>
+      <MaterialTable columns={[
+        {title: "First Name", field: "name"},
+        {title: "Last Name", field: "lastName"},
+        {title: "Address", field: "address"},
+        {title: "Email Address", field: "emailAddress"},
+        {title: "Phone Number", field: "phoneNumber"},
+        {title: "Time Needed", field: "duration"}
+      ]}
+      title="Patients Database"
+      data={newPatientList}
+      />
+      {/* <Table>
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
@@ -55,7 +67,7 @@ const PatientList = (props) => {
             </TableRow>
           ))}
         </TableBody>
-      </Table>
+      </Table> */}
     </TableContainer>
     </Container>
   )
