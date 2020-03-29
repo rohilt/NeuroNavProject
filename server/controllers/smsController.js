@@ -10,9 +10,9 @@ const client = require('twilio')(accountSid, authToken);
     try {
       client.messages
       .create({
-         body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+         body: req.body.body,
          from: '+13345819814',
-         to: '+15072501199'
+         to: '+18133732574'
        })
       .then(message => res.send(message));
     }

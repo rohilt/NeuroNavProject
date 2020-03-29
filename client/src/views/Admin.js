@@ -125,7 +125,7 @@ const Admin = () => {
           {view == 0 ? <div><AddPatient updated={updated} setUpdated={setUpdated}/> <PatientList updated={updated}/></div> : null}
           {view == 1 ? <div><AddAppointment updated={updated} setUpdated={setUpdated}/><AppointmentList updated={updated}/></div> : null}
 
-          {view == 4 ? <div><SendText updated={updated} setUpdated={setUpdated}/><SendText updated={updated}/></div> : null}
+          {view == 4 ? <div><SendText updated={updated} setUpdated={setUpdated}/></div> : null}
         </div>
         {/* <AppBar position="static">
           <Toolbar>
