@@ -117,7 +117,7 @@ const Admin = () => {
               <ListItemIcon><EventNoteIcon /></ListItemIcon>
               <ListItemText primary="Calendar"/>
             </ListItem>
-            <ListItem button onClick={() => setView(4)} key={"texting"}>
+            <ListItem button onClick={() => {setView(4);setDrawerOpen(false)}} key={"texting"}>
               <ListItemIcon><ChatBubbleOutlineIcon/></ListItemIcon>
               <ListItemText primary="Send Text"/>
             </ListItem>
