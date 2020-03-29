@@ -226,7 +226,7 @@ export class MapContainer extends Component {
         </div> */}
         <CardActions>
         <Button variant="contained" onClick={this.onClick}>
-          View Directions to Parking
+          Directions to Parking
         </Button>
         <br/>
         <Button variant="contained" onClick={this.onClick2}>
