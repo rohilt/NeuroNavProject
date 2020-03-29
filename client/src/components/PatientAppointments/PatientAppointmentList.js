@@ -53,15 +53,15 @@ const PatientAppointmentList = (props) => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Date</TableCell>
-            <TableCell>Time</TableCell>
+            <TableCell>Start</TableCell>
+            <TableCell>End</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {appointmentList.map(entry => entry.name == "SamplePatient" ? (
+          {appointmentList.map(entry => entry.patientName == "SamplePatient" ? (
             <TableRow key={entry._id}>
-              <TableCell>{entry.date.substring(0, 10)}</TableCell>
-              <TableCell>{entry.date.substring(11, 16)}</TableCell>
+              <TableCell>{entry.startTime}</TableCell>
+              <TableCell>{entry.endTime}</TableCell>
             </TableRow>
           ) : null)}
         </TableBody>
