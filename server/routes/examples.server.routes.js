@@ -8,5 +8,8 @@ router.post('/appointment', db.addAppointment);
 router.get('/patient', db.getPatients);
 router.get('/appointment', db.getAppointments);
 router.get('/directions', directions.getDirections);
+
+
+
   
 module.exports = router;

@@ -3,6 +3,7 @@ import AddPatient from '../components/Admin/AddPatient';
 import AddAppointment from '../components/Admin/AddAppointment';
 import PatientList from '../components/Admin/PatientList';
 import AppointmentList from '../components/Admin/AppointmentList';
+import SendText from '../components/Admin/SendText'
 
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
@@ -120,6 +121,8 @@ const Admin = () => {
           <div className={classes.appBarSpacer}/>
           {view == 0 ? <div><AddPatient updated={updated} setUpdated={setUpdated}/> <PatientList updated={updated}/></div> : null}
           {view == 1 ? <div><AddAppointment updated={updated} setUpdated={setUpdated}/><AppointmentList updated={updated}/></div> : null}
+
+          {view == 4 ? <div><SendText updated={updated} setUpdated={setUpdated}/><SendText updated={updated}/></div> : null}
         </div>
         {/* <AppBar position="static">
           <Toolbar>
