@@ -7,6 +7,7 @@ import AppointmentList from '../components/Admin/AppointmentList';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Divider from '@material-ui/core/Divider';
+import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -116,6 +117,11 @@ const Admin = () => {
           
           {view == 0 ? <div><AddPatient updated={updated} setUpdated={setUpdated}/> <PatientList updated={updated}/></div> : null}
           {view == 1 ? <div><AddAppointment updated={updated} setUpdated={setUpdated}/><AppointmentList updated={updated}/></div> : null}
+          {view == 3 ? (
+            <Container fixed>
+            <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=bmV1cm9uYXZ1ZkBnbWFpbC5jb20&amp;color=%23039BE5&amp;showTitle=0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+            </Container>
+          ) : null}
         </div>
         {/* <AppBar position="static">
           <Toolbar>

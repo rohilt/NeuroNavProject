@@ -5,6 +5,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
 import Paper from '@material-ui/core/Paper';
+import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { TableContainer } from '@material-ui/core';
 
@@ -18,8 +19,10 @@ const PatientList = (props) => {
         setNewPatientList(newPatientList => [...newPatientList, {
           _id: element._id,
           name: element.name,
+          lastName: element.lastName,
           address: element.address,
           emailAddress: element.emailAddress,
+          phoneNumber: element.phoneNumber,
           duration: element.timeToClinic
       
         }]);
@@ -29,6 +32,7 @@ const PatientList = (props) => {
     });
   }, [props.updated]);
   return (
+    <Container>
     <TableContainer component={Paper}>
       <Table>
         <TableHead>
@@ -36,6 +40,7 @@ const PatientList = (props) => {
             <TableCell>Name</TableCell>
             <TableCell>Address</TableCell>
             <TableCell>Email</TableCell>
+            <TableCell>Phone Number</TableCell>
             <TableCell>Time Needed</TableCell>
           </TableRow>
         </TableHead>
@@ -45,12 +50,14 @@ const PatientList = (props) => {
               <TableCell>{entry.name}</TableCell>
               <TableCell>{entry.address}</TableCell>
               <TableCell>{entry.emailAddress}</TableCell>
+              <TableCell>{entry.phoneNumber}</TableCell>
               <TableCell>{entry.duration}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
+    </Container>
   )
 
 }

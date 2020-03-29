@@ -4,6 +4,50 @@ const Appointment = require('../models/AppointmentModel.js')
 const Patient = require('../models/PatientModel.js')
 const config = require('../config/config.js')
 const axios = require('axios')
+const {google} = require('googleapis');
+const fs = require('fs');
+
+listEvents = (auth, response) => {
+    const calendar = google.calendar({version: 'v3', auth});
+    calendar.events.list({
+      calendarId: 'primary',
+      timeMin: (new Date()).toISOString(),
+      maxResults: 10,
+      singleEvents: true,
+      orderBy: 'startTime',
+    }, (err, res) => {
+      if (err) return console.log('The API returned an error: ' + err);
+      const events = res.data.items;
+      if (events.length) {
+        // console.log('Upcoming 10 events:');
+        // events.map((event, i) => {
+        //   const start = event.start.dateTime || event.start.date;
+        //   console.log(`${start} - ${event.summary}`);
+        // });
+        response.send(events);
+      } else {
+        // console.log('No upcoming events found.');
+        response.send("error");
+      }
+    });
+}
+
+insertEvent = (auth, event, response) => {
+    const calendar = google.calendar({version: 'v3', auth});
+    calendar.events.insert({
+      auth: auth,
+      calendarId: 'primary',
+      resource: event,
+    }, (err, event) => {
+      if (err) return console.log('The API returned an error: ' + err);
+        // console.log('Upcoming 10 events:');
+        // events.map((event, i) => {
+        //   const start = event.start.dateTime || event.start.date;
+        //   console.log(`${start} - ${event.summary}`);
+        // });
+        response.send(event);
+    });
+};
 
 exports.addPatient = async (req, res) => {
     Patient.create({
@@ -19,11 +63,63 @@ exports.addPatient = async (req, res) => {
 exports.addAppointment = async (req, res) => {
     Appointment.create({
         patientId : req.query.patientId,
-        date : req.query.date,
+        patientName: req.query.patientName,
+        startTime : req.query.start,
+        endTime : req.query.end,
     }, (err) => {
         if (err) throw err;
+        const {client_secret, client_id, redirect_uris} = config.credentials.web;
+        const oAuth2Client = new google.auth.OAuth2(
+            client_id, client_secret, redirect_uris[0]);
+        
+            oAuth2Client.setCredentials(config.token);
+            insertEvent(oAuth2Client, {'summary': req.query.patientName,
+            'start': {
+            'dateTime': req.query.start + ':00',
+            'timeZone': 'America/New_York',
+            },
+            'end': {
+            'dateTime': req.query.end + ':00',
+            'timeZone': 'America/New_York',
+            }}, res);
     });
-    res.send('world')
+}
+
+exports.viewCalendarEvents = async (req, res) => {
+    fs.readFile('./credentials.json', (err, content) => {
+        if (err) return console.log('Error loading client secret file:', err);
+        const {client_secret, client_id, redirect_uris} = JSON.parse(content).web;
+        const oAuth2Client = new google.auth.OAuth2(
+            client_id, client_secret, redirect_uris[0]);
+      
+        fs.readFile('./token.json', (err, token) => {
+          if (err) return getAccessToken(oAuth2Client, callback);
+          oAuth2Client.setCredentials(JSON.parse(token));
+          listEvents(oAuth2Client, res);
+        });
+    });
+}
+
+exports.addCalendarEvent = async (req, res) => {
+    fs.readFile('./credentials.json', (err, content) => {
+        if (err) return console.log('Error loading client secret file:', err);
+        const {client_secret, client_id, redirect_uris} = JSON.parse(content).web;
+        const oAuth2Client = new google.auth.OAuth2(
+            client_id, client_secret, redirect_uris[0]);
+      
+        fs.readFile('./token.json', (err, token) => {
+          if (err) return getAccessToken(oAuth2Client, callback);
+          oAuth2Client.setCredentials(JSON.parse(token));
+          insertEvent(oAuth2Client, {'start': {
+            'dateTime': '2020-05-28T09:00:00-07:00',
+            'timeZone': 'America/Los_Angeles',
+          },
+          'end': {
+            'dateTime': '2020-05-28T17:00:00-07:00',
+            'timeZone': 'America/Los_Angeles',
+          }}, res);
+        });
+    });
 }
 
 exports.getPatients = async (req, res) => {
