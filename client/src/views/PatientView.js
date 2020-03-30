@@ -114,7 +114,7 @@ const Admin = () => {
             <Typography variant="h6" className={classes.title}>
               Patient View
             </Typography>
-            <Button component={Link} to="/home" color="inherit">Logout</Button>
+            <Button component={Link} to="/logout" color="inherit">Logout</Button>
           </Toolbar>
         </AppBar>
         <Drawer open={drawerOpen} variant="temporary">
