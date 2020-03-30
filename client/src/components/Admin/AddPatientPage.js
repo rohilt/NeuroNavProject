@@ -30,17 +30,19 @@ const AddPatientPage = (props) => {
   const [password, setPassword] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [authLevel, setAuthLevel] = useState("");
-  var person = {name: "", email: "", address: "", password:"", authLevel: ""};
+  var person = {name: "", middleInitial: "", lastName: "", dateOfBirth: "", phoneNumber: "", email: "", address: "", password:"", authLevel: ""};
   const handleSubmit = () => {
     setAuthLevel("patient");
     person.name = name;
     person.middleInitial = mi;
     person.lastName = lastName;
-    person.phone = phone;
+    person.phoneNumber = phone;
     person.email = email;
+    person.dateOfBirth = dob.toISOString();
     person.address = address;
     person.password = password;
     person.authLevel = "patient";
+    // console.log(person);
     const user = httpUser.signUp(person);
     // axios.post('/patient?name=' + name + '&middleInitial=' + mi + '&lastName=' + lastName + '&dateOfBirth=' + dob.toISOString() + '&phoneNumber=' + phone + '&emailAddress=' + email + '&address=' + address).then(response => console.log(response));
     props.setUpdated(props.updated+1);
@@ -51,6 +53,7 @@ const AddPatientPage = (props) => {
     setPhone("");
     setEmail("");
     setAddress("");
+    setPassword("");
     setShowAlert(true);
   };
   return (

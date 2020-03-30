@@ -140,6 +140,7 @@ exports.getPatients = async (req, res) => {
                 doc.save();
             }
         });
+        console.log(docs[docs.length-1])
         res.send(docs);
     });
 }

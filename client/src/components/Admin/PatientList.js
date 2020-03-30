@@ -16,18 +16,19 @@ const PatientList = (props) => {
   useEffect(() => {
     axios.get('/patient').then(response => {
       // setPatientList(response.data);
-      response.data.forEach((element) => {
-        setNewPatientList(newPatientList => [...newPatientList, {
-          _id: element._id,
-          name: element.name,
-          lastName: element.lastName,
-          address: element.address,
-          emailAddress: element.emailAddress,
-          phoneNumber: element.phoneNumber,
-          duration: element.timeToClinic
+      setNewPatientList(response.data);
+      // response.data.forEach((element) => {
+      //   setNewPatientList(newPatientList => [...newPatientList, {
+      //     _id: element._id,
+      //     name: element.name,
+      //     lastName: element.lastName,
+      //     address: element.address,
+      //     emailAddress: element.emailAddress,
+      //     phoneNumber: element.phoneNumber,
+      //     duration: element.timeToClinic
       
-        }]);
-      });
+      //   }]);
+      // });
       // console.log(patientList);
       // console.log(newPatientList);
     });
@@ -42,9 +43,9 @@ const PatientList = (props) => {
         {title: "Last Name", field: "lastName"},
         {title: "Date of Birth", field: "dateOfBirth"},
         {title: "Address", field: "address"},
-        {title: "Email Address", field: "emailAddress"},
+        {title: "Email Address", field: "email"},
         {title: "Phone Number", field: "phoneNumber"},
-        {title: "Time Needed", field: "duration"}
+        {title: "Time Needed", field: "timeToClinic"}
       ]}
       actions={[
         {
