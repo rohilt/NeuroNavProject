@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { TableContainer } from '@material-ui/core';
+import MaterialTable from "material-table";
 
 const PatientList = (props) => {
   // const [patientList, setPatientList] = useState([]);
@@ -15,26 +16,57 @@ const PatientList = (props) => {
   useEffect(() => {
     axios.get('/patient').then(response => {
       // setPatientList(response.data);
-      response.data.forEach((element) => {
-        setNewPatientList(newPatientList => [...newPatientList, {
-          _id: element._id,
-          name: element.name,
-          lastName: element.lastName,
-          address: element.address,
-          emailAddress: element.emailAddress,
-          phoneNumber: element.phoneNumber,
-          duration: element.timeToClinic
+      setNewPatientList(response.data);
+      // response.data.forEach((element) => {
+      //   setNewPatientList(newPatientList => [...newPatientList, {
+      //     _id: element._id,
+      //     name: element.name,
+      //     lastName: element.lastName,
+      //     address: element.address,
+      //     emailAddress: element.emailAddress,
+      //     phoneNumber: element.phoneNumber,
+      //     duration: element.timeToClinic
       
-        }]);
-      });
+      //   }]);
+      // });
       // console.log(patientList);
       // console.log(newPatientList);
     });
   }, [props.updated]);
   return (
     <Container>
+      
     <TableContainer component={Paper}>
-      <Table>
+      <MaterialTable columns={[
+        {title: "First Name", field: "name"},
+        {title: "M.I.", field: "middleInitial"},
+        {title: "Last Name", field: "lastName"},
+        {title: "Date of Birth", field: "dateOfBirth"},
+        {title: "Address", field: "address"},
+        {title: "Email Address", field: "email"},
+        {title: "Phone Number", field: "phoneNumber"},
+        {title: "Time Needed", field: "timeToClinic"}
+      ]}
+      actions={[
+        {
+          icon: 'edit',
+          tooltip: 'Save User',
+          onClick: (event, rowData) => {
+            // Do save operation
+          }
+        },
+        {
+          icon: 'delete',
+          tooltip: 'Save User',
+          onClick: (event, rowData) => {
+            // Do save operation
+          }
+        }
+      ]}
+      title="Patients Database"
+      data={newPatientList}
+      />
+      {/* <Table>
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
@@ -55,7 +87,7 @@ const PatientList = (props) => {
             </TableRow>
           ))}
         </TableBody>
-      </Table>
+      </Table> */}
     </TableContainer>
     </Container>
   )

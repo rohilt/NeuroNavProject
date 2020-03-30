@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import httpUser from '../../httpUser'
 
 
 const useStyles = makeStyles(theme => ({
@@ -27,6 +28,7 @@ const useStyles = makeStyles(theme => ({
 
   const ApptInfo = (props) => {
     const classes = useStyles();
+    const user = httpUser.getCurrentUser();
 
     const [InfoList, setInfoList] = useState([]);
     useEffect(() => {
@@ -40,7 +42,7 @@ const useStyles = makeStyles(theme => ({
                 </Toolbar>
 
                 <div className = "ProfileBox">
-                {InfoList.map(entry => entry.name == "SamplePatient" ? (
+                {InfoList.map(entry => entry.email == user.email ? (
                 <div key={entry._id}>
                 <div>
                 <h2 style={{display: 'inline'}}>Name:</h2>
@@ -65,7 +67,7 @@ const useStyles = makeStyles(theme => ({
                 </div>
                 <div>
                 <h2 style={{display: 'inline'}}>Email Address: </h2>
-                <p style={{display: 'inline'}}>{entry.emailAddress}</p>
+                <p style={{display: 'inline'}}>{entry.email}</p>
                 </div>
                 <div>
                 <h2 style={{display: 'inline'}}>Address: </h2>
