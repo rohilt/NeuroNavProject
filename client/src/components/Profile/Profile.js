@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
+
 //import Appt from './Appt';
 //import './ApptInfo.css'
 import './Profile.css'
@@ -23,34 +25,57 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-function ApptInfo() {
+  const ApptInfo = (props) => {
     const classes = useStyles();
 
+    const [InfoList, setInfoList] = useState([]);
+    useEffect(() => {
+      axios.get('/patient').then(response => setInfoList(response.data));
+    }, [props.updated]);
     return (
         
             <div className="Wrapper">
                 <Toolbar>
                 <Typography variant="h6"  className={classes.title} >Account Page</Typography>
-                {/* <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                  
-                    component={Link} to="./viewAll"
-
-                >
-                View All
-                </Button> */}
                 </Toolbar>
 
+                <div className = "ProfileBox">
+                {InfoList.map(entry => entry.name == "SamplePatient" ? (
+                <div key={entry._id}>
+                <div>
+                <h2 style={{display: 'inline'}}>Name:</h2>
+                <p style={{display: 'inline'}}> {entry.name} </p> 
+                </div>
+                <div>
+                <h2 style={{display: 'inline'}}>Middle Initial:</h2>
+                <p style={{display: 'inline'}}> {entry.middleInitial} </p> 
+                </div>
+                <div>
+                <h2 style={{display: 'inline'}}>Last Name:</h2>
+                <p style={{display: 'inline'}}> {entry.lastName} </p> 
+                </div>
+              
+                <div>
+                <h2 style={{display: 'inline'}}>Date of Birth: </h2>
+                <p style={{display: 'inline'}}>{entry.dateOfBirth}</p>
+                </div>
+                <div>
+                <h2 style={{display: 'inline'}}>Phone Number: </h2>
+                <p style={{display: 'inline'}}>{entry.phoneNumber}</p>
+                </div>
+                <div>
+                <h2 style={{display: 'inline'}}>Email Address: </h2>
+                <p style={{display: 'inline'}}>{entry.emailAddress}</p>
+                </div>
+                <div>
+                <h2 style={{display: 'inline'}}>Address: </h2>
+                <p style={{display: 'inline'}}>{entry.address}</p>
+                </div>
+              
                 
 
-                <div className = "ProfileBox">
-                    <h2>Username:</h2>
-                    <h2>Email Address:</h2>
-                    <h2>Phone Number:</h2>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
+                </div>
+          ) : null)}
                     <Grid container spacing={2} justify="center">
                 <Grid item>
                     
