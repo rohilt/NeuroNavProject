@@ -46,6 +46,22 @@ const PatientList = (props) => {
         {title: "Phone Number", field: "phoneNumber"},
         {title: "Time Needed", field: "duration"}
       ]}
+      actions={[
+        {
+          icon: 'edit',
+          tooltip: 'Save User',
+          onClick: (event, rowData) => {
+            // Do save operation
+          }
+        },
+        {
+          icon: 'delete',
+          tooltip: 'Save User',
+          onClick: (event, rowData) => {
+            // Do save operation
+          }
+        }
+      ]}
       title="Patients Database"
       data={newPatientList}
       />

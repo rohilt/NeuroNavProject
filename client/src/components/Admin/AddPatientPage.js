@@ -17,6 +17,7 @@ import {
   KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
+import httpUser from '../../httpUser';
 
 const AddPatientPage = (props) => {
   const [name, setName] = useState("");
@@ -26,9 +27,22 @@ const AddPatientPage = (props) => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
+  const [password, setPassword] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+  const [authLevel, setAuthLevel] = useState("");
+  var person = {name: "", email: "", address: "", password:"", authLevel: ""};
   const handleSubmit = () => {
-    axios.post('/patient?name=' + name + '&middleInitial=' + mi + '&lastName=' + lastName + '&dateOfBirth=' + dob.toISOString() + '&phoneNumber=' + phone + '&emailAddress=' + email + '&address=' + address).then(response => console.log(response));
+    setAuthLevel("patient");
+    person.name = name;
+    person.middleInitial = mi;
+    person.lastName = lastName;
+    person.phone = phone;
+    person.email = email;
+    person.address = address;
+    person.password = password;
+    person.authLevel = "patient";
+    const user = httpUser.signUp(person);
+    // axios.post('/patient?name=' + name + '&middleInitial=' + mi + '&lastName=' + lastName + '&dateOfBirth=' + dob.toISOString() + '&phoneNumber=' + phone + '&emailAddress=' + email + '&address=' + address).then(response => console.log(response));
     props.setUpdated(props.updated+1);
     setName("");
     setMi("");
@@ -51,11 +65,9 @@ const AddPatientPage = (props) => {
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
             fullWidth
-            disableToolbar
             variant="inline"
             format="MM/dd/yyyy"
             margin="normal"
-            id="date-picker-inline"
             label="Date of birth"
             value={dob}
             onChange={(date) => setDob(date)}
@@ -67,6 +79,7 @@ const AddPatientPage = (props) => {
         <TextField margin="dense" value={phone} onChange={(e) => setPhone(e.target.value)} label="Phone Number" fullWidth/>
         <TextField margin="dense" value={email} onChange={(e) => setEmail(e.target.value)}label="Email Address" fullWidth/>
         <TextField margin="dense" value={address} onChange={(e) => setAddress(e.target.value)}label="Address" fullWidth/>
+        <TextField margin="dense" type="password" value={password} onChange={(e) => setPassword(e.target.value)} label="Password" fullWidth/>
       </Container>
       <DialogActions>
         <Button onClick={handleSubmit}>Add patient</Button>
