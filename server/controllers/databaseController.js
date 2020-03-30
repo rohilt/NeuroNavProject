@@ -50,8 +50,13 @@ insertEvent = (auth, event, response) => {
 };
 
 exports.addPatient = async (req, res) => {
+    console.log(req.query);
     Patient.create({
         name : req.query.name,
+        middleInitial : req.query.middleInitial,
+        lastName : req.query.lastName,
+        dateOfBirth : req.query.dateOfBirth,
+        phoneNumber : req.query.phoneNumber,
         address : req.query.address,
         emailAddress : req.query.emailAddress
     }, (err) => {
@@ -128,7 +133,9 @@ exports.getPatients = async (req, res) => {
         docs.forEach(async (doc) => {
             if (!doc.distanceToClinic || !doc.timeToClinic) {
                 const origin = doc.address;
+                console.log(doc.address);
                 const response = await axios.get('https://maps.googleapis.com/maps/api/directions/json?key=' + config.directions.key + '&origin=' + origin + '&destination=Parking Garage 10 Newell Dr, Gainesville, FL 32603');
+                console.log(response.data);
                 doc.distanceToClinic = response.data.routes[0].legs[0].distance.text;
                 doc.timeToClinic = response.data.routes[0].legs[0].duration.text;
                 doc.save();

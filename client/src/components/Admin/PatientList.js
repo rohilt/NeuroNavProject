@@ -34,10 +34,13 @@ const PatientList = (props) => {
   }, [props.updated]);
   return (
     <Container>
+      
     <TableContainer component={Paper}>
       <MaterialTable columns={[
         {title: "First Name", field: "name"},
+        {title: "M.I.", field: "middleInitial"},
         {title: "Last Name", field: "lastName"},
+        {title: "Date of Birth", field: "dateOfBirth"},
         {title: "Address", field: "address"},
         {title: "Email Address", field: "emailAddress"},
         {title: "Phone Number", field: "phoneNumber"},
