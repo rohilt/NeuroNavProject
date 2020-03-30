@@ -44,7 +44,10 @@ import {ListItemText, ClickAwayListener } from '@material-ui/core';
 
 import Directions from "../../components/Directions/Directions";
 import HomeView from "../../views/Home/HomeView";
-import Login from '../../views/PatientLogin';
+import Login from '../../views/LogIn';
+
+import httpUser from '../../httpUser'
+
 
 
 
@@ -124,17 +127,17 @@ export function Home() {
               <ListItemIcon><DirectionsIcon/></ListItemIcon>
               <ListItemText primary="Directions"/>
             </ListItem>
-            <ListItem button onClick={() => {setView(2);setDrawerOpen(false)}} key={"login"}>
+            {/*<ListItem button onClick={() => {setView(2);setDrawerOpen(false)}} key={"login"}>
               <ListItemIcon><LoginIcon /></ListItemIcon>
               <ListItemText primary="Login"/>
-            </ListItem>
+  </ListItem> */}
           </List>
         </Drawer>
         <div className={classes.content}>
           
           {view == 0 ? <div><HomeView updated={updated} setUpdated={setUpdated}/> </div> : null}
           {view == 1 ? <div><Directions updated={updated} setUpdated={setUpdated}/></div> : null}
-          {view == 2 ? <div><Login updated={updated} setUpdated={setUpdated}/></div> : null}
+          {/*view == 2 ? <div><Login updated={updated} setUpdated={setUpdated}/></div> : null*/}
 
 
         </div>

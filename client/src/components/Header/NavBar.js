@@ -33,7 +33,7 @@ const NavBar = (props) => {
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6"  className={classes.title} >Patient View</Typography>
-                    <Button component={Link} to="/home" color="inherit">Logout</Button>
+                    <Button component={Link} to="/logout" color="inherit">Logout</Button>
                 </Toolbar>
                 <Tabs value={props.tabValue} onChange={(e, newValue) => props.setTabValue(newValue)}>
                     <Tab label="View Profile"/>

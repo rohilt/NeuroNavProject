@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { Route, Switch, Redirect  } from 'react-router-dom'
 import AddPatient from '../components/Admin/AddPatient';
 import AddAppointment from '../components/Admin/AddAppointment';
 import PatientList from '../components/Admin/PatientList';
@@ -30,6 +31,7 @@ import AppBar from '@material-ui/core/AppBar';
 import { Link } from 'react-router-dom';
 import { Button, CssBaseline, ListItemText, ClickAwayListener } from '@material-ui/core';
 import axios from 'axios';
+import httpUser from '../httpUser'
 
 
 const useStyles = makeStyles(theme => ({
@@ -74,6 +76,15 @@ const Admin = () => {
   const [view, setView] = useState(0);
   const [value, setValue] = useState(0);
   const [updated, setUpdated] = useState(0);
+  const user2 = httpUser.getCurrentUser().authLevel;
+  if(user2 !== "admin")
+  {
+    console.log("that aint right")
+    return <Redirect to="/home" />
+  }
+  else{
+    console.log("you are permitted to enter")
+  }
   const sendTextMessage = () => {
     // add in that here
   }
@@ -89,7 +100,7 @@ const Admin = () => {
             <Typography variant="h6" className={classes.title}>
               Administrator View
             </Typography>
-            <Button component={Link} to="/home" color="inherit">Logout</Button>
+            <Button component={Link} to="/logout" color="inherit">Logout</Button>
           </Toolbar>
         </AppBar>
         <Drawer open={drawerOpen} variant="temporary">
