@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Example = require('../models/examples.server.model.js')
 const Appointment = require('../models/AppointmentModel.js')
-const Patient = require('../models/PatientModel.js')
+const User = require('../models/user.js')
 const config = require('../config/config.js')
 const axios = require('axios')
 const {google} = require('googleapis');
@@ -50,7 +50,7 @@ insertEvent = (auth, event, response) => {
 };
 
 exports.addPatient = async (req, res) => {
-    Patient.create({
+    User.create({
         name : req.query.name,
         address : req.query.address,
         emailAddress : req.query.emailAddress
@@ -123,7 +123,7 @@ exports.addCalendarEvent = async (req, res) => {
 }
 
 exports.getPatients = async (req, res) => {
-    Patient.find({}, async (err, docs) => {
+    User.find({}, async (err, docs) => {
         if (err) throw err;
         docs.forEach(async (doc) => {
             if (!doc.distanceToClinic || !doc.timeToClinic) {

@@ -1,6 +1,6 @@
 const axios = require('axios')
 const mongoose = require('mongoose')
-const Patient = require('../models/PatientModel.js')
+const Patient = require('../models/user.js')
 const config = require('../config/config.js')
 
 exports.getDirections = async (req, res) => {
