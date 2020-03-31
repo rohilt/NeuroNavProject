@@ -11,25 +11,21 @@ background: linear-gradient(to right, #F56217, #0B486B); /* W3C, IE 10+/ Edge, F
 }
 
 .ApptBlock{
-    color : white;
-    background-color : #2C2F33;
-    padding : 2%;
     margin : 2%;
-    border-radius: 50px;
+    margin-bottom: 5%;
 }
 
-.Appt {
-    background-color: #7289DA;
+/*.Appt {
     padding : 5px 15px 5px 15px;
     margin : 20px;
     border-radius: 25px;
-}
+}*/
 
-.ApptButton {
+/*.ApptButton {
     margin : 5px;
     min-width: 500px;
     min-height: 50px;
     background-color: lightgray;
     border: none;
-}
+}*/
 

@@ -1,11 +1,5 @@
 .ProfileBox{
-    color : white;
-    background-color: #7289DA;
-    border: 25px solid #2C2F33;
-    padding : 2%;
     margin : 2%;
-    border-radius: 50px;
-    text-align: start;
 }
 
 .Wrapper {
