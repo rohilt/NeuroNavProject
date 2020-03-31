@@ -106,7 +106,7 @@ exports.addAppointment = async (req, res) => {
         "refresh_token": process.env.TOKEN_REFRESH || require('../config/config.js').token.refresh_token,
         "scope": process.env.TOKEN_SCOPE || require('../config/config.js').token.scope,
         "token_type": process.env.TOKEN_TOKEN_TYPE || require('../config/config.js').token.token_type,
-        "expiry_date": process.env.TOKEN_EXPIRY_DATE || require('../config/config.js').token.expiry_date
+        "expiry_date": 1585435903384
     }
     Appointment.create({
         patientId : req.query.patientId,
