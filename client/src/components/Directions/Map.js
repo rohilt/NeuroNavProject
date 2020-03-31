@@ -162,7 +162,8 @@ export class MapContainer extends Component {
      loadState = 1;
     })
     // open the request with the verb and the url
-    xhr.open('GET', '/directions?name=SamplePatient')
+    xhr.open('GET', '/directions?origin=' + latitude +',' + longitude)
+    console.log('hello' + latitude)
     // send the request
     xhr.send()
   }
