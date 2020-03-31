@@ -5,10 +5,10 @@ const Patient = require('../models/user.js')
 exports.getDirections = async (req, res) => {
   
   try {
-    Patient.findOne({name: req.query.name}, async (err, listing) => {
+    // Patient.findOne({name: req.query.name}, async (err, listing) => {
       
       
-      if (err) throw err;
+      // if (err) throw err;
       const origin = req.query.origin;
       const destination = req.query.dest;
       const response = await axios.get('https://maps.googleapis.com/maps/api/directions/json?key=' + (process.env.MAP_KEY || require('../config/config.js').directions.key) + '&origin=' + origin + '&destination='+ destination);
@@ -26,7 +26,7 @@ exports.getDirections = async (req, res) => {
           duration: response.data.routes[0].legs[0].duration.text
         });
       }
-    })
+    // })
   }
   catch (err) {
     console.log(err);
