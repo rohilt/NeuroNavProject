@@ -1,10 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import { Route, Switch, Redirect  } from 'react-router-dom'
 import AddPatient from '../components/Admin/AddPatient';
+import AddPatientPage from '../components/Admin/AddPatientPage';
 import AddAppointment from '../components/Admin/AddAppointment';
 import PatientList from '../components/Admin/PatientList';
 import AppointmentList from '../components/Admin/AppointmentList';
 import SendText from '../components/Admin/SendText'
+
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
@@ -14,6 +19,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import PeopleIcon from '@material-ui/icons/People';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import EventNoteIcon from '@material-ui/icons/EventNote';
@@ -23,6 +29,7 @@ import Drawer from '@material-ui/core/Drawer';
 import Tab from '@material-ui/core/Tab';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import AddAlarmIcon from '@material-ui/icons/AddAlarm';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
@@ -40,7 +47,6 @@ const useStyles = makeStyles(theme => ({
   },
         content: {
           flewGrow: 1,
-          height: '100vh',
           overflow: 'auto'
         },
         menuButton: {
@@ -50,6 +56,9 @@ const useStyles = makeStyles(theme => ({
         title: {
           flexGrow: 1,
         },
+        nested: {
+          paddingLeft: theme.spacing(4),
+        }
       }));
 
 const theme = createMuiTheme({
@@ -115,19 +124,31 @@ const Admin = () => {
               <ListItemIcon><PeopleIcon/></ListItemIcon>
               <ListItemText primary="Patients"/>
             </ListItem>
+            <Collapse in={true} unmountOnExit>
+              <List disablePadding>
+                <ListItem className={classes.nested} button onClick={() => {setView(2);setDrawerOpen(false)}} key={"add-patient"}>
+                  <ListItemIcon><PersonAddIcon /></ListItemIcon>
+                  <ListItemText primary="Add Patient"/>
+                </ListItem>
+              </List>
+            </Collapse>
             <ListItem button onClick={() => {setView(1);setDrawerOpen(false)}} key={"appointments"}>
               <ListItemIcon><ScheduleIcon/></ListItemIcon>
               <ListItemText primary="Appointments"/>
             </ListItem>
-            <ListItem button onClick={() => {setView(2);setDrawerOpen(false)}} key={"add-patient"}>
-              <ListItemIcon><PersonAddIcon /></ListItemIcon>
-              <ListItemText primary="Add Patient"/>
-            </ListItem>
-            <ListItem button onClick={() => {setView(3);setDrawerOpen(false)}} key={"calendar"}>
+            <Collapse in={true} unmountOnExit>
+              <List disablePadding>
+                <ListItem className={classes.nested} button onClick={() => {setView(3);setDrawerOpen(false)}} key={"add-appointment"}>
+                  <ListItemIcon><AddAlarmIcon /></ListItemIcon>
+                  <ListItemText primary="Add Appointment"/>
+                </ListItem>
+              </List>
+            </Collapse>
+            <ListItem button onClick={() => {setView(4);setDrawerOpen(false)}} key={"calendar"}>
               <ListItemIcon><EventNoteIcon /></ListItemIcon>
               <ListItemText primary="Calendar"/>
             </ListItem>
-            <ListItem button onClick={() => {setView(4);setDrawerOpen(false)}} key={"texting"}>
+            <ListItem button onClick={() => {setView(5);setDrawerOpen(false)}} key={"texting"}>
               <ListItemIcon><ChatBubbleOutlineIcon/></ListItemIcon>
               <ListItemText primary="Send Text"/>
             </ListItem>
@@ -135,10 +156,11 @@ const Admin = () => {
         </Drawer>
         <div className={classes.content}>
           
-          {view == 0 ? <div><AddPatient updated={updated} setUpdated={setUpdated}/> <PatientList updated={updated}/></div> : null}
+          {view == 0 ? <div><br /><PatientList updated={updated}/></div> : null}
           {view == 1 ? <div><AddAppointment updated={updated} setUpdated={setUpdated}/><AppointmentList updated={updated}/></div> : null}
-          {view == 4 ? <div><SendText updated={updated} setUpdated={setUpdated}/></div> : null}
-          {view == 3 ? (
+          {view == 2 ? <div><AddPatientPage setUpdated={setUpdated} updated={updated}/></div> : null}
+          {view == 5 ? <div><SendText updated={updated} setUpdated={setUpdated}/></div> : null}
+          {view == 4 ? (
             <Container fixed>
             <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=bmV1cm9uYXZ1ZkBnbWFpbC5jb20&amp;color=%23039BE5&amp;showTitle=0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
             </Container>
