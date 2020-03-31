@@ -135,7 +135,7 @@ export function Home() {
         </Drawer>
         <div className={classes.content}>
           
-          {view == 0 ? <div><HomeView updated={updated} setUpdated={setUpdated}/> </div> : null}
+          {view == 0 ? <div><HomeView updated={updated} setUpdated={setUpdated} setView={setView}/> </div> : null}
           {view == 1 ? <div><Directions updated={updated} setUpdated={setUpdated}/></div> : null}
           {/*view == 2 ? <div><Login updated={updated} setUpdated={setUpdated}/></div> : null*/}
 

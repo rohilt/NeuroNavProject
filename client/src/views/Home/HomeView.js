@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
 
   const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-export function Home() {
+export function Home(props) {
   const classes = useStyles();
 
   return (
@@ -139,7 +139,7 @@ export function Home() {
                   type="submit"
                   variant="contained"
                   color="secondary"
-                  component={Link} to="/directions">
+                  onClick={() => props.setView(1)}>
                     Click for Directions
                   </Button>
                 </Grid>
