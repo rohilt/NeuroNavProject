@@ -40,7 +40,7 @@ const PatientAppointmentList = (props) => {
   return (
     <div>
       <Toolbar>
-      <Typography variant="h6"  className={classes.title} >Showing appointments for SamplePatient</Typography>
+      <Typography variant="h6"  className={classes.title} >Showing appointments for {user.name}</Typography>
       <Button
                     type="submit"
                     variant="contained"

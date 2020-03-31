@@ -7,6 +7,8 @@ import TableBody from '@material-ui/core/TableBody';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 import { TableContainer, Container} from '@material-ui/core';
+import MaterialTable from "material-table";
+
 
 
 const AppointmentList = (props) => {
@@ -17,7 +19,26 @@ const AppointmentList = (props) => {
   return (
     <Container>
     <TableContainer component={Paper}>
-      <Table>
+    <MaterialTable columns={[
+        {title: "Patient", field: "patientName"},
+        {title: "Date", field: "startTime", render: rowData => (new Date(rowData.startTime)).toLocaleDateString()},
+        {title: "Start Time", field: "startTime", render: rowData => (new Date(rowData.startTime)).toLocaleTimeString([], {hour: '2-digit',minute: '2-digit'})},
+        {title: "End Time", field: "endTime", render: rowData => (new Date(rowData.endTime)).toLocaleTimeString([], {hour: '2-digit',minute: '2-digit'})},
+        {title: "Description", field: "description"},
+      ]}
+      actions={[
+        {
+          icon: 'phone',
+          tooltip: 'Remind patient',
+          onClick: (event, rowData) => {
+            
+          }
+        }
+      ]}
+      title="Appointments Database"
+      data={appointmentList}
+      />
+      {/* <Table>
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
@@ -34,7 +55,7 @@ const AppointmentList = (props) => {
             </TableRow>
           ))}
         </TableBody>
-      </Table>
+      </Table> */}
     </TableContainer>
     </Container>
   )
