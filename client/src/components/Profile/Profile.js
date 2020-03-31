@@ -7,7 +7,6 @@ import CardContent from '@material-ui/core/CardContent';
 
 import './Profile.css'
 
-
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';

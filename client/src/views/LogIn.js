@@ -6,6 +6,8 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Links from '@material-ui/core/Link';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -87,6 +89,7 @@ const useStyles = makeStyles(theme => ({
 
 const LogIn = (props) => {
     const [fields, setFields] = useState({email: "", password: ""});
+    const [showAlert, setShowAlert] = useState(false);
     // used to update user input for either password or email
     const onInputChange = (e) => {
         e.persist();
@@ -110,6 +113,9 @@ const LogIn = (props) => {
             }
             
             console.log(user.email);
+        }
+        else {
+          setShowAlert(true);
         }
     };
 
@@ -188,6 +194,14 @@ const LogIn = (props) => {
         <Copyright />
         </Box>
         </Container>
+        <Snackbar anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }} open={showAlert} autoHideDuration={5000} onClose={() => setShowAlert(false)}>
+          <Alert severity="error">
+            Invalid login!
+          </Alert>
+        </Snackbar>
         </div>
         </MuiThemeProvider>
     )

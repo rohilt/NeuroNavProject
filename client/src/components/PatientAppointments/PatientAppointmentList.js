@@ -40,7 +40,7 @@ const PatientAppointmentList = (props) => {
   return (
     <div>
       <Toolbar>
-      <Typography variant="h6"  className={classes.title} >Showing appointments for {user.name}</Typography>
+      <Typography variant="h6"  className={classes.title} >Viewing {user.name}'s appointments</Typography>
       <Button
                     type="submit"
                     variant="contained"
@@ -57,15 +57,19 @@ const PatientAppointmentList = (props) => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Start</TableCell>
-            <TableCell>End</TableCell>
+            <TableCell>Date</TableCell>
+            <TableCell>Start Time</TableCell>
+            <TableCell>End Time</TableCell>
+            <TableCell>Description</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {appointmentList.map(entry => entry.patientId == user._id ? (
             <TableRow key={entry._id}>
-              <TableCell>{entry.startTime}</TableCell>
-              <TableCell>{entry.endTime}</TableCell>
+              <TableCell>{(new Date(entry.startTime)).toLocaleDateString()}</TableCell>
+              <TableCell>{(new Date(entry.startTime)).toLocaleTimeString([], {hour: '2-digit',minute: '2-digit'})}</TableCell>
+              <TableCell>{(new Date(entry.endTime)).toLocaleTimeString([], {hour: '2-digit',minute: '2-digit'})}</TableCell>
+              <TableCell>{entry.description}</TableCell>
             </TableRow>
           ) : null)}
         </TableBody>
