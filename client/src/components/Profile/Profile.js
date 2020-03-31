@@ -6,7 +6,6 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 
 import './Profile.css'
-import httpUser from '../../httpUser'
 
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
