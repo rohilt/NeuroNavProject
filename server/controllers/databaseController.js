@@ -72,8 +72,6 @@ exports.deletePatient = async (req, res) => {
 }
 
 exports.editPatient = async (req,res) => {
-    console.log(req.body.newData._id);
-    
     User.findOneAndUpdate({"_id" : req.body.newData._id}, {
         name:           req.body.newData.name,
         middleInitial : req.body.newData.middleInitial,
@@ -130,6 +128,29 @@ exports.addAppointment = async (req, res) => {
             'dateTime': req.query.endTime,
             'timeZone': 'America/New_York',
             }}, res);
+    });
+}
+
+exports.deleteAppointment = async (req, res) => {
+    Appointment.deleteOne( {"_id" : req.query.id}, function(err) {
+        if(err) console.log(err);
+    });
+    res.send('deleted')
+}
+
+exports.editAppointment = async (req, res) => {
+    Appointment.findOneAndUpdate({"_id" : req.body.newData._id}, {
+        patientId   : req.body.newData.patientId,
+        patientName : req.body.newData.patientName,
+        startTime   : req.body.newData.startTime,
+        endTime     : req.body.newData.endTime,
+        description : req.body.newData.description,
+        }, function(err, result){
+        if(err) {
+            res.send(err);
+        } else {
+            res.send(result);
+        }
     });
 }
 
