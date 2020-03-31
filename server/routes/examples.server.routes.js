@@ -14,5 +14,7 @@ router.get('/calendar', db.viewCalendarEvents);
 router.post('/calendar', db.addCalendarEvent);
 router.delete('/patient', db.deletePatient);
 router.put('/patient', db.editPatient);
+router.delete('/appointment', db.deleteAppointment);
+router.put('/appointment', db.editAppointment);
   
 module.exports = router;
