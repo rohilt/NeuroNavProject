@@ -41,7 +41,7 @@ const PatientList = (props) => {
         {title: "First Name", field: "name"},
         {title: "M.I.", field: "middleInitial"},
         {title: "Last Name", field: "lastName"},
-        {title: "Date of Birth", field: "dateOfBirth"},
+        {title: "Date of Birth", field: "dateOfBirth", render: rowData => (new Date(rowData.dateOfBirth)).toLocaleDateString()},
         {title: "Address", field: "address"},
         {title: "Email Address", field: "email"},
         {title: "Phone Number", field: "phoneNumber"},
