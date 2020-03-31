@@ -186,7 +186,9 @@ export class MapContainer extends Component {
       
     ));
 
-    this.getDistTime();
+    if (latitude && longitude) {
+      this.getDistTime();
+    }
     return (
       <Card variant="outlined">
         <CardHeader title="Norman Fixel Institute">

@@ -195,8 +195,9 @@ export class MapContainer extends Component {
       </GoogleMap>
       
     ));
-
-    this.getDistTime();
+    if (latitude && longitude) {
+      this.getDistTime();
+    }
     return (
       <Card variant="outlined">
         <CardHeader title="Neuromedicine Hospital">
