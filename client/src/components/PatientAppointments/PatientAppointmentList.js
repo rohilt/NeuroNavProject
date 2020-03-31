@@ -47,7 +47,6 @@ const PatientAppointmentList = (props) => {
                     color="primary"
                   
                     component={Link} to="./patientView"
-
           >
             Back
           </Button>
