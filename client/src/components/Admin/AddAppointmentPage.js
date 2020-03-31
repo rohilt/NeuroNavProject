@@ -50,6 +50,12 @@ const AddPatientPage = (props) => {
     axios.post('/appointment?startTime=' + startDate.toISOString() + '&endTime=' + endDate.toISOString() + '&patientId=' + patientSelected + '&patientName=' + patientName + '&description=' + description);
     // axios.post('/patient?name=' + name + '&middleInitial=' + mi + '&lastName=' + lastName + '&dateOfBirth=' + dob.toISOString() + '&phoneNumber=' + phone + '&emailAddress=' + email + '&address=' + address).then(response => console.log(response));
     props.setUpdated(props.updated+1);
+    setDate(new Date());
+    setTime(new Date());
+    setEndTime(new Date());
+    setDescription("");
+    setPatientSelected("");
+    setPatientName("");
     setShowAlert(true);
   };
   return (
