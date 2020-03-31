@@ -81,6 +81,13 @@ const AppointmentList = (props) => {
           setOpen(false);
           setUser({});
           setMessage("");
+          fetch('/text', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({body: message})
+          });
         }}>Send</Button>
       </DialogActions>
     </Dialog>
