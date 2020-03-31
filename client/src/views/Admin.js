@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Route, Switch, Redirect  } from 'react-router-dom'
 import AddPatient from '../components/Admin/AddPatient';
 import AddPatientPage from '../components/Admin/AddPatientPage';
+import AddAppointmentPage from '../components/Admin/AddAppointmentPage';
 import AddAppointment from '../components/Admin/AddAppointment';
 import PatientList from '../components/Admin/PatientList';
 import AppointmentList from '../components/Admin/AppointmentList';
@@ -157,8 +158,9 @@ const Admin = () => {
         <div className={classes.content}>
           
           {view == 0 ? <div><br /><PatientList updated={updated}/></div> : null}
-          {view == 1 ? <div><AddAppointment updated={updated} setUpdated={setUpdated}/><AppointmentList updated={updated}/></div> : null}
+          {view == 1 ? <div><br /><AppointmentList updated={updated}/></div> : null}
           {view == 2 ? <div><AddPatientPage setUpdated={setUpdated} updated={updated}/></div> : null}
+          {view == 3 ? <div><AddAppointmentPage updated={updated} setUpdated={setUpdated}/></div> : null}
           {view == 5 ? <div><SendText updated={updated} setUpdated={setUpdated}/></div> : null}
           {view == 4 ? (
             <Container fixed>

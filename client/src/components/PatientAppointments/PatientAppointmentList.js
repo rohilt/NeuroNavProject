@@ -58,7 +58,7 @@ const PatientAppointmentList = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {appointmentList.map(entry => entry.patientName == "SamplePatient" ? (
+          {appointmentList.map(entry => entry.patientName == "Alan" ? (
             <TableRow key={entry._id}>
               <TableCell>{entry.startTime}</TableCell>
               <TableCell>{entry.endTime}</TableCell>

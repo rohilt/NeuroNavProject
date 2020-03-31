@@ -95,8 +95,9 @@ exports.addAppointment = async (req, res) => {
     Appointment.create({
         patientId : req.query.patientId,
         patientName: req.query.patientName,
-        startTime : req.query.start,
-        endTime : req.query.end,
+        startTime : req.query.startTime,
+        endTime : req.query.endTime,
+        description: req.query.description,
     }, (err) => {
         if (err) throw err;
         const {client_secret, client_id, redirect_uris} = config.credentials.web;
@@ -106,11 +107,11 @@ exports.addAppointment = async (req, res) => {
             oAuth2Client.setCredentials(config.token);
             insertEvent(oAuth2Client, {'summary': req.query.patientName,
             'start': {
-            'dateTime': req.query.start + ':00',
+            'dateTime': req.query.startTime,
             'timeZone': 'America/New_York',
             },
             'end': {
-            'dateTime': req.query.end + ':00',
+            'dateTime': req.query.endTime,
             'timeZone': 'America/New_York',
             }}, res);
     });
@@ -167,7 +168,7 @@ exports.getPatients = async (req, res) => {
                 doc.save();
             }
         });
-        console.log(docs[docs.length-1])
+        // console.log(docs[docs.length-1])
         res.send(docs);
     });
 }
