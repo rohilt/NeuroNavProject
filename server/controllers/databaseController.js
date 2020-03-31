@@ -79,7 +79,9 @@ exports.editPatient = async (req,res) => {
         dateOfBirth :   req.body.newData.dateOfBirth,
         phoneNumber :   req.body.newData.phoneNumber,
         address :       req.body.newData.address,
-        emailAddress :  req.body.newData.emailAddress
+        emailAddress :  req.body.newData.emailAddress,
+        distanceToClinic : '',
+        timeToClinic : ''
         }, function(err, result){
         if(err) {
             res.send(err);
