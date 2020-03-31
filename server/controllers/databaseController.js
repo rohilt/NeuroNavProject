@@ -64,6 +64,33 @@ exports.addPatient = async (req, res) => {
     res.send('world')
 };
 
+exports.deletePatient = async (req, res) => {
+    User.deleteOne( {"_id" : req.query.id}, function(err) {
+        if(err) console.log(err);
+    });
+    res.send('deleted')
+}
+
+exports.editPatient = async (req,res) => {
+    console.log(req.body.newData._id);
+    
+    User.findOneAndUpdate({"_id" : req.body.newData._id}, {
+        name:           req.body.newData.name,
+        middleInitial : req.body.newData.middleInitial,
+        lastName :      req.body.newData.lastName,
+        dateOfBirth :   req.body.newData.dateOfBirth,
+        phoneNumber :   req.body.newData.phoneNumber,
+        address :       req.body.newData.address,
+        emailAddress :  req.body.newData.emailAddress
+        }, function(err, result){
+        if(err) {
+            res.send(err);
+        } else {
+            res.send(result);
+        }
+    });
+}
+
 exports.addAppointment = async (req, res) => {
     Appointment.create({
         patientId : req.query.patientId,

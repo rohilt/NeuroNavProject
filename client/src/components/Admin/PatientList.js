@@ -47,22 +47,45 @@ const PatientList = (props) => {
         {title: "Phone Number", field: "phoneNumber"},
         {title: "Time Needed", field: "timeToClinic"}
       ]}
-      actions={[
+      /*actions={[
         {
           icon: 'edit',
-          tooltip: 'Save User',
+          tooltip: 'Edit Patient',
           onClick: (event, rowData) => {
-            // Do save operation
-          }
+            // Do edit operation
+            
+          },
+          
         },
         {
           icon: 'delete',
-          tooltip: 'Save User',
-          onClick: (event, rowData) => {
-            // Do save operation
+          tooltip: 'Delete Patient',
+          onClick: (event, rowData) => { // Do delete operation
+            axios.delete("/patient?id=" + rowData._id);
+            console.log("deleted");
+            console.log(rowData._id);
           }
         }
-      ]}
+      ]}*/
+      editable={{
+        onRowUpdate: (newData, oldData) =>
+          new Promise((resolve, reject) => {
+            axios.put("/patient", {newData});
+            console.log(newData);
+            setTimeout(() => {
+                {}
+                resolve();
+            }, 1000);
+        }),
+        onRowDelete: oldData =>
+          new Promise((resolve, reject) => {
+            axios.delete("/patient?id=" + oldData._id);
+            setTimeout(() => {
+                {}
+                resolve();
+            }, 1000);
+        })
+      }}
       title="Patients Database"
       data={newPatientList}
       />
