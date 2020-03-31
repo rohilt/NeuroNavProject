@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -6,6 +6,8 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Links from '@material-ui/core/Link';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -18,6 +20,8 @@ import NavBar from '../views/Home/NavBar2';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import orange from '@material-ui/core/colors/orange';
 import blue from '@material-ui/core/colors/blue';
+
+import httpUser from '../httpUser'
 
 
 // Material UI Template used to create login forms design
@@ -82,74 +86,95 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SignIn() {
-  
-  const classes = useStyles();
 
-  return (
-    <MuiThemeProvider theme={theme}>
-    
-      <div>
+const LogIn = (props) => {
+    const [fields, setFields] = useState({email: "", password: ""});
+    const [showAlert, setShowAlert] = useState(false);
+    // used to update user input for either password or email
+    const onInputChange = (e) => {
+        e.persist();
+        setFields(fields => ({...fields, [e.target.name]: e.target.value}))
+    };
+    // used to submit user values for password and email
+    const onFormSubmit = async (e) => {
+        e.preventDefault();
+        const user = await httpUser.logIn(fields);
 
-    
-    
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
+        setFields({email: '', password: ''} );
+        if(user) {
+            props.onLoginSuccess(user);
+            if(user.authLevel == "admin")
+            {
+                props.history.push('/admin');
+            }
+            if(user.authLevel == "patient")
+            {
+                props.history.push('/patientView');
+            }
+            
+            console.log(user.email);
+        }
+        else {
+          setShowAlert(true);
+        }
+    };
+
+    const classes = useStyles();
+
+    return(
+        <MuiThemeProvider theme={theme}>
+        <div>
+        <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           UF Neurosurgery Patient Portal
         </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="Username"
-            name="username"
-            autoComplete="username"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            component={Link} to="/patientview"
+            <form onChange={onInputChange} onSubmit={onFormSubmit}>
+                <TextField
+               variant="outlined"
+               margin="normal"
+               required
+               fullWidth
+               id="email"
+               label="Email"
+               name="email"
+               autoComplete="email"
+               value={fields.email}
+               autoFocus
+               />
+                <TextField
+               variant="outlined"
+               margin="normal"
+               required
+               fullWidth
+               name="password"
+               label="Password"
+               type="password"
+               id="password"
+               value={fields.password}
+               autoComplete="current-password"
+              />
+              <Box mt={2}>
 
-          >
-            Sign In
-          </Button>
-          <Button
-            type="submit"
-            fullWidth
-            variant="outlined"
-            color="secondary"
-            className={classes.submit}
-            component={Link} to="/admin"
+              </Box>
+                <Button
+                 type="submit"
+                 fullWidth
+                 variant="contained"
+                 color="primary"
+                 >Log In</Button>
+            </form>
+            <Box mt={2}>
 
-          >
-            Admin Login
-          </Button>
-          <Grid container>
+              </Box>
+            <Grid container>
             <Grid item xs>
             </Grid>
+            
             <Grid item 
             container
             justify="center"
@@ -164,13 +189,22 @@ export default function SignIn() {
               <br />
             </Grid>
           </Grid>
-        </form>
-      </div>
-      <Box mt={8}>
+            </div>
+        <Box mt={2}>
         <Copyright />
-      </Box>
-    </Container>
-    </div>
-    </MuiThemeProvider>
-  );
-}
+        </Box>
+        </Container>
+        <Snackbar anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }} open={showAlert} autoHideDuration={5000} onClose={() => setShowAlert(false)}>
+          <Alert severity="error">
+            Invalid login!
+          </Alert>
+        </Snackbar>
+        </div>
+        </MuiThemeProvider>
+    )
+};
+
+export default LogIn;
