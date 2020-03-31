@@ -12,5 +12,7 @@ router.get('/directions', directions.getDirections);
 router.post('/text', sms.sendText);
 router.get('/calendar', db.viewCalendarEvents);
 router.post('/calendar', db.addCalendarEvent);
+router.delete('/patient', db.deletePatient);
+router.put('/patient', db.editPatient);
   
 module.exports = router;

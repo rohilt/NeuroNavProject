@@ -4,15 +4,24 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
-import { TableContainer, Container} from '@material-ui/core';
+import { TableContainer, Container, DialogActions} from '@material-ui/core';
 import MaterialTable from "material-table";
 
 
 
 const AppointmentList = (props) => {
   const [appointmentList, setAppointmentList] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [user, setUser] = useState({});
   useEffect(() => {
     axios.get('/appointment').then(response => setAppointmentList(response.data));
   }, [props.updated]);
@@ -31,7 +40,9 @@ const AppointmentList = (props) => {
           icon: 'phone',
           tooltip: 'Remind patient',
           onClick: (event, rowData) => {
-            
+            setUser(rowData);
+            setMessage(rowData.patientName + ', you have an upcoming appointment.');
+            setOpen(true);
           }
         }
       ]}
@@ -57,6 +68,22 @@ const AppointmentList = (props) => {
         </TableBody>
       </Table> */}
     </TableContainer>
+    <Dialog open={open} onClose={() => setOpen(false)}>
+      <DialogTitle>Send a reminder</DialogTitle>
+      <DialogContent>
+      <DialogContentText>
+        Enter the message to send to the patient below. 
+      </DialogContentText>
+        <TextField autofocus margin="dense" multiline fullWidth maxWidth={'sm'} value={message} onChange={(e) => setMessage(e.target.value)} label="Message"/>
+      </DialogContent>
+      <DialogActions>
+        <Button color="primary" onClick={() => {
+          setOpen(false);
+          setUser({});
+          setMessage("");
+        }}>Send</Button>
+      </DialogActions>
+    </Dialog>
     </Container>
   )
 }
