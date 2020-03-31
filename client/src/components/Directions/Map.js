@@ -135,7 +135,7 @@ export class MapContainer extends Component {
   }
 
   onClick = () => {
-    {window.open("https://www.google.com/maps/dir/The+Courtyards,+Southwest+3+Avenue,+Gainesville,+FL/Parking+Garage+10,+Gainesville,+FL/@29.6445242,-82.3432803,16z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x88e8a384cf37eeef:0x6f9b8a40956146ba!2m2!1d-82.3381267!2d29.6489028!1m5!1m1!1s0x88e8a39ee4f0ef5f:0x69423fe6af8aa344!2m2!1d-82.3416286!2d29.6406474!3e0?hl=en")}
+    {window.open("https://www.google.com/maps/dir//Parking+Garage+10,+Gainesville,+FL+32601/@29.6406474,-82.3438173,17z/data=!4m16!1m6!3m5!1s0x88e8a39ee4f0ef5f:0x69423fe6af8aa344!2sParking+Garage+10!8m2!3d29.6406474!4d-82.3416286!4m8!1m0!1m5!1m1!1s0x88e8a39ee4f0ef5f:0x69423fe6af8aa344!2m2!1d-82.3416286!2d29.6406474!3e2")}
   }
 
   onClick2 = () => {
