@@ -1,7 +1,6 @@
 const axios = require('axios')
 const mongoose = require('mongoose')
 const Patient = require('../models/user.js')
-const config = require('../config/config.js')
 
 exports.getDirections = async (req, res) => {
   
@@ -11,7 +10,7 @@ exports.getDirections = async (req, res) => {
       
       if (err) throw err;
       const origin = listing.address;
-      const response = await axios.get('https://maps.googleapis.com/maps/api/directions/json?key=' + config.directions.key + '&origin=' + origin + '&destination=Parking Garage 10 Newell Dr, Gainesville, FL 32603');
+      const response = await axios.get('https://maps.googleapis.com/maps/api/directions/json?key=' + (process.env.MAP_KEY || require('../config/config.js').directions.key) + '&origin=' + origin + '&destination=Parking Garage 10 Newell Dr, Gainesville, FL 32603');
       // console.log(response.data);
       // res.send(response.data);
       res.send({

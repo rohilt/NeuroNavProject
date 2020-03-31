@@ -73,7 +73,9 @@ const PatientList = (props) => {
             axios.put("/patient", {newData});
             console.log(newData);
             setTimeout(() => {
-                {}
+                {
+                  props.setUpdated(props.updated + 1); 
+                }
                 resolve();
             }, 1000);
         }),
@@ -81,7 +83,9 @@ const PatientList = (props) => {
           new Promise((resolve, reject) => {
             axios.delete("/patient?id=" + oldData._id);
             setTimeout(() => {
-                {}
+                {
+                  props.setUpdated(props.updated + 1); 
+                }
                 resolve();
             }, 1000);
         })

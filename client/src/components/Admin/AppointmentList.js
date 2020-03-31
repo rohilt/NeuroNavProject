@@ -46,6 +46,28 @@ const AppointmentList = (props) => {
           }
         }
       ]}
+      editable={{
+        onRowUpdate: (newData, oldData) =>
+          new Promise((resolve, reject) => {
+            axios.put("/appointment", {newData});
+            setTimeout(() => {
+                {
+                  props.setUpdated(props.updated + 1); 
+                }
+                resolve();
+            }, 1000);
+        }),
+        onRowDelete: oldData =>
+          new Promise((resolve, reject) => {
+            axios.delete("/appointment?id=" + oldData._id);
+            setTimeout(() => {
+                {
+                  props.setUpdated(props.updated + 1); 
+                }
+                resolve();
+            }, 1000);
+        })
+      }}
       title="Appointments Database"
       data={appointmentList}
       />
@@ -81,6 +103,13 @@ const AppointmentList = (props) => {
           setOpen(false);
           setUser({});
           setMessage("");
+          fetch('/text', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({body: message})
+          });
         }}>Send</Button>
       </DialogActions>
     </Dialog>

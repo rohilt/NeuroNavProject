@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Example = require('../models/examples.server.model.js')
 const Appointment = require('../models/AppointmentModel.js')
 const User = require('../models/user.js')
-const config = require('../config/config.js')
+// const config = require('../config/config.js')
 const axios = require('axios')
 const {google} = require('googleapis');
 const fs = require('fs');
@@ -72,8 +72,6 @@ exports.deletePatient = async (req, res) => {
 }
 
 exports.editPatient = async (req,res) => {
-    console.log(req.body.newData._id);
-    
     User.findOneAndUpdate({"_id" : req.body.newData._id}, {
         name:           req.body.newData.name,
         middleInitial : req.body.newData.middleInitial,
@@ -92,6 +90,22 @@ exports.editPatient = async (req,res) => {
 }
 
 exports.addAppointment = async (req, res) => {
+    const webCredentials = {
+        "client_id": process.env.WEB_CLIENT_ID || require('../config/config.js').credentials.web.client_id,
+        "project_id": process.env.WEB_PROJECT_ID || require('../config/config.js').credentials.web.project_id,
+        "auth_uri": process.env.WEB_AUTH_URI || require('../config/config.js').credentials.web.auth_uri,
+        "token_uri": process.env.WEB_TOKEN_URI || require('../config/config.js').credentials.web.token_uri,
+        "auth_provider_x509_cert_url": process.env.WEB_AUTH_PROV || require('../config/config.js').credentials.web.auth_provider_x509_cert_url,
+        "client_secret": process.env.WEB_CLIENT_SECRET || require('../config/config.js').credentials.web.client_secret,
+        "redirect_uris": ["http://www.google.com/"]
+    }
+    const token = {
+        "access_token": process.env.TOKEN_ACCESS || require('../config/config.js').token.access_token,
+        "refresh_token": process.env.TOKEN_REFRESH || require('../config/config.js').token.refresh_token,
+        "scope": process.env.TOKEN_SCOPE || require('../config/config.js').token.scope,
+        "token_type": process.env.TOKEN_TOKEN_TYPE || require('../config/config.js').token.token_type,
+        "expiry_date": 1585435903384
+    }
     Appointment.create({
         patientId : req.query.patientId,
         patientName: req.query.patientName,
@@ -100,11 +114,11 @@ exports.addAppointment = async (req, res) => {
         description: req.query.description,
     }, (err) => {
         if (err) throw err;
-        const {client_secret, client_id, redirect_uris} = config.credentials.web;
+        const {client_secret, client_id, redirect_uris} = webCredentials;
         const oAuth2Client = new google.auth.OAuth2(
             client_id, client_secret, redirect_uris[0]);
         
-            oAuth2Client.setCredentials(config.token);
+            oAuth2Client.setCredentials(token);
             insertEvent(oAuth2Client, {'summary': req.query.patientName,
             'start': {
             'dateTime': req.query.startTime,
@@ -114,6 +128,29 @@ exports.addAppointment = async (req, res) => {
             'dateTime': req.query.endTime,
             'timeZone': 'America/New_York',
             }}, res);
+    });
+}
+
+exports.deleteAppointment = async (req, res) => {
+    Appointment.deleteOne( {"_id" : req.query.id}, function(err) {
+        if(err) console.log(err);
+    });
+    res.send('deleted')
+}
+
+exports.editAppointment = async (req, res) => {
+    Appointment.findOneAndUpdate({"_id" : req.body.newData._id}, {
+        patientId   : req.body.newData.patientId,
+        patientName : req.body.newData.patientName,
+        startTime   : req.body.newData.startTime,
+        endTime     : req.body.newData.endTime,
+        description : req.body.newData.description,
+        }, function(err, result){
+        if(err) {
+            res.send(err);
+        } else {
+            res.send(result);
+        }
     });
 }
 
@@ -161,7 +198,7 @@ exports.getPatients = async (req, res) => {
             if (!doc.distanceToClinic || !doc.timeToClinic) {
                 const origin = doc.address;
                 console.log(doc.address);
-                const response = await axios.get('https://maps.googleapis.com/maps/api/directions/json?key=' + config.directions.key + '&origin=' + origin + '&destination=Parking Garage 10 Newell Dr, Gainesville, FL 32603');
+                const response = await axios.get('https://maps.googleapis.com/maps/api/directions/json?key=' + (process.env.MAP_KEY || require('../config/config.js').directions.key) + '&origin=' + origin + '&destination=Parking Garage 10 Newell Dr, Gainesville, FL 32603');
                 console.log(response.data);
                 doc.distanceToClinic = response.data.routes[0].legs[0].distance.text;
                 doc.timeToClinic = response.data.routes[0].legs[0].duration.text;

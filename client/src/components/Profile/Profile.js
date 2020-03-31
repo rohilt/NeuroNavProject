@@ -81,7 +81,7 @@ const useStyles = makeStyles(theme =>({
                     {'Date of Birth: '}
                 </Typography>
                 <Typography variant="body1" style={{display: 'inline'}} > 
-                    {entry.dateOfBirth} 
+                    {(new Date(entry.dateOfBirth)).toLocaleDateString()} 
                 </Typography>
                 <br />
                 <Typography variant="h5" component="h2" style={{display: 'inline'}}>
@@ -95,7 +95,7 @@ const useStyles = makeStyles(theme =>({
                     {'Email Address: '}
                 </Typography>
                 <Typography variant="body1" style={{display: 'inline'}} > 
-                    {entry.emailAddress} 
+                    {entry.email} 
                 </Typography>
                 <br />
                 <Typography variant="h5" component="h2" style={{display: 'inline'}}>

@@ -157,8 +157,8 @@ const Admin = () => {
         </Drawer>
         <div className={classes.content}>
           
-          {view == 0 ? <div><br /><PatientList updated={updated}/></div> : null}
-          {view == 1 ? <div><br /><AppointmentList updated={updated}/></div> : null}
+          {view == 0 ? <div><br /><PatientList setUpdated={setUpdated} updated={updated}/></div> : null}
+          {view == 1 ? <div><br /><AppointmentList setUpdated={setUpdated} updated={updated}/></div> : null}
           {view == 2 ? <div><AddPatientPage setUpdated={setUpdated} updated={updated}/></div> : null}
           {view == 3 ? <div><AddAppointmentPage updated={updated} setUpdated={setUpdated}/></div> : null}
           {view == 5 ? <div><SendText updated={updated} setUpdated={setUpdated}/></div> : null}
