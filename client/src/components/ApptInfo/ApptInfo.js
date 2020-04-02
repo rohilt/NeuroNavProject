@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Appt from './Appt';
 import './ApptInfo.css'
+import httpUser from '../../httpUser'
+import axios from 'axios'
 
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
@@ -31,9 +33,25 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-function ApptInfo() {
+function ApptInfo(props) {
     const classes = useStyles();
+    const user = httpUser.getCurrentUser();
+    const [appointmentList, setAppointmentList] = useState([]);
+    useEffect(() => {
+      axios.get('/appointment').then(response => {
+        setAppointmentList(response.data.filter(element => element.patientId == user._id));
+        // setAppointmentList(appointmentList.filter(element => element.patientId == user._id));
+      });
+    }, [props.updated]);
 
+    const numDaysBetween = (d1, d2) => {
+      d1.setHours(0, 0, 0, 0);
+      d2.setHours(0, 0, 0, 0);
+      console.log(d1);
+      console.log(d2);
+      console.log((d1.getTime() - d2.getTime())/86400000);
+      return (d1.getTime() - d2.getTime())/86400000;
+    }
     return (
         
             <div className="Wrapper">
@@ -51,18 +69,34 @@ function ApptInfo() {
 
                 <div className = "ApptBlock">
                     <h2>Today:</h2>
-                    <Appt/>
+                    {appointmentList.map(
+                      element => numDaysBetween(new Date(element.startTime), new Date()) == 0 ?
+                      <Appt start={element.startTime} end={element.endTime} description={element.description} /> : null
+                    )}
                 </div>
 
                 <div className="ApptBlock">
                     <h2>Tomorrow:</h2>
-                    <p>No Appointments to show!</p>
+                    {appointmentList.map(
+                      element => numDaysBetween(new Date(element.startTime), new Date()) == 1  ?
+                      <Appt start={element.startTime} end={element.endTime} description={element.description} /> : null
+                    )}
+                </div>
+
+                <div className="ApptBlock">
+                    <h2>This Week:</h2>
+                    {appointmentList.map(
+                      element => numDaysBetween(new Date(element.startTime), new Date()) >= 2 && numDaysBetween(new Date(element.startTime), new Date()) <= 7 ?
+                      <Appt start={element.startTime} end={element.endTime} description={element.description} /> : null
+                    )}
                 </div>
 
                 <div className="ApptBlock">
                     <h2>Later This Year:</h2>
-                    <Appt/>
-                    <Appt/>
+                    {appointmentList.map(
+                      element => numDaysBetween(new Date(element.startTime), new Date()) > 7 ?
+                      <Appt start={element.startTime} end={element.endTime} description={element.description} /> : null
+                    )}
                 </div>
             </div>
         
