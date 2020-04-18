@@ -49,21 +49,9 @@ const PatientAppointmentList = (props) => {
   return (
 
     <Container>
-          <Toolbar>
-      <Typography variant="h6"  className={classes.title} >Viewing {user.name}'s appointments</Typography>
-      <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                  
-                    component={Link} to="./patientView"
-          >
-            Back
-          </Button>
-      </Toolbar>
+
     <TableContainer component={Paper}>
     <MaterialTable columns={[
-        {title: "Patient", field: "patientName"},
         {title: "Date", field: "startTime", render: rowData => (new Date(rowData.startTime)).toLocaleDateString()},
         {title: "Start Time", field: "startTime", render: rowData => (new Date(rowData.startTime)).toLocaleTimeString([], {hour: '2-digit',minute: '2-digit'})},
         {title: "End Time", field: "endTime", render: rowData => (new Date(rowData.endTime)).toLocaleTimeString([], {hour: '2-digit',minute: '2-digit'})},

@@ -88,7 +88,9 @@ const Admin = () => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
-              Patient View
+              {view == 0 ? "Profile" : null}
+              {view == 1 ? "Appointments" : null}
+              {view == 2 ? "Directions" : null}
             </Typography>
             <Button component={Link} to="/logout" color="inherit">Logout</Button>
           </Toolbar>
