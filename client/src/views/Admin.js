@@ -3,6 +3,7 @@ import { Route, Switch, Redirect  } from 'react-router-dom'
 import AddPatient from '../components/Admin/AddPatient';
 import AddPatientPage from '../components/Admin/AddPatientPage';
 import AddAppointmentPage from '../components/Admin/AddAppointmentPage';
+import AdminProfile from '../components/Profile/AdminProfile';
 
 import AddAppointment from '../components/Admin/AddAppointment';
 import PatientList from '../components/Admin/PatientList';
@@ -20,6 +21,7 @@ import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ProfileIcon from '@material-ui/icons/AccountCircle';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import PeopleIcon from '@material-ui/icons/People';
@@ -122,6 +124,10 @@ const Admin = () => {
           </div>
           <Divider />
           <List>
+          <ListItem button onClick={() => {setView(0);setDrawerOpen(false)}} key={"patient"}>
+              <ListItemIcon><ProfileIcon/></ListItemIcon>
+              <ListItemText primary="View Profile"/>
+            </ListItem>
             <ListItem button onClick={() => {setView(0);setDrawerOpen(false)}} key={"patient"}>
               <ListItemIcon><PeopleIcon/></ListItemIcon>
               <ListItemText primary="Patients"/>
@@ -158,12 +164,13 @@ const Admin = () => {
         </Drawer>
         <div className={classes.content}>
           
-          {view == 0 ? <div><br /><PatientList setUpdated={setUpdated} updated={updated}/></div> : null}
-          {view == 1 ? <div><br /><AppointmentList setUpdated={setUpdated} updated={updated}/></div> : null}
-          {view == 2 ? <div><AddPatientPage setUpdated={setUpdated} updated={updated}/></div> : null}
-          {view == 3 ? <div><AddAppointmentPage updated={updated} setUpdated={setUpdated}/></div> : null}
-          {view == 5 ? <div><SendText updated={updated} setUpdated={setUpdated}/></div> : null}
-          {view == 4 ? (
+          {view == 0 ? <div><br /><AdminProfile setUpdated={setUpdated} updated={updated}/></div> : null}
+          {view == 1 ? <div><br /><PatientList setUpdated={setUpdated} updated={updated}/></div> : null}
+          {view == 2 ? <div><br /><AppointmentList setUpdated={setUpdated} updated={updated}/></div> : null}
+          {view == 3 ? <div><AddPatientPage setUpdated={setUpdated} updated={updated}/></div> : null}
+          {view == 4 ? <div><AddAppointmentPage updated={updated} setUpdated={setUpdated}/></div> : null}
+          {view == 6 ? <div><SendText updated={updated} setUpdated={setUpdated}/></div> : null}
+          {view == 5 ? (
             <Container fixed>
             <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=bmV1cm9uYXZ1ZkBnbWFpbC5jb20&amp;color=%23039BE5&amp;showTitle=0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
             </Container>
