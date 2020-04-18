@@ -61,7 +61,7 @@ module.exports = {
     },
 
     authenticate: async (req, res) => {
-        const user = await User.findOne({email: req.body.email});
+        const user = await User.findOne({email: req.body.email}).collation({locale: "en", strength: 2});
 
         if(!user || !user.validPassword(req.body.password)) {
             return res.json({success: false, message: "Invalid Login"});
