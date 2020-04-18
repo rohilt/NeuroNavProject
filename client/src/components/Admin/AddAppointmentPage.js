@@ -33,6 +33,8 @@ const AddPatientPage = (props) => {
   const [description, setDescription] = useState("");
   const [patientSelected, setPatientSelected] = useState("");
   const [patientName, setPatientName] = useState("");
+  const [doctor, setDoctor] = useState("");
+  const [location, setLocation] = useState("");
   useEffect(() => {
     axios.get('/patient').then(response => {
       setPatientList(response.data);
@@ -47,7 +49,7 @@ const AddPatientPage = (props) => {
     endDate.setHours(endTime.getHours(), endTime.getMinutes());
     // console.log(endDate);
     // console.log('/appointment?startTime=' + startDate.toISOString() + '&endTime=' + endDate.toISOString() + '&patientId=' + patientSelected + '&patientName=' + patientName + '&description=' + description);
-    axios.post('/appointment?startTime=' + startDate.toISOString() + '&endTime=' + endDate.toISOString() + '&patientId=' + patientSelected + '&patientName=' + patientName + '&description=' + description);
+    axios.post('/appointment?startTime=' + startDate.toISOString() + '&endTime=' + endDate.toISOString() + '&patientId=' + patientSelected + '&patientName=' + patientName + '&description=' + description + '&doctor=' + doctor + '&location' + location);
     // axios.post('/patient?name=' + name + '&middleInitial=' + mi + '&lastName=' + lastName + '&dateOfBirth=' + dob.toISOString() + '&phoneNumber=' + phone + '&emailAddress=' + email + '&address=' + address).then(response => console.log(response));
     props.setUpdated(props.updated+1);
     setDate(new Date());
@@ -56,6 +58,8 @@ const AddPatientPage = (props) => {
     setDescription("");
     setPatientSelected("");
     setPatientName("");
+    setDoctor("");
+    setLocation("");
     setShowAlert(true);
   };
   return (
@@ -113,6 +117,8 @@ const AddPatientPage = (props) => {
         />
       </MuiPickersUtilsProvider>
       <TextField fullWidth margin="dense" value={description} onChange={(e) => setDescription(e.target.value)} label="Description"/>
+      <TextField fullWidth margin="dense" value={doctor} onChange={(e) => setDoctor(e.target.value)} label="Doctor"/>
+      <TextField fullWidth margin="dense" value={location} onChange={(e) => setLocation(e.target.value)} label="Location"/>
       </Container>
       <DialogActions>
         <Button onClick={handleSubmit}>Add appointment</Button>

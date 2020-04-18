@@ -89,13 +89,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+export const Home = (props) => {
 
-export function Home() {
   const classes = useStyles();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [view, setView] = useState(0);
   const [updated, setUpdated] = useState(0);
-  
+
   const login = () => {
     setView(2);
   }
@@ -142,7 +142,7 @@ export function Home() {
           
           {view == 0 ? <div><HomeView updated={updated} setUpdated={setUpdated} setView={setView}/> </div> : null}
           {view == 1 ? <div><Directions updated={updated} setUpdated={setUpdated}/></div> : null}
-          {view == 2 ? <div><Login updated={updated} setUpdated={setUpdated}/></div> : null}
+          {view == 2 ? <div><Login updated={updated} setUpdated={setUpdated} onLoginSuccess={props.onLoginSuccess} history={props.history}/></div> : null}
 
 
         </div>

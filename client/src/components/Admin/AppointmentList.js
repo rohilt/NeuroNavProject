@@ -33,7 +33,9 @@ const AppointmentList = (props) => {
         {title: "Date", field: "startTime", render: rowData => (new Date(rowData.startTime)).toLocaleDateString()},
         {title: "Start Time", field: "startTime", render: rowData => (new Date(rowData.startTime)).toLocaleTimeString([], {hour: '2-digit',minute: '2-digit'})},
         {title: "End Time", field: "endTime", render: rowData => (new Date(rowData.endTime)).toLocaleTimeString([], {hour: '2-digit',minute: '2-digit'})},
-        {title: "Description", field: "description"},
+        {title: "Doctor", field: "doctor"},
+        {title: "Location", field: "location"},
+        {title: "Description", field: "description"}
       ]}
       actions={[
         {
