@@ -32,6 +32,13 @@ const useStyles = makeStyles(theme =>({
     title: {
       flexGrow: 1,
     },
+    toolbar: theme.mixins.toolbar,
+    content: {
+      flexGrow: 1,
+      marginTop: theme.spacing(3),
+      marginLeft: theme.spacing(25),
+      marginRight: theme.spacing(-4),
+    },
   }));
 
   const ApptInfo = (props) => {
@@ -44,7 +51,8 @@ const useStyles = makeStyles(theme =>({
     }, [props.updated]);
 
     return (    
-      <div className="Wrapper">
+      <main className={classes.content}>
+      <div className={classes.toolbar}>
         <Toolbar>
           <Typography variant="h6"  className={classes.title} >
             Admin Profile Information
@@ -119,7 +127,7 @@ const useStyles = makeStyles(theme =>({
         </Card>
         </div>
       </div>
-        
+      </main> 
     );
 }
 
