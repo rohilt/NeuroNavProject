@@ -49,7 +49,7 @@ const AddPatientPage = (props) => {
     endDate.setHours(endTime.getHours(), endTime.getMinutes());
     // console.log(endDate);
     // console.log('/appointment?startTime=' + startDate.toISOString() + '&endTime=' + endDate.toISOString() + '&patientId=' + patientSelected + '&patientName=' + patientName + '&description=' + description);
-    axios.post('/appointment?startTime=' + startDate.toISOString() + '&endTime=' + endDate.toISOString() + '&patientId=' + patientSelected + '&patientName=' + patientName + '&description=' + description + '&doctor=' + doctor + '&location' + location);
+    axios.post('/appointment?startTime=' + startDate.toISOString() + '&endTime=' + endDate.toISOString() + '&patientId=' + patientSelected + '&patientName=' + patientName + '&description=' + description + '&doctor=' + doctor + '&location=' + location);
     // axios.post('/patient?name=' + name + '&middleInitial=' + mi + '&lastName=' + lastName + '&dateOfBirth=' + dob.toISOString() + '&phoneNumber=' + phone + '&emailAddress=' + email + '&address=' + address).then(response => console.log(response));
     props.setUpdated(props.updated+1);
     setDate(new Date());
