@@ -72,6 +72,27 @@ exports.deletePatient = async (req, res) => {
 }
 
 exports.editPatient = async (req,res) => {
+    var outTime = '';
+    var outDist = '';
+
+    try {
+          const origin = req.body.newData.address;
+          const destination = '29.639418, -82.341230';
+          const response = await axios.get('https://maps.googleapis.com/maps/api/directions/json?key=' + (process.env.MAP_KEY || require('../config/config.js').directions.key) + '&origin=' + origin + '&destination='+ destination);
+          if (!response.data.routes) {
+            outTime = '';
+            outDist = '';
+          }
+          else {
+            outDist = response.data.routes[0].legs[0].distance.text,
+              outTime = response.data.routes[0].legs[0].duration.text
+          }
+        // })
+      }
+      catch (err) {
+        console.log(err);
+      }
+
     User.findOneAndUpdate({"_id" : req.body.newData._id}, {
         name:           req.body.newData.name,
         middleInitial : req.body.newData.middleInitial,
@@ -80,8 +101,8 @@ exports.editPatient = async (req,res) => {
         phoneNumber :   req.body.newData.phoneNumber,
         address :       req.body.newData.address,
         emailAddress :  req.body.newData.emailAddress,
-        distanceToClinic : '',
-        timeToClinic : ''
+        distanceToClinic : outDist,
+        timeToClinic : outTime
         }, function(err, result){
         if(err) {
             res.send(err);

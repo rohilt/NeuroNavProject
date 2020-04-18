@@ -27,16 +27,16 @@ const useStyles = makeStyles({
     },
   });
 
-function Appt(){
+const Appt = (props) => {
     const classes = useStyles();
     return(
         <Card className={classes.root} variant="outlined">
             <CardContent>
                 <Typography variant="h5" component="h2">
-                    Test Appointment with Dr. Sapperstein
+                    {props.description}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
-                    Monday, March 9th 3:00pm at Fixel Institute
+                    {(new Date(props.start)).toLocaleDateString()}: {(new Date(props.start)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} to {(new Date(props.end)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
                 </Typography>
                 <Typography variant="body2" component="p">
                     Address: 
