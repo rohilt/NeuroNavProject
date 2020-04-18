@@ -6,8 +6,10 @@ const appointmentModel = new mongoose.Schema({
   patientName: {type: String},
   startTime: {type: Date, required: true},
   endTime: {type: Date, required: true},
+  doctor: {type: String},
   location: {type: String},
-  description: {type: String}
+  description: {type: String},
+  
 });
 
 module.exports = mongoose.model('appointment', appointmentModel);

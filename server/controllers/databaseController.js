@@ -134,7 +134,11 @@ exports.addAppointment = async (req, res) => {
         patientName: req.query.patientName,
         startTime : req.query.startTime,
         endTime : req.query.endTime,
+        doctor: req.query.doctor,
+        location: req.query.location,
         description: req.query.description,
+        
+
     }, (err) => {
         if (err) throw err;
         const {client_secret, client_id, redirect_uris} = webCredentials;
@@ -168,6 +172,8 @@ exports.editAppointment = async (req, res) => {
         startTime   : req.body.newData.startTime,
         endTime     : req.body.newData.endTime,
         description : req.body.newData.description,
+        doctor      : req.body.newData.doctor,
+        location    : req.body.newData.location
         }, function(err, result){
         if(err) {
             res.send(err);

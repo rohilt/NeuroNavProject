@@ -2,6 +2,8 @@ import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -33,20 +35,13 @@ const Appt = (props) => {
         <Card className={classes.root} variant="outlined">
             <CardContent>
                 <Typography variant="h5" component="h2">
-                    {props.description}
+                {props.doctor}, at {props.location}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
                     {(new Date(props.start)).toLocaleDateString()}: {(new Date(props.start)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} to {(new Date(props.end)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
                 </Typography>
                 <Typography variant="body2" component="p">
-                    Address: 
-                    <br />
-                    3009 SW Williston Rd, Gainesville, FL 32608
-                    <br />
-                    <br />
-                    Special Instructions:
-                    <br />
-                    Fast for 12 hours before the appointment
+                  {props.description}
                 </Typography>
             </CardContent>
             <CardActions>

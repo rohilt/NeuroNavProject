@@ -89,11 +89,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export function Home() {
+export const Home = (props) => {
+
   const classes = useStyles();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [view, setView] = useState(0);
   const [updated, setUpdated] = useState(0);
+
+  const login = () => {
+    setView(2);
+  }
 
   return (
     <MuiThemeProvider theme={theme}>
@@ -106,7 +111,7 @@ export function Home() {
           <Typography variant="h6" className={classes.title} >
             UF DEPARTMENT OF NEUROSURGERY
           </Typography>
-          <Button component={Link} to="/login" color="inherit">Login</Button>
+          <Button  onClick = {login} color="inherit">Login</Button>
           
 
         </Toolbar>
@@ -127,17 +132,17 @@ export function Home() {
               <ListItemIcon><DirectionsIcon/></ListItemIcon>
               <ListItemText primary="Directions"/>
             </ListItem>
-            {/*<ListItem button onClick={() => {setView(2);setDrawerOpen(false)}} key={"login"}>
+            <ListItem button onClick={() => {setView(2);setDrawerOpen(false)}} key={"login"}>
               <ListItemIcon><LoginIcon /></ListItemIcon>
               <ListItemText primary="Login"/>
-  </ListItem> */}
+  </ListItem>
           </List>
         </Drawer>
         <div className={classes.content}>
           
           {view == 0 ? <div><HomeView updated={updated} setUpdated={setUpdated} setView={setView}/> </div> : null}
           {view == 1 ? <div><Directions updated={updated} setUpdated={setUpdated}/></div> : null}
-          {/*view == 2 ? <div><Login updated={updated} setUpdated={setUpdated}/></div> : null*/}
+          {view == 2 ? <div><Login updated={updated} setUpdated={setUpdated} onLoginSuccess={props.onLoginSuccess} history={props.history}/></div> : null}
 
 
         </div>

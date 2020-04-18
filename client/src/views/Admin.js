@@ -3,7 +3,6 @@ import { Route, Switch, Redirect  } from 'react-router-dom'
 import AddPatient from '../components/Admin/AddPatient';
 import AddPatientPage from '../components/Admin/AddPatientPage';
 import AddAppointmentPage from '../components/Admin/AddAppointmentPage';
-
 import AddAppointment from '../components/Admin/AddAppointment';
 import PatientList from '../components/Admin/PatientList';
 import AppointmentList from '../components/Admin/AppointmentList';
