@@ -23,8 +23,22 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import httpUser from '../../httpUser';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme =>({
+  content: {
+    flexGrow: 1,
+    marginTop: theme.spacing(5),
+    marginLeft: theme.spacing(25),
+    marginRight: theme.spacing(-4),
+  },
+  snackbar: {
+    marginLeft: theme.spacing(28)
+  }
+}));
 
 const AddPatientPage = (props) => {
+  const classes = useStyles();
   const [showAlert, setShowAlert] = useState(false);
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState(new Date());
@@ -71,6 +85,7 @@ const AddPatientPage = (props) => {
     setShowAlert(true);
   };
   return (
+    <main className={classes.content}>
     <Container>
       <br/>
     <Paper>
@@ -145,15 +160,19 @@ const AddPatientPage = (props) => {
         <Button onClick={handleSubmit}>Add appointment</Button>
       </DialogActions>
     </Paper>
-    <Snackbar anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-    }} open={showAlert} autoHideDuration={5000} onClose={() => setShowAlert(false)}>
+    <Snackbar className={classes.snackbar} 
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',}} 
+              open={showAlert} 
+              autoHideDuration={5000} 
+              onClose={() => setShowAlert(false)}>
       <Alert severity="success">
         Appointment added to database
       </Alert>
     </Snackbar>
     </Container>
+    </main>
   )
 }
 

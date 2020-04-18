@@ -14,10 +14,21 @@ import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 import { TableContainer, Container, DialogActions} from '@material-ui/core';
 import MaterialTable from "material-table";
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme =>({
+  content: {
+    flexGrow: 1,
+    marginTop: theme.spacing(5),
+    marginLeft: theme.spacing(25),
+    marginRight: theme.spacing(-4),
+  },
+}));
 
 
 
 const AppointmentList = (props) => {
+  const classes = useStyles();
   const [appointmentList, setAppointmentList] = useState([]);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
@@ -26,6 +37,7 @@ const AppointmentList = (props) => {
     axios.get('/appointment').then(response => setAppointmentList(response.data));
   }, [props.updated]);
   return (
+    <main className={classes.content}>
     <Container>
     <TableContainer component={Paper}>
     <MaterialTable columns={[
@@ -116,6 +128,7 @@ const AppointmentList = (props) => {
       </DialogActions>
     </Dialog>
     </Container>
+    </main>
   )
 }
 
