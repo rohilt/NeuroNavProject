@@ -205,6 +205,8 @@ export class MapContainer extends Component {
         Distance: {distString}
         <br/>
         Estimated Time: {durString}
+        <br/>
+        Walking Time from Parking to Clinic: 8 Minutes
         </Typography>
         </CardContent>
         {/* <div>
