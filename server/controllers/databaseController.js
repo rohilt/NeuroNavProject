@@ -32,6 +32,19 @@ listEvents = (auth, response) => {
     });
 }
 
+editEvent = async (auth, event, calendarId, eventId, req, response) => {
+    const calendar = google.calendar({version: 'v3', auth});
+    calendar.events.update({
+      auth: auth,
+      calendarId: calendarId,
+      eventId: eventId,
+      resource: event,
+    }, (err, newEvent) => {
+      if (err) return console.log('The API returned an error: ' + err);
+        response.send(event);
+    });
+};
+
 insertEvent = async (auth, event, calendarId, req, response) => {
     const calendar = google.calendar({version: 'v3', auth});
     calendar.events.insert({
@@ -154,7 +167,8 @@ exports.addAppointment = async (req, res) => {
     const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
     oAuth2Client.setCredentials(token);
     insertEvent(oAuth2Client, {
-        'summary': req.query.patientName,
+        'summary': req.query.patientName + ' with ' + req.query.doctor + ', at ' + req.query.location,
+        'description': req.query.description,
         'start': {
             'dateTime': req.query.startTime,
             'timeZone': 'America/New_York',
@@ -173,6 +187,7 @@ exports.deleteAppointment = async (req, res) => {
 }
 
 exports.editAppointment = async (req, res) => {
+    
     Appointment.findOneAndUpdate({"_id" : req.body.newData._id}, {
         patientId   : req.body.newData.patientId,
         patientName : req.body.newData.patientName,
@@ -185,7 +200,37 @@ exports.editAppointment = async (req, res) => {
         if(err) {
             res.send(err);
         } else {
-            res.send(result);
+            console.log(result);
+            const webCredentials = {
+                "client_id": process.env.WEB_CLIENT_ID || require('../config/config.js').credentials.web.client_id,
+                "project_id": process.env.WEB_PROJECT_ID || require('../config/config.js').credentials.web.project_id,
+                "auth_uri": process.env.WEB_AUTH_URI || require('../config/config.js').credentials.web.auth_uri,
+                "token_uri": process.env.WEB_TOKEN_URI || require('../config/config.js').credentials.web.token_uri,
+                "auth_provider_x509_cert_url": process.env.WEB_AUTH_PROV || require('../config/config.js').credentials.web.auth_provider_x509_cert_url,
+                "client_secret": process.env.WEB_CLIENT_SECRET || require('../config/config.js').credentials.web.client_secret,
+                "redirect_uris": ["http://www.google.com/"]
+            }
+            const token = {
+                "access_token": process.env.TOKEN_ACCESS || require('../config/config.js').token.access_token,
+                "refresh_token": process.env.TOKEN_REFRESH || require('../config/config.js').token.refresh_token,
+                "scope": process.env.TOKEN_SCOPE || require('../config/config.js').token.scope,
+                "token_type": process.env.TOKEN_TOKEN_TYPE || require('../config/config.js').token.token_type,
+                "expiry_date": 1585435903384
+            }
+            const {client_secret, client_id, redirect_uris} = webCredentials;
+            const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
+            oAuth2Client.setCredentials(token);
+            editEvent(oAuth2Client, {
+                'summary': req.body.newData.patientName + ' with ' + req.body.newData.doctor + ', at ' + req.body.newData.location,
+                'description': req.body.newData.description,
+                'start': {
+                    'dateTime': req.body.newData.startTime,
+                    'timeZone': 'America/New_York',
+                },
+                'end': {
+                    'dateTime': req.body.newData.endTime,
+                    'timeZone': 'America/New_York',
+                }}, req.app.locals.calendarId, result.eventId, req, res);
         }
     });
 }
