@@ -32,7 +32,7 @@ const useStyles = makeStyles({
 const Appt = (props) => {
     const classes = useStyles();
     return(
-        <Card className={classes.root} variant="outlined">
+        <Card style={{display: 'inline-block'}} className={classes.root} variant="outlined">
             <CardContent>
                 <Typography variant="h5" component="h2">
                 {props.doctor}, at {props.location}

@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
 import Badge from '@material-ui/core/Badge'
 import axios from 'axios'
 
@@ -56,7 +57,7 @@ const CalendarPage = (props) => {
           <div>
           <Card variant="outlined">
           <CardContent>
-              <Typography variant="h5" component="h2">
+              <Typography variant="h6">
               {appt.doctor}, at {appt.location}
               </Typography>
               <Typography color="textSecondary">
