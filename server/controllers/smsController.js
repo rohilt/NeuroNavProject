@@ -13,7 +13,7 @@ const client = require('twilio')(accountSid, authToken);
          from: '+13345819814',
          to: req.body.to 
        })
-      .then(message => res.send(message));
+      .then(message => res.send({success: true}));
     }
     catch (err) {
       res.send(err);
