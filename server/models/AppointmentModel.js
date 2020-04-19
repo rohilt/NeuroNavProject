@@ -9,7 +9,7 @@ const appointmentModel = new mongoose.Schema({
   doctor: {type: String},
   location: {type: String},
   description: {type: String},
-  
+  eventId: {type: String}
 });
 
 module.exports = mongoose.model('appointment', appointmentModel);

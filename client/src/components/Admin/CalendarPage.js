@@ -12,6 +12,8 @@ import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
+import Badge from '@material-ui/core/Badge'
 import axios from 'axios'
 
 const theme = createMuiTheme({
@@ -19,6 +21,11 @@ const theme = createMuiTheme({
     htmlFontSize: 14,
   },
 });
+const numDaysBetween = (d1, d2) => {
+  d1.setHours(0, 0, 0, 0);
+  d2.setHours(0, 0, 0, 0);
+  return (d1.getTime() - d2.getTime())/86400000;
+}
 
 const CalendarPage = (props) => {
   const [date, setDate] = useState(new Date());
@@ -38,6 +45,9 @@ const CalendarPage = (props) => {
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <Calendar fullWidth
           date={date}
+          renderDay={(date, selectedDay, dayInCurrentMonth, dayComponent) => 
+            appointmentList.some((appt) => numDaysBetween(new Date(appt.startTime), date) == 0) ? (<Badge color="primary" variant="dot" overlap="circle">{dayComponent}</Badge>) : <div>{dayComponent}</div>
+          }
           onChange={(date) => setDate(date)}
         />
       </MuiPickersUtilsProvider>
@@ -47,7 +57,7 @@ const CalendarPage = (props) => {
           <div>
           <Card variant="outlined">
           <CardContent>
-              <Typography variant="h5" component="h2">
+              <Typography variant="h6">
               {appt.doctor}, at {appt.location}
               </Typography>
               <Typography color="textSecondary">

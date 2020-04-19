@@ -19,7 +19,7 @@ import Typography from '@material-ui/core/Typography';
 import TableChartIcon from '@material-ui/icons/TableChart';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import CloseIcon from '@material-ui/icons/Close';
-import { Paper } from '@material-ui/core';
+import { Paper, Grid } from '@material-ui/core';
 
 
 
@@ -102,46 +102,62 @@ function ApptInfo(props) {
                     <Typography variant="h4">
                       Today
                     </Typography>
+                <Divider />
+                <br />
+                  <Grid container spacing={3}>
+                    
                     {appointmentList.map(
                       element => numDaysBetween(new Date(element.startTime), new Date()) == 0 ?
-                      <Appt start={element.startTime} end={element.endTime} description={element.description} doctor={element.doctor} location={element.location}/> : null
+                      <Grid item>
+                      <Appt start={element.startTime} end={element.endTime} description={element.description} doctor={element.doctor} location={element.location}/> </Grid> : null
                     )}
+                  </Grid>
+
                 </div>
-                <Divider />
 
                 <div className="ApptBlock">
                     <Typography variant="h4">
                       Tomorrow
                     </Typography>
-                  <br/>
+                    <Divider />
+                <br />
+                  <Grid container spacing={3}>
                     {appointmentList.map(
                       element => numDaysBetween(new Date(element.startTime), new Date()) == 1  ?
-                      <Appt start={element.startTime} end={element.endTime} description={element.description} doctor={element.doctor} location={element.location}/> : null
+                      <Grid item>
+                      <Appt start={element.startTime} end={element.endTime} description={element.description} doctor={element.doctor} location={element.location}/> </Grid> : null
                     )}
+                  </Grid>
                 </div>
-                <Divider />
 
                 <div className="ApptBlock">
                     <Typography variant="h4">
                       This week
                     </Typography>
+                    <Divider />
                   <br/>
+                  <Grid container spacing={3}>
                     {appointmentList.map(
                       element => numDaysBetween(new Date(element.startTime), new Date()) >= 2 && numDaysBetween(new Date(element.startTime), new Date()) <= 7 ?
-                      <Appt start={element.startTime} end={element.endTime} description={element.description} doctor={element.doctor} location={element.location}/> : null
+                      <Grid item>
+                      <Appt start={element.startTime} end={element.endTime} description={element.description} doctor={element.doctor} location={element.location}/> </Grid> : null
                     )}
+                  </Grid>
                 </div>
-                <Divider />
 
                 <div className="ApptBlock">
                     <Typography variant="h4">
                       Later this year
                     </Typography>
+                    <Divider />
                   <br/>
+                  <Grid container spacing={3}>
                     {appointmentList.map(
                       element => numDaysBetween(new Date(element.startTime), new Date()) > 7 && numDaysBetween(new Date(element.startTime), new Date()) <= 365 ?
-                      <div> <Appt start={element.startTime} end={element.endTime} description={element.description} doctor={element.doctor} location={element.location}/> <br/> </div> : null
+                      <Grid item>
+                       <Appt start={element.startTime} end={element.endTime} description={element.description} doctor={element.doctor} location={element.location}/> </Grid> : null
                     )}
+                  </Grid>
                 </div>
                 </Container>
             </div>

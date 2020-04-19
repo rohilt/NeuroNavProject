@@ -32,19 +32,31 @@ listEvents = (auth, response) => {
     });
 }
 
-insertEvent = (auth, event, calendarId, response) => {
+insertEvent = async (auth, event, calendarId, req, response) => {
     const calendar = google.calendar({version: 'v3', auth});
     calendar.events.insert({
       auth: auth,
       calendarId: calendarId,
       resource: event,
-    }, (err, event) => {
+    }, (err, newEvent) => {
       if (err) return console.log('The API returned an error: ' + err);
         // console.log('Upcoming 10 events:');
         // events.map((event, i) => {
         //   const start = event.start.dateTime || event.start.date;
         //   console.log(`${start} - ${event.summary}`);
         // });
+        Appointment.create({
+            patientId : req.query.patientId,
+            patientName: req.query.patientName,
+            startTime : req.query.startTime,
+            endTime : req.query.endTime,
+            doctor: req.query.doctor,
+            location: req.query.location,
+            description: req.query.description,
+            eventId : newEvent.data.id
+        }, (err) => {
+            if (err) throw err;
+        });
         response.send(event);
     });
 };
@@ -138,33 +150,19 @@ exports.addAppointment = async (req, res) => {
         "token_type": process.env.TOKEN_TOKEN_TYPE || require('../config/config.js').token.token_type,
         "expiry_date": 1585435903384
     }
-    Appointment.create({
-        patientId : req.query.patientId,
-        patientName: req.query.patientName,
-        startTime : req.query.startTime,
-        endTime : req.query.endTime,
-        doctor: req.query.doctor,
-        location: req.query.location,
-        description: req.query.description,
-        
-
-    }, (err) => {
-        if (err) throw err;
-        const {client_secret, client_id, redirect_uris} = webCredentials;
-        const oAuth2Client = new google.auth.OAuth2(
-            client_id, client_secret, redirect_uris[0]);
-        
-            oAuth2Client.setCredentials(token);
-            insertEvent(oAuth2Client, {'summary': req.query.patientName,
-            'start': {
+    const {client_secret, client_id, redirect_uris} = webCredentials;
+    const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
+    oAuth2Client.setCredentials(token);
+    insertEvent(oAuth2Client, {
+        'summary': req.query.patientName,
+        'start': {
             'dateTime': req.query.startTime,
             'timeZone': 'America/New_York',
-            },
-            'end': {
+        },
+        'end': {
             'dateTime': req.query.endTime,
             'timeZone': 'America/New_York',
-            }}, req.app.locals.calendarId, res);
-    });
+        }}, req.app.locals.calendarId, req, res);
 }
 
 exports.deleteAppointment = async (req, res) => {
