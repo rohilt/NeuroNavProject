@@ -32,11 +32,11 @@ listEvents = (auth, response) => {
     });
 }
 
-insertEvent = (auth, event, response) => {
+insertEvent = (auth, event, calendarId, response) => {
     const calendar = google.calendar({version: 'v3', auth});
     calendar.events.insert({
       auth: auth,
-      calendarId: 'primary',
+      calendarId: calendarId,
       resource: event,
     }, (err, event) => {
       if (err) return console.log('The API returned an error: ' + err);
@@ -112,6 +112,15 @@ exports.editPatient = async (req,res) => {
     });
 }
 
+exports.setCalendarId = async (req, res) => {
+    req.app.locals.calendarId = req.query.calendarId;
+    res.send("success");
+}
+
+exports.getCalendarId = async (req, res) => {
+    res.send(req.app.locals.calendarId)
+}
+
 exports.addAppointment = async (req, res) => {
     const webCredentials = {
         "client_id": process.env.WEB_CLIENT_ID || require('../config/config.js').credentials.web.client_id,
@@ -154,7 +163,7 @@ exports.addAppointment = async (req, res) => {
             'end': {
             'dateTime': req.query.endTime,
             'timeZone': 'America/New_York',
-            }}, res);
+            }}, req.app.locals.calendarId, res);
     });
 }
 
