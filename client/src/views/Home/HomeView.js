@@ -130,7 +130,7 @@ export function Home(props) {
                   type="submit"
                   variant="contained" 
                   color="secondary"
-                  component={Link} to="/login">
+                  onClick={() => props.setView(2)}>
                     Login for Appointment Information 
                   </Button>
                 </Grid>
