@@ -58,8 +58,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2),
   },
   appBar: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
+    zIndex: theme.zIndex.drawer + 1
   },
   appBarSpacer: theme.mixins.toolbar,
     title: {
@@ -138,39 +137,39 @@ const Admin = () => {
           <div className={classes.toolbar}/>
           <Divider />
           <List>
-          <ListItem button onClick={() => {setView(0);}} key={"patient"}>
+          <ListItem selected={view === 0} button onClick={() => {setView(0);}} key={"patient"}>
               <ListItemIcon><ProfileIcon/></ListItemIcon>
               <ListItemText primary="View Profile"/>
             </ListItem>
-            <ListItem button onClick={() => {setView(1);}} key={"patient"}>
+            <ListItem selected={view === 1} button onClick={() => {setView(1);}} key={"patient"}>
               <ListItemIcon><PeopleIcon/></ListItemIcon>
               <ListItemText primary="Patients"/>
             </ListItem>
             <Collapse in={true} unmountOnExit>
               <List disablePadding>
-                <ListItem className={classes.nested} button onClick={() => {setView(3);}} key={"add-patient"}>
+                <ListItem selected={view === 3} className={classes.nested} button onClick={() => {setView(3);}} key={"add-patient"}>
                   <ListItemIcon><PersonAddIcon /></ListItemIcon>
                   <ListItemText primary="Add Patient"/>
                 </ListItem>
               </List>
             </Collapse>
-            <ListItem button onClick={() => {setView(2);}} key={"appointments"}>
+            <ListItem button selected={view === 2} onClick={() => {setView(2);}} key={"appointments"}>
               <ListItemIcon><ScheduleIcon/></ListItemIcon>
               <ListItemText primary="Appointments"/>
             </ListItem>
             <Collapse in={true} unmountOnExit>
               <List disablePadding>
-                <ListItem className={classes.nested} button onClick={() => {setView(4);}} key={"add-appointment"}>
+                <ListItem selected={view === 4} className={classes.nested} button onClick={() => {setView(4);}} key={"add-appointment"}>
                   <ListItemIcon><AddAlarmIcon /></ListItemIcon>
                   <ListItemText primary="Add Appointment"/>
                 </ListItem>
               </List>
             </Collapse>
-            <ListItem button onClick={() => {setView(5);}} key={"calendar"}>
+            <ListItem selected={view === 5} button onClick={() => {setView(5);}} key={"calendar"}>
               <ListItemIcon><EventNoteIcon /></ListItemIcon>
               <ListItemText primary="Calendar"/>
             </ListItem>
-            <ListItem button onClick={() => {setView(6);}} key={"texting"}>
+            <ListItem selected={view === 6} button onClick={() => {setView(6);}} key={"texting"}>
               <ListItemIcon><ChatBubbleOutlineIcon/></ListItemIcon>
               <ListItemText primary="Send Text"/>
             </ListItem>

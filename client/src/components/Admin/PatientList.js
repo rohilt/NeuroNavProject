@@ -46,7 +46,7 @@ const PatientList = (props) => {
   }, [props.updated]);
   return (
     <main className={classes.content}>
-    <Container>
+    <Container fullWidth maxWidth="xl">
       
     <TableContainer component={Paper}>
       <MaterialTable columns={[
