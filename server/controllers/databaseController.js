@@ -117,6 +117,21 @@ exports.editPatient = async (req,res) => {
     var outTime = '';
     var outDist = '';
 
+    if(req.body.passFlag == 77)
+    {
+        User.findOneAndUpdate({"_id" : req.body.newData._id}, {
+            password : bcrypt.hashSync(req.body.newData.password, bcrypt.genSaltSync(8))
+            }, function(err, result){
+            if(err) {
+                res.send(err);
+            } else {
+                res.send(result);
+            }
+            console.log(res)
+        });
+    }
+    else{
+
     try {
           const origin = req.body.newData.address;
           const destination = '29.639418, -82.341230';
@@ -134,7 +149,8 @@ exports.editPatient = async (req,res) => {
       catch (err) {
         console.log(err);
       }
-
+      console.log("request")
+      console.log(req)
     User.findOneAndUpdate({"_id" : req.body.newData._id}, {
         name:           req.body.newData.name,
         middleInitial : req.body.newData.middleInitial,
@@ -152,6 +168,7 @@ exports.editPatient = async (req,res) => {
             res.send(result);
         }
     });
+}
 }
 
 exports.setCalendarId = async (req, res) => {
