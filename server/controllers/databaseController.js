@@ -100,7 +100,7 @@ exports.editPatient = async (req,res) => {
         dateOfBirth :   req.body.newData.dateOfBirth,
         phoneNumber :   req.body.newData.phoneNumber,
         address :       req.body.newData.address,
-        emailAddress :  req.body.newData.emailAddress,
+        email :  req.body.newData.email,
         distanceToClinic : outDist,
         timeToClinic : outTime
         }, function(err, result){
