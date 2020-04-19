@@ -16,6 +16,7 @@ import Typography from '@material-ui/core/Typography'
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PersonPinIcon from '@material-ui/icons/PersonPin';
+import NotesIcon from '@material-ui/icons/Notes';
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
@@ -40,7 +41,9 @@ const CalendarPage = (props) => {
   const [date, setDate] = useState(new Date());
   const [appointmentList, setAppointmentList] = useState([]);
   useEffect(() => {
-    axios.get('/appointment').then(response => setAppointmentList(response.data));
+    axios.get('/appointment').then(response => {
+      setAppointmentList(response.data);
+    });
   }, [props.updated]);
   return (
     <ThemeProvider theme={theme}>
@@ -62,7 +65,7 @@ const CalendarPage = (props) => {
       </MuiPickersUtilsProvider>
       </Grid>
       <Grid item xs>
-        {appointmentList.sort((appt1, appt2) => (new Date(appt1.startTime)) < (new Date(appt2.startTime))).map(appt => (new Date(appt.startTime)).getDate() == date.getDate() && (new Date(appt.startTime)).getMonth() == date.getMonth() && (new Date(appt.startTime)).getFullYear() == date.getFullYear() ? 
+        {appointmentList.sort((appt1, appt2) => (new Date(appt1.startTime)) < (new Date(appt2.startTime)) ? -1 : ((new Date(appt1.startTime)) > (new Date(appt2.startTime)) ? 1 : 0)).map(appt => (new Date(appt.startTime)).getDate() == date.getDate() && (new Date(appt.startTime)).getMonth() == date.getMonth() && (new Date(appt.startTime)).getFullYear() == date.getFullYear() ? 
           <div>
           <Card variant="outlined">
           <CardContent>
@@ -74,10 +77,8 @@ const CalendarPage = (props) => {
                   <ListItem><ListItemIcon><AccessTimeIcon/></ListItemIcon><ListItemText primary={(new Date(appt.startTime)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + " to " + (new Date(appt.endTime)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}/></ListItem>
                   <ListItem><ListItemIcon><LocationOnIcon/></ListItemIcon><ListItemText primary={appt.location}/></ListItem>
                   <ListItem><ListItemIcon><PersonPinIcon/></ListItemIcon><ListItemText primary={appt.doctor}/></ListItem>
+                  <ListItem><ListItemIcon><NotesIcon/></ListItemIcon><ListItemText primary={appt.description}/></ListItem>
                 </List>
-              </Typography>
-              <Typography variant="body2" component="p">
-                {appt.description}
               </Typography>
           </CardContent>
           </Card>
