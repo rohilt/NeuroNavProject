@@ -45,6 +45,23 @@ editEvent = async (auth, event, calendarId, eventId, req, response) => {
     });
 };
 
+deleteEvent = async (auth, calendarId, eventId, req, response) => {
+    const calendar = google.calendar({version: 'v3', auth});
+    calendar.events.delete({
+      auth: auth,
+      calendarId: calendarId,
+      eventId: eventId,
+    }, (err) => {
+      if (err) {
+          response.send("error");
+          return console.log('The API returned an error: ' + err);
+      }
+      else {
+          response.send("success");
+      }
+    });
+};
+
 insertEvent = async (auth, event, calendarId, req, response) => {
     const calendar = google.calendar({version: 'v3', auth});
     calendar.events.insert({
@@ -180,10 +197,29 @@ exports.addAppointment = async (req, res) => {
 }
 
 exports.deleteAppointment = async (req, res) => {
-    Appointment.deleteOne( {"_id" : req.query.id}, function(err) {
+    Appointment.findOneAndDelete( {"_id" : req.query.id}, function(err, doc) {
         if(err) console.log(err);
+        const webCredentials = {
+            "client_id": process.env.WEB_CLIENT_ID || require('../config/config.js').credentials.web.client_id,
+            "project_id": process.env.WEB_PROJECT_ID || require('../config/config.js').credentials.web.project_id,
+            "auth_uri": process.env.WEB_AUTH_URI || require('../config/config.js').credentials.web.auth_uri,
+            "token_uri": process.env.WEB_TOKEN_URI || require('../config/config.js').credentials.web.token_uri,
+            "auth_provider_x509_cert_url": process.env.WEB_AUTH_PROV || require('../config/config.js').credentials.web.auth_provider_x509_cert_url,
+            "client_secret": process.env.WEB_CLIENT_SECRET || require('../config/config.js').credentials.web.client_secret,
+            "redirect_uris": ["http://www.google.com/"]
+        }
+        const token = {
+            "access_token": process.env.TOKEN_ACCESS || require('../config/config.js').token.access_token,
+            "refresh_token": process.env.TOKEN_REFRESH || require('../config/config.js').token.refresh_token,
+            "scope": process.env.TOKEN_SCOPE || require('../config/config.js').token.scope,
+            "token_type": process.env.TOKEN_TOKEN_TYPE || require('../config/config.js').token.token_type,
+            "expiry_date": 1585435903384
+        }
+        const {client_secret, client_id, redirect_uris} = webCredentials;
+        const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
+        oAuth2Client.setCredentials(token);
+        deleteEvent(oAuth2Client, req.app.locals.calendarId, doc.eventId, req, res);
     });
-    res.send('deleted')
 }
 
 exports.editAppointment = async (req, res) => {
@@ -200,7 +236,6 @@ exports.editAppointment = async (req, res) => {
         if(err) {
             res.send(err);
         } else {
-            console.log(result);
             const webCredentials = {
                 "client_id": process.env.WEB_CLIENT_ID || require('../config/config.js').credentials.web.client_id,
                 "project_id": process.env.WEB_PROJECT_ID || require('../config/config.js').credentials.web.project_id,
