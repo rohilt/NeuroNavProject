@@ -1,6 +1,6 @@
 import "date-fns";
 import React, { useState, useEffect } from "react";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles"
+import { createMuiTheme, ThemeProvider, makeStyles } from "@material-ui/core/styles"
 import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
@@ -37,7 +37,20 @@ const numDaysBetween = (d1, d2) => {
   return (d1.getTime() - d2.getTime())/86400000;
 }
 
+const useStyles = makeStyles(theme =>({
+  content: {
+    flexGrow: 1,
+    marginTop: theme.spacing(5),
+    marginLeft: theme.spacing(25),
+    marginRight: theme.spacing(-4),
+  },
+  snackbar: {
+    marginLeft: theme.spacing(28)
+  }
+}));
+
 const CalendarPage = (props) => {
+  const classes = useStyles();
   const [date, setDate] = useState(new Date());
   const [appointmentList, setAppointmentList] = useState([]);
   useEffect(() => {
@@ -46,9 +59,8 @@ const CalendarPage = (props) => {
     });
   }, [props.updated]);
   return (
+    <main className={classes.content}>
     <ThemeProvider theme={theme}>
-      <br />
-      <br />
       <br />
       <br />
     <Container fullWidth maxWidth="md" component={Paper}>
@@ -88,8 +100,8 @@ const CalendarPage = (props) => {
       </Grid>
     </Grid>
     </Container>
-    
     </ThemeProvider>
+    </main>
   );
 }
 

@@ -220,8 +220,8 @@ const Admin = () => {
           {view == 3 ? <div><AddPatientPage setUpdated={setUpdated} updated={updated}/></div> : null}
           {view == 4 ? <div><AddAppointmentPage updated={updated} setUpdated={setUpdated}/></div> : null}
           {view == 6 ? <div><SendText updated={updated} setUpdated={setUpdated}/></div> : null}
-          {view == 5 ? (
-              <CalendarPage/>
+          {view == 5 ? (<div><CalendarPage updated={updated}/> </div>
+              
             /*
             <main style={{flexGrow: 1,
                           marginTop: theme.spacing(7),
