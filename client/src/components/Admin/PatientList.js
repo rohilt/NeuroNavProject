@@ -9,7 +9,7 @@ import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { TableContainer } from '@material-ui/core';
 import MaterialTable from "material-table";
-
+const passFlag = 0;
 const PatientList = (props) => {
   // const [patientList, setPatientList] = useState([]);
   const [newPatientList, setNewPatientList] = useState([]);
@@ -70,7 +70,7 @@ const PatientList = (props) => {
       editable={{
         onRowUpdate: (newData, oldData) =>
           new Promise((resolve, reject) => {
-            axios.put("/patient", {newData});
+            axios.put("/patient", {newData, passFlag});
             console.log(newData);
             setTimeout(() => {
                 {

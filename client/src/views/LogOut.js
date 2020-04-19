@@ -6,6 +6,7 @@ const LogOut = (props) => {
         props.onLogOut();
     }, []);
     console.log("logging out")
+    localStorage.clear();
     return <Redirect to="/home" />
 };
 

@@ -46,15 +46,17 @@ const useStyles = makeStyles(theme =>({
   const ApptInfo = (props) => {
     const classes = useStyles();
     const [openDialog, setOpenDialog] = useState(false);
+    const [openPassDialog, setOpenPassDialog] = useState(false);
     const [email, setEmail] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [address, setaddress] = useState("");
     const [pass, setPass] = useState("");
-    
+    const [newPass, setNewPass] = useState("");
     const [showAlert, setShowAlert] = useState(false);
+    const [showAlertSuccess, setShowAlertSuccess] = useState(false);
     var user2;
     var user = httpUser.getCurrentUser();
-    var newData = {__v : 0, _id: "", name: "", middleInitial: "", lastName: "", dateOfBirth: "", phoneNumber: "", address: "", email: ""}; 
+    var newData = {__v : 0, _id: "", name: "", middleInitial: "", lastName: "", dateOfBirth: "", phoneNumber: "", address: "", email: "", password: ""}; 
   
     var tempEmail = user.email;
     var tempAddr = user.address;
@@ -69,6 +71,7 @@ const useStyles = makeStyles(theme =>({
     }
     
     tempEmail = user.email;
+    var passFlag = 0;
     
     //axios.get('/patient').then(response => setInfoList2(response.data));
   const handleSubmit = async (e) => {
@@ -86,12 +89,15 @@ const useStyles = makeStyles(theme =>({
             user2 = await httpUser.logIn(fields);
             if(user2) {
               setOpenDialog(false);
-              axios.put("/patient", {newData});
+              passFlag = 0;
+              axios.put("/patient", {newData, passFlag});
               console.log(newData);
             
               localStorage.setItem( 'addr', newData.address );
               localStorage.setItem( 'phone', newData.phoneNumber );
               localStorage.setItem( 'email', newData.email );
+              setPass("");
+              setNewPass("");
               window.location.reload();
           }
         else {
@@ -126,6 +132,46 @@ const useStyles = makeStyles(theme =>({
         setOpenDialog(true);
         tempEmail = newData.email;
       };
+
+      const handlePassSubmit = async (e) => {
+        newData._id = user._id;
+        newData.password = newPass;
+        tempEmail = localStorage.getItem( 'email' );
+        if(tempEmail == null)
+        {
+          tempEmail = user.email;
+        }
+        fields.email = tempEmail;
+        console.log(tempEmail)
+            fields.password = pass;
+            user2 = await httpUser.logIn(fields);
+            if(user2) {
+              setOpenPassDialog(false);
+              passFlag = 77;
+              axios.put("/patient", {newData, passFlag});
+              console.log(newData);
+              passFlag = 0;
+              setShowAlertSuccess(true);
+              setPass("");
+              setNewPass("");
+              //window.location.reload();
+          }
+        else {
+          setShowAlert(true);
+        }
+      }
+
+      const handlePassOpen = () => {
+        user = httpUser.getCurrentUser();
+        tempEmail = localStorage.getItem( 'email' );
+        if(tempEmail == null)
+        {
+          tempEmail = user.email;
+        }
+        setEmail(tempEmail);
+        setOpenPassDialog(true);
+        //tempEmail = user.email;
+      }
 
 
 
@@ -228,6 +274,45 @@ const useStyles = makeStyles(theme =>({
                 </DialogActions>
 
               </Dialog>
+
+
+              <Button variant="outlined" color="primary" onClick={handlePassOpen}>Update Password</Button>
+              <Dialog open={openPassDialog} onClose={() => setOpenPassDialog(false)}>
+                <DialogTitle>Update Password</DialogTitle>
+                <DialogContent>
+                  <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      onChange={(e) => setPass(e.target.value)}
+                      name="password"
+                      label="Current Password"
+                      type="password"
+                      id="password"
+                      value={pass}
+                      autoComplete="current-password"
+                      />
+                      <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      onChange={(e) => setNewPass(e.target.value)}
+                      name="password"
+                      label="New Password"
+                      type="password"
+                      id="password"
+                      value={newPass}
+                      />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={ handlePassSubmit}>Submit</Button>
+                </DialogActions>
+
+              </Dialog>
+
+
             </CardActions>
             
               </div>
@@ -240,7 +325,15 @@ const useStyles = makeStyles(theme =>({
           horizontal: 'center',
         }} open={showAlert} autoHideDuration={5000} onClose={() => setShowAlert(false)}>
           <Alert severity="error">
-            Invalid login!
+            Incorrect Password!
+          </Alert>
+        </Snackbar>
+        <Snackbar anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }} open={showAlertSuccess} autoHideDuration={5000} onClose={() => setShowAlertSuccess(false)}>
+          <Alert severity="Success">
+            Password Changed!
           </Alert>
         </Snackbar>
         </div>
