@@ -187,9 +187,20 @@ const useStyles = makeStyles(theme =>({
     return (    
       <div className="Wrapper">
         <Toolbar>
-          <Typography variant="h6"  className={classes.title} >
-            Patient Profile Information
+        {InfoList.map(entry => entry.email == user.email ? (
+          <div>
+          <Typography variant="h5"  className={classes.title} style={{display: 'inline'}}>
+            {'Welcome Back, '}
           </Typography>
+          <Typography variant="h5" style={{display: 'inline'}} > 
+          {entry.name + ' '}
+          </Typography>
+          <Typography variant="h5" style={{display: 'inline'}} > 
+          {entry.lastName} 
+          </Typography>
+          
+          </div>
+        ) : null)}
         </Toolbar>
         <div className = "ProfileBox">
         <h2>My Profile: </h2>
