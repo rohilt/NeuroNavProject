@@ -6,6 +6,7 @@ const User = require('../models/user.js')
 const axios = require('axios')
 const {google} = require('googleapis');
 const fs = require('fs');
+const bcrypt = require('bcrypt-nodejs');
 
 listEvents = (auth, response) => {
     const calendar = google.calendar({version: 'v3', auth});
