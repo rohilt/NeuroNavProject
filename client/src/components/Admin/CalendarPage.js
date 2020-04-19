@@ -8,13 +8,22 @@ import {
 } from "@material-ui/pickers";
 import Container from '@material-ui/core/Container'
 import Paper from '@material-ui/core/Paper'
+import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import PersonPinIcon from '@material-ui/icons/PersonPin';
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
 import Badge from '@material-ui/core/Badge'
 import axios from 'axios'
+import { CardActionArea, CardActions } from "@material-ui/core";
 
 const theme = createMuiTheme({
   typography: {
@@ -53,15 +62,19 @@ const CalendarPage = (props) => {
       </MuiPickersUtilsProvider>
       </Grid>
       <Grid item xs>
-        {appointmentList.map(appt => (new Date(appt.startTime)).getDate() == date.getDate() && (new Date(appt.startTime)).getMonth() == date.getMonth() && (new Date(appt.startTime)).getFullYear() == date.getFullYear() ? 
+        {appointmentList.sort((appt1, appt2) => (new Date(appt1.startTime)) < (new Date(appt2.startTime))).map(appt => (new Date(appt.startTime)).getDate() == date.getDate() && (new Date(appt.startTime)).getMonth() == date.getMonth() && (new Date(appt.startTime)).getFullYear() == date.getFullYear() ? 
           <div>
           <Card variant="outlined">
           <CardContent>
-              <Typography variant="h6">
-              {appt.doctor}, at {appt.location}
+              <Typography variant="h5">
+              {appt.patientName}
               </Typography>
               <Typography color="textSecondary">
-                  {(new Date(appt.startTime)).toLocaleDateString()}: {(new Date(appt.startTime)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} to {(new Date(appt.endTime)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                <List dense>
+                  <ListItem><ListItemIcon><AccessTimeIcon/></ListItemIcon><ListItemText primary={(new Date(appt.startTime)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + " to " + (new Date(appt.endTime)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}/></ListItem>
+                  <ListItem><ListItemIcon><LocationOnIcon/></ListItemIcon><ListItemText primary={appt.location}/></ListItem>
+                  <ListItem><ListItemIcon><PersonPinIcon/></ListItemIcon><ListItemText primary={appt.doctor}/></ListItem>
+                </List>
               </Typography>
               <Typography variant="body2" component="p">
                 {appt.description}
