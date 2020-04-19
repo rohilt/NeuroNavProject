@@ -11,7 +11,7 @@ class SMSForm extends Component {
     super(props);
     this.state = {
       message: {
-        to: '+15072501199',
+        to: '',
         body: 'This is a test message sent with Twilio from the NeuroNav Web App'
       },
       submitting: false,
@@ -35,8 +35,12 @@ class SMSForm extends Component {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(this.state.message)
+      body: JSON.stringify(this.state.message),
+      to: JSON.stringify(this.state.message)
+
     })
+    .then(console.log("TESTING TESTING TESTING"))
+    .then(console.log(this.state.message))
       .then(res => res.json())
       .then(data => {
         if (data.success) {
@@ -58,14 +62,7 @@ class SMSForm extends Component {
   }
   render() {
     return(
-      <main style={{flexGrow: 1,
-                   marginTop: 5,
-                   marginLeft: 100,}}>
-      <div style={{display: 'flex',
-                   justifyContent:'center',
-                   alignItems:'center',
-                   height: '50vh',
-                   marginLeft: 10,}}>
+      <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '50vh'}}>
       <form
         onSubmit={this.onSubmit}
         className={this.state.error ? 'error sms-form' : 'sms-form'}>
@@ -104,7 +101,6 @@ class SMSForm extends Component {
         </Button>
       </form>
       </div>
-      </main>
     );
   }
 

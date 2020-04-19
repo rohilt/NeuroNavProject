@@ -32,6 +32,7 @@ const AppointmentList = (props) => {
   const [appointmentList, setAppointmentList] = useState([]);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const [number, setNumber] =useState("");
   const [user, setUser] = useState({});
   useEffect(() => {
     axios.get('/appointment').then(response => setAppointmentList(response.data));
@@ -57,6 +58,19 @@ const AppointmentList = (props) => {
             setUser(rowData);
             setMessage(rowData.patientName + ', you have an upcoming appointment.');
             setOpen(true);
+            axios.get('/patient').then(response => {
+
+              const result =  response.data.filter(patient=> 
+                patient.name + ' ' + patient.lastName== rowData.patientName
+                )
+              
+              console.log(rowData.patientName)
+              setNumber(result[0].phoneNumber)
+              console.log(result[0].phoneNumber)
+              
+
+
+      });
           }
         }
       ]}
