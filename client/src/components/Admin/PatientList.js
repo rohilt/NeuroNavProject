@@ -10,6 +10,7 @@ import axios from 'axios';
 import { TableContainer } from '@material-ui/core';
 import MaterialTable from "material-table";
 const passFlag = 0;
+
 const PatientList = (props) => {
   // const [patientList, setPatientList] = useState([]);
   const [newPatientList, setNewPatientList] = useState([]);

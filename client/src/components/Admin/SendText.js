@@ -58,7 +58,14 @@ class SMSForm extends Component {
   }
   render() {
     return(
-      <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '50vh'}}>
+      <main style={{flexGrow: 1,
+                   marginTop: 5,
+                   marginLeft: 100,}}>
+      <div style={{display: 'flex',
+                   justifyContent:'center',
+                   alignItems:'center',
+                   height: '50vh',
+                   marginLeft: 10,}}>
       <form
         onSubmit={this.onSubmit}
         className={this.state.error ? 'error sms-form' : 'sms-form'}>
@@ -97,6 +104,7 @@ class SMSForm extends Component {
         </Button>
       </form>
       </div>
+      </main>
     );
   }
 
