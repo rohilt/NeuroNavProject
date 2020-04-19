@@ -32,11 +32,11 @@ listEvents = (auth, response) => {
     });
 }
 
-insertEvent = (auth, event, response) => {
+insertEvent = (auth, event, calendarId, response) => {
     const calendar = google.calendar({version: 'v3', auth});
     calendar.events.insert({
       auth: auth,
-      calendarId: 'primary',
+      calendarId: calendarId,
       resource: event,
     }, (err, event) => {
       if (err) return console.log('The API returned an error: ' + err);
@@ -92,7 +92,7 @@ exports.editPatient = async (req,res) => {
       catch (err) {
         console.log(err);
       }
-
+      console.log(req)
     User.findOneAndUpdate({"_id" : req.body.newData._id}, {
         name:           req.body.newData.name,
         middleInitial : req.body.newData.middleInitial,
@@ -100,7 +100,7 @@ exports.editPatient = async (req,res) => {
         dateOfBirth :   req.body.newData.dateOfBirth,
         phoneNumber :   req.body.newData.phoneNumber,
         address :       req.body.newData.address,
-        emailAddress :  req.body.newData.emailAddress,
+        email :  req.body.newData.email,
         distanceToClinic : outDist,
         timeToClinic : outTime
         }, function(err, result){
@@ -110,6 +110,15 @@ exports.editPatient = async (req,res) => {
             res.send(result);
         }
     });
+}
+
+exports.setCalendarId = async (req, res) => {
+    req.app.locals.calendarId = req.query.calendarId;
+    res.send("success");
+}
+
+exports.getCalendarId = async (req, res) => {
+    res.send(req.app.locals.calendarId)
 }
 
 exports.addAppointment = async (req, res) => {
@@ -134,7 +143,11 @@ exports.addAppointment = async (req, res) => {
         patientName: req.query.patientName,
         startTime : req.query.startTime,
         endTime : req.query.endTime,
+        doctor: req.query.doctor,
+        location: req.query.location,
         description: req.query.description,
+        
+
     }, (err) => {
         if (err) throw err;
         const {client_secret, client_id, redirect_uris} = webCredentials;
@@ -150,7 +163,7 @@ exports.addAppointment = async (req, res) => {
             'end': {
             'dateTime': req.query.endTime,
             'timeZone': 'America/New_York',
-            }}, res);
+            }}, req.app.locals.calendarId, res);
     });
 }
 
@@ -168,6 +181,8 @@ exports.editAppointment = async (req, res) => {
         startTime   : req.body.newData.startTime,
         endTime     : req.body.newData.endTime,
         description : req.body.newData.description,
+        doctor      : req.body.newData.doctor,
+        location    : req.body.newData.location
         }, function(err, result){
         if(err) {
             res.send(err);
@@ -228,8 +243,15 @@ exports.getPatients = async (req, res) => {
                     doc.timeToClinic = "Invalid address";
                 }
                 else {
+                    try{
                     doc.distanceToClinic = response.data.routes[0].legs[0].distance.text;
                     doc.timeToClinic = response.data.routes[0].legs[0].duration.text;
+                }
+                catch (err) {
+                  console.log("The address is invalid");
+                  doc.distanceToClinic = "Unknown";
+                    doc.timeToClinic = "Unknown";
+                }
                 }
                 doc.save();
             }
