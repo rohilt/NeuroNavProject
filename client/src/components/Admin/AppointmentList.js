@@ -136,7 +136,7 @@ const AppointmentList = (props) => {
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({body: message})
+            body: JSON.stringify({body: message, to: number})
           });
         }}>Send</Button>
       </DialogActions>
