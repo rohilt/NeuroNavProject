@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme =>({
         <Toolbar>
         {InfoList.map(entry => entry.email == user.email ? (
           <Typography variant="h6"  className={classes.title} >
-            Welcome {entry.name} {entry.middleInitial} {entry.lastName}
+            Welcome Back, {entry.name} {entry.middleInitial} {entry.lastName}
           </Typography>
         ) : null)}
         </Toolbar>

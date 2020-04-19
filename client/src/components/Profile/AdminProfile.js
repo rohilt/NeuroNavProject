@@ -44,28 +44,52 @@ const useStyles = makeStyles(theme =>({
   const ApptInfo = (props) => {
     const classes = useStyles();
     const user = httpUser.getCurrentUser();
+    const [appointmentList, setAppointmentList] = useState([]);
 
     const [InfoList, setInfoList] = useState([]);
     useEffect(() => {
       axios.get('/patient').then(response => setInfoList(response.data));
+      axios.get('/appointment').then(response => {
+        const result =  response.data.filter(date=> new Date(date.startTime).toLocaleDateString() == new Date().toLocaleDateString())
+        setAppointmentList(result)
+       
+      });
+      
     }, [props.updated]);
 
     return (    
       <main className={classes.content}>
       <div className={classes.toolbar}>
         <Toolbar>
+          
         {InfoList.map(entry => entry.email == user.email ? (
-          <Typography variant="h6"  className={classes.title} >
-            Welcome {entry.name} {entry.middleInitial} {entry.lastName}
+          <div>
+          <Typography variant="h5"  className={classes.title} style={{display: 'inline'}}>
+            Welcome Back, {entry.name} {entry.middleInitial} {entry.lastName} 
           </Typography>
+          
+          </div>
         ) : null)}
+       
+          
+          <br />
+      
+          
         </Toolbar>
+        <div className={classes.toolbar}>
+          <Toolbar>
+          <Typography variant="h6" component="h2" style={{display: 'inline'}}>
+                    Number of appointments today:  {appointmentList.length} 
+                </Typography>
+          </Toolbar>
+          
+          </div>
         <div className = "ProfileBox">
-        <h2>My Profile: </h2>
         <Card className={classes.root} variant="outlined">
             {InfoList.map(entry => entry.email == user.email ? (
               <div key={entry._id}>
                 <CardContent>
+                
                 <Typography variant="h5" component="h2" style={{display: 'inline'}}>
                     {'First Name: '}
                 </Typography>
