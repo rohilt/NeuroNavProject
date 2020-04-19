@@ -46,9 +46,11 @@ const useStyles = makeStyles(theme =>({
     return (    
       <div className="Wrapper">
         <Toolbar>
+        {InfoList.map(entry => entry.email == user.email ? (
           <Typography variant="h6"  className={classes.title} >
-            Patient Profile Information
+            Welcome {entry.name} {entry.middleInitial} {entry.lastName}
           </Typography>
+        ) : null)}
         </Toolbar>
         <div className = "ProfileBox">
         <h2>My Profile: </h2>

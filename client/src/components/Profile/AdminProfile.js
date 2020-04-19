@@ -54,9 +54,11 @@ const useStyles = makeStyles(theme =>({
       <main className={classes.content}>
       <div className={classes.toolbar}>
         <Toolbar>
+        {InfoList.map(entry => entry.email == user.email ? (
           <Typography variant="h6"  className={classes.title} >
-            Admin Profile Information
+            Welcome {entry.name} {entry.middleInitial} {entry.lastName}
           </Typography>
+        ) : null)}
         </Toolbar>
         <div className = "ProfileBox">
         <h2>My Profile: </h2>
