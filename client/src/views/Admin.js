@@ -43,6 +43,7 @@ import { Link } from 'react-router-dom';
 import { Button, CssBaseline, ListItemText, ClickAwayListener } from '@material-ui/core';
 import axios from 'axios';
 import httpUser from '../httpUser'
+import CalendarPage from '../components/Admin/CalendarPage'
 
 const drawerWidth = 230;
 
@@ -184,6 +185,8 @@ const Admin = () => {
           {view == 4 ? <div><AddAppointmentPage updated={updated} setUpdated={setUpdated}/></div> : null}
           {view == 6 ? <div><SendText updated={updated} setUpdated={setUpdated}/></div> : null}
           {view == 5 ? (
+              <CalendarPage/>
+            /*
             <main style={{flexGrow: 1,
                           marginTop: theme.spacing(7),
                           marginLeft: theme.spacing(25),
@@ -191,7 +194,7 @@ const Admin = () => {
             <Container fixed>
             <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=bmV1cm9uYXZ1ZkBnbWFpbC5jb20&amp;color=%23039BE5&amp;showTitle=0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
             </Container>
-            </main>
+            </main>*/
           ) : null}
         </div>
         {/* <AppBar position="static">
