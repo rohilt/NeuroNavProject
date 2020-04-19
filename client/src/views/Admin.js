@@ -34,13 +34,19 @@ import Tab from '@material-ui/core/Tab';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AddAlarmIcon from '@material-ui/icons/AddAlarm';
+import SettingsIcon from '@material-ui/icons/Settings';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
+import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom';
-import { Button, CssBaseline, ListItemText, ClickAwayListener } from '@material-ui/core';
+import { Button, CssBaseline, ListItemText, ClickAwayListener, DialogContentText } from '@material-ui/core';
 import axios from 'axios';
 import httpUser from '../httpUser'
 import CalendarPage from '../components/Admin/CalendarPage'
@@ -104,7 +110,15 @@ const Admin = () => {
   const [view, setView] = useState(0);
   const [value, setValue] = useState(0);
   const [updated, setUpdated] = useState(0);
+  const [showSettings, setShowSettings] = useState(false);
+  const [calendarId, setCalendarId] = useState("");
   const user2 = httpUser.getCurrentUser().authLevel;
+  useEffect(() => {
+    axios.get('/calendarId').then(response => {
+      setCalendarId(response.data);
+    });
+    
+  }, []);
   if(user2 !== "admin")
   {
     console.log("that aint right")
@@ -126,9 +140,31 @@ const Admin = () => {
             <Typography variant="h6" className={classes.title}>
               Administrator View
             </Typography>
+            <IconButton variant="outlined" color="inherit" onClick={() => setShowSettings(true)}><SettingsIcon/></IconButton>
             <Button component={Link} to="/logout" color="inherit">Logout</Button>
           </Toolbar>
         </AppBar>
+        <Dialog open={showSettings} onClose={() => setShowSettings(false)}>
+          <DialogTitle><Typography variant="h4">Settings</Typography></DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+            <Typography variant="h6">Google Calendar Integration</Typography>
+            </DialogContentText>
+            <Typography>
+              Enter the calendar ID of the Google calendar that you want to integrate the appointments with. To do this, share the calendar with and give editing permissions to <Link href="mailto:neuronavuf@gmail.com" onClick={(e) => e.preventDefault()} color="inherit">neuronavuf@gmail.com</Link>. 
+              By default, it is the primary calendar of <Link href="mailto:neuronavuf@gmail.com" onClick={(e) => e.preventDefault()} color="inherit">neuronavuf@gmail.com</Link>. 
+            </Typography>
+            <br/>
+            <TextField fullWidth variant="outlined" label="Calendar ID" value={calendarId} onChange={(e) => setCalendarId(e.target.value)}/>
+          </DialogContent>
+          <DialogActions>
+            <Button variant="outlined" onClick={() => {setShowSettings(false)}}>Cancel</Button>
+            <Button variant="outlined" onClick={() => {
+              axios.post('/calendarId?calendarId=' + calendarId).then(res => console.log(res));
+              setShowSettings(false);
+            }}>Save Changes</Button>
+          </DialogActions>
+        </Dialog>
         <Drawer className={classes.drawer} 
                 variant="permanent" 
                 anchor="left"
