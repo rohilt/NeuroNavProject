@@ -26,7 +26,7 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
     const twiml = new MessagingResponse();
     const message = twiml.message();
     message.body(`Incoming message from ${req.body.From}: ${req.body.Body}`);
-    twiml.message(JSON.stringify(req));
+    // twiml.message(JSON.stringify(req));
     // message.media('https://farm8.staticflickr.com/7090/6941316406_80b4d6d50e_z_d.jpg');
     // if (req.body.Body == 'hello') {
     //   twiml.message('Hi!');
