@@ -37,7 +37,7 @@ var setFlag = 0;
 
 const useStyles = makeStyles(theme =>({
     root: {
-      width: '82%',
+      width: '100%',
       
     },
     bullet: {
@@ -207,17 +207,16 @@ const useStyles = makeStyles(theme =>({
     }, [props.updated]);
 
     return (    
-      <main className={classes.content}>
+      <main style={{justifyContent: 'center'}}>
 
       <br/>
       
-      <div 
->
+      <div >
         
 
 
         
-      <Card className={classes.root} variant="outlined" align='center'>
+      <Card className={classes.root} variant="outlined" style={{justifyContent: 'center'}}v>
         {InfoList.map(entry => entry.email == user.email ? (
 
 <div key={entry._id}>
@@ -240,38 +239,39 @@ const useStyles = makeStyles(theme =>({
 
 
   
-  <ListItem align="center">
+  <ListItem >
     <ListItemIcon><PersonIcon/></ListItemIcon>
-    <ListItemText primary={entry.name} secondary="First name"/>
+    <ListItemText align="center" primary={entry.name} secondary="First name"/>
   </ListItem>
 
  
     
   
-  <ListItem align="center">
+  <ListItem >
     <ListItemIcon><PersonIcon/></ListItemIcon>
-    <ListItemText primary={entry.lastName} secondary="Last name"/>
+    <ListItemText align="center" primary={entry.lastName} secondary="Last name"/>
   </ListItem>
     
   
   
-  <ListItem align="center">
+  <ListItem>
     <ListItemIcon><EventIcon/></ListItemIcon>
-    <ListItemText primary={(new Date(entry.dateOfBirth)).toLocaleDateString()} secondary="Date of Birth"/>
+    <ListItemText align="center" primary={(new Date(entry.dateOfBirth)).toLocaleDateString()} secondary="Date of Birth"/>
   </ListItem>
-  <ListItem align="center">
-    <ListItemIcon><HomeIcon/></ListItemIcon>
-    <ListItemText primary={entry.address} secondary="Address"/>
+
+  <ListItem >
+    <ListItemIcon ><HomeIcon/></ListItemIcon>
+    <ListItemText align="center" primary={entry.address} secondary="Address"/>
   </ListItem>
  
   
-  <ListItem align="center">
+  <ListItem >
     <ListItemIcon><PhoneIcon/></ListItemIcon>
-    <ListItemText primary={entry.phoneNumber} secondary="Phone number"/>
+    <ListItemText align="center" primary={entry.phoneNumber} secondary="Phone number"/>
   </ListItem>
-  <ListItem align="center">
+  <ListItem>
     <ListItemIcon><EmailIcon/></ListItemIcon>
-    <ListItemText primary={entry.email} secondary="Email"/>
+    <ListItemText align="center" primary={entry.email} secondary="Email"/>
   </ListItem>
 
 
@@ -283,10 +283,12 @@ const useStyles = makeStyles(theme =>({
         ) : null)}
 
         
+                <div >
+
                 
                 
-                <CardActions>
-            <Button variant="outlined" color="primary" onClick={handleOpen}>Edit Contact Information</Button>
+                <CardActions style={{justifyContent: 'center'}} >
+            <Button variant="outlined" color="primary" onClick={handleOpen} >Edit Contact Information</Button>
               <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
                 <DialogTitle>Edit Contact Information</DialogTitle>
                 <DialogContent>
@@ -314,7 +316,7 @@ const useStyles = makeStyles(theme =>({
               </Dialog>
 
 
-              <Button variant="outlined" color="primary" onClick={handlePassOpen}>Update Password</Button>
+              <Button variant="outlined" color="primary" onClick={handlePassOpen} >Update Password</Button>
               <Dialog open={openPassDialog} onClose={() => setOpenPassDialog(false)}>
                 <DialogTitle>Update Password</DialogTitle>
                 <DialogContent>
@@ -352,6 +354,7 @@ const useStyles = makeStyles(theme =>({
 
 
             </CardActions>
+            </div>
             
         
 
