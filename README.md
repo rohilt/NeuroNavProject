@@ -8,7 +8,7 @@ This is the final course project for CEN 3031 at the University of Florida.
 - Alan Nguyen: alan.nguyen@ufl.edu
 - Christie Ruales: cruales@ufl.edu
 - Rohan Samanta
-- Andrew Sowinski
+- Andrew Sowinski: andrewsowinski@ufl.edu
 - Rohil Tuli: rohil.tuli@ufl.edu
 - Megan Wolf: megan.wolf@ufl.edu
  
@@ -93,5 +93,5 @@ If deploying to heroku this does not need to be run since it is handled by the h
 This project has been deployed with Heroku at the URL: https://arcane-plateau-92982.herokuapp.com/
  
 Follow the instructions on the website below to deploy to Heroku. 
-https://devcenter.heroku.com/articles/git
+https://devcenter.heroku.com/articles/git. 
 To deploy, you need to add a remote to git called heroku, and then run `git push heroku master`. 
