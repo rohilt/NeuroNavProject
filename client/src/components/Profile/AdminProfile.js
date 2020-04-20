@@ -1,14 +1,24 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
+import PersonIcon from '@material-ui/icons/Person';
+import EmailIcon from '@material-ui/icons/Email';
+import HomeIcon from '@material-ui/icons/Home';
+import PhoneIcon from '@material-ui/icons/Phone';
 import Card from '@material-ui/core/Card';
+import Avatar from '@material-ui/core/Avatar';
+import Container from '@material-ui/core/Container';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import EventIcon from '@material-ui/icons/Event';
 import TextField from '@material-ui/core/TextField';
-import { DialogContent, DialogTitle, DialogActions } from '@material-ui/core';
+import Badge from '@material-ui/core/Badge';
+import { DialogContent, DialogTitle, DialogActions, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import Snackbar from '@material-ui/core/Snackbar';
+import Paper from '@material-ui/core/Paper';
 import Alert from '@material-ui/lab/Alert';
+import Grid from '@material-ui/core/Grid';
 import './Profile.css'
 
 import { Link } from 'react-router-dom';
@@ -22,7 +32,7 @@ import httpUser from '../../httpUser'
 const useStyles = makeStyles(theme =>({
     root: {
       flexGrow: 1,
-      minWidth: 275,
+      width: '60%'
     },
     bullet: {
       flexGrow: 1,
@@ -43,6 +53,10 @@ const useStyles = makeStyles(theme =>({
       marginLeft: theme.spacing(25),
       marginRight: theme.spacing(-4),
     },
+    profileAvatar: {
+      width: theme.spacing(10),
+      height: theme.spacing(10)
+    }
   }));
 
   const ApptInfo = (props) => {
@@ -187,94 +201,73 @@ const useStyles = makeStyles(theme =>({
 
     return (    
       <main className={classes.content}>
-      <div className={classes.toolbar}>
-        <Toolbar>
-          
-        {InfoList.map(entry => entry.email == user.email ? (
-          <div>
-          <Typography variant="h5"  className={classes.title} style={{display: 'inline'}}>
-            {'Welcome Back, '}
-          </Typography>
-          <Typography variant="h5" style={{display: 'inline'}} > 
-          {entry.name + ' '}
-          </Typography>
-          <Typography variant="h5" style={{display: 'inline'}} > 
-          {entry.lastName} 
-          </Typography>
-          
-          </div>
-        ) : null)}
-       
-          
-          <br />
-      
-          
-        </Toolbar>
-        <div className={classes.toolbar}>
-          <Toolbar>
-          <Typography variant="h6" component="h2" style={{display: 'inline'}}>
-                    {'Number of appointments today: '}
-                </Typography>
-                <Typography variant="h5" style={{display: 'inline'}} > 
-                    {appointmentList.length} 
-                </Typography>
-          </Toolbar>
-          
-          </div>
+        <br/>
+        
         <div className = "ProfileBox">
+          <center>
         <Card className={classes.root} variant="outlined">
             {InfoList.map(entry => entry.email == user.email ? (
               <div key={entry._id}>
                 <CardContent>
-                
-                <Typography variant="h5" component="h2" style={{display: 'inline'}}>
-                    {'First Name: '}
-                </Typography>
-                <Typography variant="body1" style={{display: 'inline'}} > 
-                    {entry.name} 
-                </Typography>
-                <br />
-                <Typography variant="h5" component="h2" style={{display: 'inline'}}>
-                    {'Middle Initial: '}
-                </Typography>
-                <Typography variant="body1" style={{display: 'inline'}} > 
-                    {entry.middleInitial} 
-                </Typography>
-                <br />
-                <Typography variant="h5" component="h2" style={{display: 'inline'}}>
-                    {'Last Name: '}
-                </Typography>
-                <Typography variant="body1" style={{display: 'inline'}} > 
-                    {entry.lastName} 
-                </Typography>
-                <br />
-                <Typography variant="h5" component="h2" style={{display: 'inline'}}>
-                    {'Date of Birth: '}
-                </Typography>
-                <Typography variant="body1" style={{display: 'inline'}} > 
-                    {(new Date(entry.dateOfBirth)).toLocaleDateString()} 
-                </Typography>
-                <br />
-                <Typography variant="h5" component="h2" style={{display: 'inline'}}>
-                    {'Phone Number: '}
-                </Typography>
-                <Typography variant="body1" style={{display: 'inline'}} > 
-                    {entry.phoneNumber} 
-                </Typography>
-                <br />
-                <Typography variant="h5" component="h2" style={{display: 'inline'}}>
-                    {'Email Address: '}
-                </Typography>
-                <Typography variant="body1" style={{display: 'inline'}} > 
-                    {entry.email} 
-                </Typography>
-                <br />
-                <Typography variant="h5" component="h2" style={{display: 'inline'}}>
-                    {'Home Address: '}
-                </Typography>
-                <Typography variant="body1" style={{display: 'inline'}} > 
-                    {entry.address} 
-                </Typography>
+                  <center>
+                <Avatar className={classes.profileAvatar}><Typography variant="h4">{entry.name[0] + entry.lastName[0]}</Typography></Avatar>
+                <br/>
+                <Typography variant="h4"  className={classes.title} style={{display: 'inline'}}>
+            {'Welcome back, '}
+          </Typography>
+          <Typography variant="h4" style={{display: 'inline'}} > 
+          {entry.name + ' '}
+          </Typography>
+          <Typography variant="h4" style={{display: 'inline'}} > 
+          {entry.lastName + '!'} 
+          </Typography>
+                </center>
+                <List>
+            <ListItem align="center">
+              <ListItemIcon>
+                <Badge badgeContent={appointmentList.length} color="primary"><EventIcon/></Badge>
+              </ListItemIcon>
+              <ListItemText primary={"There are " + appointmentList.length + " appointments today."}/>
+            </ListItem>
+          </List>
+                <Grid container spacing={1}>
+                  <Grid xs={6}>
+                  <ListItem>
+                    <ListItemIcon><PersonIcon/></ListItemIcon>
+                    <ListItemText primary={entry.name} secondary="First name"/>
+                  </ListItem>
+
+                  </Grid>
+                    
+                  <Grid xs={6}>
+                  <ListItem>
+                    <ListItemIcon><PersonIcon/></ListItemIcon>
+                    <ListItemText primary={entry.lastName} secondary="Last name"/>
+                  </ListItem>
+                    
+                  </Grid>
+                  <Grid xs={6}>
+                  <ListItem>
+                    <ListItemIcon><EventIcon/></ListItemIcon>
+                    <ListItemText primary={(new Date(entry.dateOfBirth)).toLocaleDateString()} secondary="Date of Birth"/>
+                  </ListItem>
+                  <ListItem>
+                    <ListItemIcon><HomeIcon/></ListItemIcon>
+                    <ListItemText primary={entry.address} secondary="Address"/>
+                  </ListItem>
+                  </Grid>
+                  <Grid xs={6}>
+                  <ListItem>
+                    <ListItemIcon><PhoneIcon/></ListItemIcon>
+                    <ListItemText primary={entry.phoneNumber} secondary="Phone number"/>
+                  </ListItem>
+                  <ListItem>
+                    <ListItemIcon><EmailIcon/></ListItemIcon>
+                    <ListItemText primary={entry.email} secondary="Email"/>
+                  </ListItem>
+                  </Grid>
+                </Grid>
+              
                 
                 </CardContent>
               </div>
@@ -347,6 +340,8 @@ const useStyles = makeStyles(theme =>({
 
             </CardActions>
         </Card>
+        </center>
+        <br/>
         <Snackbar anchorOrigin={{
           vertical: 'top',
           horizontal: 'center',
@@ -363,8 +358,8 @@ const useStyles = makeStyles(theme =>({
             Password Changed!
           </Alert>
         </Snackbar>
-        </div>
       </div>
+
       </main> 
     );
 }
