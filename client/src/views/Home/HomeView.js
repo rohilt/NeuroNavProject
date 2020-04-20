@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
       
       <Typography variant="body2" color="textSecondary" align="center">
         {'Copyright © '}
-        <Links color="inherit" href="https://material-ui.com/">
+        <Links color="inherit" href="https://neurosurgery.ufl.edu/">
           UF Neurosurgery Department
         </Links>{' '}
         {new Date().getFullYear()}

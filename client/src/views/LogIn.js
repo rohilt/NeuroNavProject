@@ -33,7 +33,7 @@ function Copyright() {
     
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Links color="inherit" href="https://material-ui.com/">
+      <Links color="inherit" href="https://neurosurgery.ufl.edu/">
         UF Neurosurgery Department
       </Links>{' '}
       {new Date().getFullYear()}
@@ -181,7 +181,7 @@ const LogIn = (props) => {
             alignItems="center"> 
                 Don't have an account or need assistance signing in?
                 <br />
-              <Links href="tel:9047088717" variant="body2">
+              <Links href="tel:3522739000" variant="body2">
                 {"Click here to call UF Neurosurgery Department Office"}
                 <br />
                 {"(352) 273-9000"}
