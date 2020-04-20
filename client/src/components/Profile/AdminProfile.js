@@ -275,7 +275,7 @@ const useStyles = makeStyles(theme =>({
               </div>
             ) : null)}
             
-            <CardActions>
+            <CardActions style={{justifyContent: 'center'}}>
             <Button variant="outlined" color="primary" onClick={handleOpen}>Edit Contact Information</Button>
               <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
                 <DialogTitle>Edit Contact Information</DialogTitle>

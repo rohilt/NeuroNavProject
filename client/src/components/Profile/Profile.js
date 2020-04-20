@@ -1,23 +1,34 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
+import PersonIcon from '@material-ui/icons/Person';
+import EmailIcon from '@material-ui/icons/Email';
+import HomeIcon from '@material-ui/icons/Home';
+import PhoneIcon from '@material-ui/icons/Phone';
 import Card from '@material-ui/core/Card';
+import Avatar from '@material-ui/core/Avatar';
+import Container from '@material-ui/core/Container';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import { DialogContent, DialogTitle, DialogActions } from '@material-ui/core';
-import Dialog from '@material-ui/core/Dialog';
-import Button from '@material-ui/core/Button';
+import EventIcon from '@material-ui/icons/Event';
 import TextField from '@material-ui/core/TextField';
+import Badge from '@material-ui/core/Badge';
+import { DialogContent, DialogTitle, DialogActions, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
 import Snackbar from '@material-ui/core/Snackbar';
+import Paper from '@material-ui/core/Paper';
 import Alert from '@material-ui/lab/Alert';
-
+import Grid from '@material-ui/core/Grid';
 import './Profile.css'
 
 import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import httpUser from '../../httpUser';
+import httpUser from '../../httpUser'
+import Box from '@material-ui/core/Box';
+
 
 var setFlag = 0;
   
@@ -26,11 +37,11 @@ var setFlag = 0;
 
 const useStyles = makeStyles(theme =>({
     root: {
-      flexGrow: 1,
-      minWidth: 275,
+      width: '100%',
+      
     },
     bullet: {
-      flexGrow: 1,
+      
       display: 'inline-block',
       margin: '0 2px',
       transform: 'scale(0.8)',
@@ -41,6 +52,17 @@ const useStyles = makeStyles(theme =>({
     title: {
       flexGrow: 1,
     },
+    toolbar: theme.mixins.toolbar,
+    content: {
+      flexGrow: 1,
+      marginTop: theme.spacing(3),
+      marginLeft: theme.spacing(25),
+      marginRight: theme.spacing(-4),
+    },
+    profileAvatar: {
+      width: theme.spacing(10),
+      height: theme.spacing(10)
+    }
   }));
 
   const ApptInfo = (props) => {
@@ -185,82 +207,88 @@ const useStyles = makeStyles(theme =>({
     }, [props.updated]);
 
     return (    
-      <div className="Wrapper">
-        <Toolbar>
+      <main style={{justifyContent: 'center'}}>
+
+      <br/>
+      
+      <div >
+        
+
+
+        
+      <Card className={classes.root} variant="outlined" style={{justifyContent: 'center'}}v>
         {InfoList.map(entry => entry.email == user.email ? (
 
-          <div>
-          <Typography variant="h5"  className={classes.title} style={{display: 'inline'}}>
-            {'Welcome Back, '}
-          </Typography>
-          <Typography variant="h5" style={{display: 'inline'}} > 
-          {entry.name + ' '}
-          </Typography>
-          <Typography variant="h5" style={{display: 'inline'}} > 
-          {entry.lastName} 
-          </Typography>
-          
-          </div>
+<div key={entry._id}>
+<CardContent>
+
+  <center>
+<Avatar className={classes.profileAvatar}><Typography variant="h4">{entry.name[0] + entry.lastName[0]}</Typography></Avatar>
+<br/>
+<Typography variant="h4" style={{display: 'inline'}}>
+{'Welcome back, '}
+</Typography>
+<Typography variant="h4" style={{display: 'inline'}} > 
+{entry.name + ' '}
+</Typography>
+<Typography variant="h4" style={{display: 'inline'}} > 
+{entry.lastName + '!'} 
+</Typography>
+</center>
+<center>
+
+
+  
+  <ListItem >
+    <ListItemIcon><PersonIcon/></ListItemIcon>
+    <ListItemText align="center" primary={entry.name} secondary="First name"/>
+  </ListItem>
+
+ 
+    
+  
+  <ListItem >
+    <ListItemIcon><PersonIcon/></ListItemIcon>
+    <ListItemText align="center" primary={entry.lastName} secondary="Last name"/>
+  </ListItem>
+    
+  
+  
+  <ListItem>
+    <ListItemIcon><EventIcon/></ListItemIcon>
+    <ListItemText align="center" primary={(new Date(entry.dateOfBirth)).toLocaleDateString()} secondary="Date of Birth"/>
+  </ListItem>
+
+  <ListItem >
+    <ListItemIcon ><HomeIcon/></ListItemIcon>
+    <ListItemText align="center" primary={entry.address} secondary="Address"/>
+  </ListItem>
+ 
+  
+  <ListItem >
+    <ListItemIcon><PhoneIcon/></ListItemIcon>
+    <ListItemText align="center" primary={entry.phoneNumber} secondary="Phone number"/>
+  </ListItem>
+  <ListItem>
+    <ListItemIcon><EmailIcon/></ListItemIcon>
+    <ListItemText align="center" primary={entry.email} secondary="Email"/>
+  </ListItem>
+
+
+</center>
+
+
+</CardContent>
+</div>
         ) : null)}
-        </Toolbar>
-        <div className = "ProfileBox">
-        <h2>My Profile: </h2>
-        <Card className={classes.root} variant="outlined">
-            {InfoList.map(entry => entry._id == user._id ? (
-              <div key={entry._id}>
-                <CardContent>
-                <Typography variant="h5" component="h2" style={{display: 'inline'}}>
-                    {'First Name: '}
-                </Typography>
-                <Typography variant="body1" style={{display: 'inline'}} > 
-                    {entry.name} 
-                </Typography>
-                <br />
-                <Typography variant="h5" component="h2" style={{display: 'inline'}}>
-                    {'Middle Initial: '}
-                </Typography>
-                <Typography variant="body1" style={{display: 'inline'}} > 
-                    {entry.middleInitial} 
-                </Typography>
-                <br />
-                <Typography variant="h5" component="h2" style={{display: 'inline'}}>
-                    {'Last Name: '}
-                </Typography>
-                <Typography variant="body1" style={{display: 'inline'}} > 
-                    {entry.lastName} 
-                </Typography>
-                <br />
-                <Typography variant="h5" component="h2" style={{display: 'inline'}}>
-                    {'Date of Birth: '}
-                </Typography>
-                <Typography variant="body1" style={{display: 'inline'}} > 
-                    {(new Date(entry.dateOfBirth)).toLocaleDateString()} 
-                </Typography>
-                <br />
-                <Typography variant="h5" component="h2" style={{display: 'inline'}}>
-                    {'Phone Number: '}
-                </Typography>
-                <Typography variant="body1" style={{display: 'inline'}} > 
-                    {entry.phoneNumber} 
-                </Typography>
-                <br />
-                <Typography variant="h5" component="h2" style={{display: 'inline'}}>
-                    {'Email Address: '}
-                </Typography>
-                <Typography variant="body1" style={{display: 'inline'}} > 
-                    {entry.email} 
-                </Typography>
-                <br />
-                <Typography variant="h5" component="h2" style={{display: 'inline'}}>
-                    {'Home Address: '}
-                </Typography>
-                <Typography variant="body1" style={{display: 'inline'}} > 
-                    {entry.address} 
-                </Typography>
+
+        
+                <div >
+
                 
-                </CardContent>
-                <CardActions>
-            <Button variant="outlined" color="primary" onClick={handleOpen}>Edit Contact Information</Button>
+                
+                <CardActions style={{justifyContent: 'center'}} >
+            <Button variant="outlined" color="primary" onClick={handleOpen} >Edit Contact Information</Button>
               <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
                 <DialogTitle>Edit Contact Information</DialogTitle>
                 <DialogContent>
@@ -288,7 +316,7 @@ const useStyles = makeStyles(theme =>({
               </Dialog>
 
 
-              <Button variant="outlined" color="primary" onClick={handlePassOpen}>Update Password</Button>
+              <Button variant="outlined" color="primary" onClick={handlePassOpen} >Update Password</Button>
               <Dialog open={openPassDialog} onClose={() => setOpenPassDialog(false)}>
                 <DialogTitle>Update Password</DialogTitle>
                 <DialogContent>
@@ -326,12 +354,16 @@ const useStyles = makeStyles(theme =>({
 
 
             </CardActions>
+            </div>
             
-              </div>
-            ) : null)}
-            
+        
+
             
         </Card>
+        
+
+        
+        <br/>
         <Snackbar anchorOrigin={{
           vertical: 'top',
           horizontal: 'center',
@@ -349,7 +381,7 @@ const useStyles = makeStyles(theme =>({
           </Alert>
         </Snackbar>
         </div>
-      </div>
+        </main> 
         
     );
 }
