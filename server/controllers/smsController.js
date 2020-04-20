@@ -42,10 +42,10 @@ const User = require('../models/user.js')
     User.find({phoneNumber: req.body.From}, (err, docs) => {
       if (err) console.log(err);
       docs.forEach(user => {
-        Appointment.find({_id: apptReminderId}, (err2, appts) => {
+        Appointment.find({_id: user.apptReminderId}, (err2, appts) => {
           if (err2) console.log(err);
-          const twiml = new MessagingResponse();
           appts.forEach(appt => {
+            const twiml = new MessagingResponse();
             if (appt.reminder === "Sent Reminder") {
               if (req.body.Body === "YES") {
                 appt.reminder = "Confirmed"
