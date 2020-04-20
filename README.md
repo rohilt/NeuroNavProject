@@ -4,7 +4,7 @@
 This is the final course project for CEN 3031 at the University of Florida. 
  
 ### Contributors
-- Wesley Finch 
+- Wesley Finch: finchw4@ufl.edu
 - Alan Nguyen: alan.nguyen@ufl.edu
 - Christie Ruales: cruales@ufl.edu
 - Rohan Samanta
