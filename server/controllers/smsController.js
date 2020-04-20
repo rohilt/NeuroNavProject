@@ -22,10 +22,10 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
     }
   }
 
-  exports.receiveText = async (req, res) => {
+  exports.receiveText = (req, res) => {
     const twiml = new MessagingResponse();
     const message = twiml.message();
-    message.body(JSON.stringify(req));
+    message.body(`Incoming message from ${req.body.From}: ${req.body.Body}`);
     // message.media('https://farm8.staticflickr.com/7090/6941316406_80b4d6d50e_z_d.jpg');
     // if (req.body.Body == 'hello') {
     //   twiml.message('Hi!');
@@ -35,6 +35,7 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
     //   twiml.message(
     //     'No Body param match, Twilio sends this in the request to your server.'
     //   );
+    
     }
 
     res.writeHead(200, {'Content-Type': 'text/xml'});
