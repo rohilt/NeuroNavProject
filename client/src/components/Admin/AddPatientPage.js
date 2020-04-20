@@ -44,6 +44,10 @@ const AddPatientPage = (props) => {
   const [password, setPassword] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [authLevel, setAuthLevel] = useState("");
+  var tempPass = "";
+  var message = "";
+  var number  = "";
+  var randNum = Math.floor((Math.random() * 1000) + 1);
   var person = {name: "", middleInitial: "", lastName: "", dateOfBirth: "", phoneNumber: "", email: "", address: "", password:"", authLevel: ""};
   const handleSubmit = () => {
     setAuthLevel("patient");
@@ -54,8 +58,18 @@ const AddPatientPage = (props) => {
     person.email = email;
     person.dateOfBirth = dob.toISOString();
     person.address = address;
-    person.password = password;
+    tempPass = tempPass.concat(lastName.substring(0, lastName.length/2), name.substring(0, name.length/2), randNum);
+    person.password = tempPass;
     person.authLevel = "patient";
+    message = message.concat("Hi ", name, ", Your NeuroNav account has been created! Please follow this link, login with the temporary password, and change the password to one of your own!\n https://arcane-plateau-92982.herokuapp.com/ \n Temporary Password:\n", tempPass) 
+    number = phone;
+    fetch('/text', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({body: message, to: number})
+    })
     // console.log(person);
     const user = httpUser.signUp(person);
     // axios.post('/patient?name=' + name + '&middleInitial=' + mi + '&lastName=' + lastName + '&dateOfBirth=' + dob.toISOString() + '&phoneNumber=' + phone + '&emailAddress=' + email + '&address=' + address).then(response => console.log(response));
@@ -97,7 +111,6 @@ const AddPatientPage = (props) => {
         <TextField margin="dense" value={phone} onChange={(e) => setPhone(e.target.value)} label="Phone Number" fullWidth/>
         <TextField margin="dense" value={email} onChange={(e) => setEmail(e.target.value)}label="Email Address" fullWidth/>
         <TextField margin="dense" value={address} onChange={(e) => setAddress(e.target.value)}label="Address" fullWidth/>
-        <TextField margin="dense" type="password" value={password} onChange={(e) => setPassword(e.target.value)} label="Password" fullWidth/>
       </Container>
       <DialogActions>
         <Button onClick={handleSubmit}>Add patient</Button>
