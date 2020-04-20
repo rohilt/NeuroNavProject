@@ -23,7 +23,7 @@ module.exports.init = () => {
     app.use(morgan('dev'));
 
     // body parsing middleware
-    // app.use(bodyParser.json());
+    app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }))
 
 
