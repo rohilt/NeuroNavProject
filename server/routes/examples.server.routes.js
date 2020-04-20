@@ -10,6 +10,7 @@ router.get('/patient', db.getPatients);
 router.get('/appointment', db.getAppointments);
 router.get('/directions', directions.getDirections);
 router.post('/text', sms.sendText);
+router.post('/receivesms', sms.receiveText);
 router.get('/calendar', db.viewCalendarEvents);
 router.post('/calendar', db.addCalendarEvent);
 router.delete('/patient', db.deletePatient);
