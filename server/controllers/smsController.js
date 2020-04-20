@@ -23,6 +23,7 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
   }
 
   exports.receiveText = (req, res) => {
+    console.log(req)
     const twiml = new MessagingResponse();
     const message = twiml.message();
     message.body(`Incoming message from ${req.body.From}: ${req.body.Body}`);
