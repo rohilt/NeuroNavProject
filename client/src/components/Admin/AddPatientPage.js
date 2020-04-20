@@ -18,8 +18,22 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import httpUser from '../../httpUser';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme =>({
+  content: {
+    flexGrow: 1,
+    marginTop: theme.spacing(5),
+    marginLeft: theme.spacing(25),
+    marginRight: theme.spacing(-4),
+  },
+  snackbar: {
+    marginLeft: theme.spacing(28)
+  }
+}));
 
 const AddPatientPage = (props) => {
+  const classes = useStyles();
   const [name, setName] = useState("");
   const [mi, setMi] = useState("");
   const [lastName, setLastName] = useState("");
@@ -57,6 +71,7 @@ const AddPatientPage = (props) => {
     setShowAlert(true);
   };
   return (
+    <main className={classes.content}>
     <Container>
       <br/>
     <Paper>
@@ -88,7 +103,7 @@ const AddPatientPage = (props) => {
         <Button onClick={handleSubmit}>Add patient</Button>
       </DialogActions>
     </Paper>
-    <Snackbar anchorOrigin={{
+    <Snackbar className={classes.snackbar} anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
     }} open={showAlert} autoHideDuration={5000} onClose={() => setShowAlert(false)}>
@@ -97,6 +112,7 @@ const AddPatientPage = (props) => {
       </Alert>
     </Snackbar>
     </Container>
+    </main>
   )
 }
 

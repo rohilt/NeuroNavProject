@@ -9,8 +9,21 @@ import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { TableContainer } from '@material-ui/core';
 import MaterialTable from "material-table";
+import { makeStyles } from '@material-ui/core/styles';
+
+const passFlag = 0;
+
+const useStyles = makeStyles(theme =>({
+  content: {
+    flexGrow: 1,
+    marginTop: theme.spacing(5),
+    marginLeft: theme.spacing(25),
+    marginRight: theme.spacing(-4),
+  },
+}));
 
 const PatientList = (props) => {
+  const classes = useStyles();
   // const [patientList, setPatientList] = useState([]);
   const [newPatientList, setNewPatientList] = useState([]);
   useEffect(() => {
@@ -34,6 +47,7 @@ const PatientList = (props) => {
     });
   }, [props.updated]);
   return (
+    <main className={classes.content}>
     <Container>
       
     <TableContainer component={Paper}>
@@ -70,7 +84,7 @@ const PatientList = (props) => {
       editable={{
         onRowUpdate: (newData, oldData) =>
           new Promise((resolve, reject) => {
-            axios.put("/patient", {newData});
+            axios.put("/patient", {newData, passFlag});
             console.log(newData);
             setTimeout(() => {
                 {
@@ -117,6 +131,7 @@ const PatientList = (props) => {
       </Table> */}
     </TableContainer>
     </Container>
+    </main>
   )
 
 }
