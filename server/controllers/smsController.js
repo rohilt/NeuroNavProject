@@ -25,7 +25,7 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
   exports.receiveText = async (req, res) => {
     const twiml = new MessagingResponse();
     const message = twiml.message();
-    message.body('The Robots are coming! Head for the hills!');
+    message.body(req.body.from + ' ' + req.body.body);
     message.media('https://farm8.staticflickr.com/7090/6941316406_80b4d6d50e_z_d.jpg');
 
     res.writeHead(200, {'Content-Type': 'text/xml'});
