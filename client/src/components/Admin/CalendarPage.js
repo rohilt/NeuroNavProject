@@ -31,6 +31,7 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
+import FeedbackIcon from '@material-ui/icons/Feedback';
 import Alert from '@material-ui/lab/Alert'
 import Snackbar from '@material-ui/core/Snackbar'
 import { CardActionArea, CardActions } from "@material-ui/core";
@@ -102,6 +103,7 @@ const CalendarPage = (props) => {
                   <ListItem><ListItemIcon><AccessTimeIcon/></ListItemIcon><ListItemText primary={(new Date(appt.startTime)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + " to " + (new Date(appt.endTime)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}/></ListItem>
                   <ListItem><ListItemIcon><LocationOnIcon/></ListItemIcon><ListItemText primary={appt.location}/></ListItem>
                   <ListItem><ListItemIcon><PersonPinIcon/></ListItemIcon><ListItemText primary={appt.doctor}/></ListItem>
+                  <ListItem><ListItemIcon><FeedbackIcon/></ListItemIcon><ListItemText primary={appt.reminder}/></ListItem>
                   <ListItem><ListItemIcon><NotesIcon/></ListItemIcon><ListItemText primary={appt.description}/></ListItem>
                 </List>
               </Typography>

@@ -17,7 +17,7 @@ const app = express.init()
 app.locals.calendarId = 'primary';
 app.use('/api/users', userRouter);
 
-cron.schedule('0 * * * *', () => {
+cron.schedule('* * * * *', () => {
   Appointment.find({}, (err, docs) => {
     if (err) console.log(err);
     docs.forEach(async (doc) => {
