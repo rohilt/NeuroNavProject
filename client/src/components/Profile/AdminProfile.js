@@ -201,6 +201,7 @@ const useStyles = makeStyles(theme =>({
 
     return (    
       <main className={classes.content}>
+
         <br/>
         
         <div className = "ProfileBox">
@@ -209,6 +210,7 @@ const useStyles = makeStyles(theme =>({
             {InfoList.map(entry => entry.email == user.email ? (
               <div key={entry._id}>
                 <CardContent>
+
                   <center>
                 <Avatar className={classes.profileAvatar}><Typography variant="h4">{entry.name[0] + entry.lastName[0]}</Typography></Avatar>
                 <br/>

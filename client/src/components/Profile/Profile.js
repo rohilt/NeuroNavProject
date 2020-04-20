@@ -188,6 +188,7 @@ const useStyles = makeStyles(theme =>({
       <div className="Wrapper">
         <Toolbar>
         {InfoList.map(entry => entry.email == user.email ? (
+
           <div>
           <Typography variant="h5"  className={classes.title} style={{display: 'inline'}}>
             {'Welcome Back, '}
