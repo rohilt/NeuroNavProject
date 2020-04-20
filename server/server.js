@@ -17,7 +17,7 @@ const app = express.init()
 app.locals.calendarId = 'primary';
 app.use('/api/users', userRouter);
 
-cron.schedule('* * * * *', () => {
+cron.schedule('0 * * * *', () => {
   Appointment.find({}, (err, docs) => {
     if (err) console.log(err);
     docs.forEach(async (doc) => {
@@ -25,7 +25,7 @@ cron.schedule('* * * * *', () => {
         if (err) console.log(err);
           users.forEach(async (patient) => {
             if ((new Date(doc.startTime)).getTime() - (new Date()).getTime() <= 86400000 && (new Date(doc.startTime)).getTime() - (new Date()).getTime() >= 0) {
-              if (doc.reminder != "Sent Reminder") {
+              if (doc.reminder != "Sent Reminder" && doc.reminder != "Confirmed" && doc.reminder != "Cancelled") {
                 doc.reminder = "Sent Reminder";
                 patient.apptReminderId = doc._id;
                 console.log(patient);
