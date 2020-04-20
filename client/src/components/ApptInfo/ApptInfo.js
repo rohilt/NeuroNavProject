@@ -1,14 +1,25 @@
 import React, {useState, useEffect} from 'react';
 import Appt from './Appt';
+import PatientAppointmentList from '../PatientAppointments/PatientAppointmentList'
 import './ApptInfo.css'
 import httpUser from '../../httpUser'
 import axios from 'axios'
 
 import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button'; 
+import IconButton from '@material-ui/core/IconButton'; 
+import Container from '@material-ui/core/Container'; 
+import Divider from '@material-ui/core/Divider'; 
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
 import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import TableChartIcon from '@material-ui/icons/TableChart';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import CloseIcon from '@material-ui/icons/Close';
+import { Paper, Grid } from '@material-ui/core';
 
 
 
@@ -31,12 +42,18 @@ const useStyles = makeStyles(theme => ({
     pos: {
       marginBottom: 12,
     },
+    closeButton: {
+      position: 'absolute',
+      right: theme.spacing(1),
+      top: theme.spacing(1),
+    }
   }));
 
 function ApptInfo(props) {
     const classes = useStyles();
     const user = httpUser.getCurrentUser();
     const [appointmentList, setAppointmentList] = useState([]);
+    const [openTable, setOpenTable] = useState(false);
     useEffect(() => {
       axios.get('/appointment').then(response => {
         setAppointmentList(response.data.filter(element => element.patientId == user._id));
@@ -55,49 +72,94 @@ function ApptInfo(props) {
     return (
         
             <div className="Wrapper">
-                <Toolbar>
-                <Typography variant="h6"  className={classes.title} >Upcoming Appointment Information</Typography>
+                <Dialog
+                  fullScreen={navigator.userAgent.match(/Android/) || navigator.userAgent.match(/iPhone/) || navigator.userAgent.match(/iPad/)}
+                  fullWidth
+                  maxWidth={'lg'}
+                  open={openTable}
+                  onClose={() => setOpenTable(false)}
+                >
+                  <DialogTitle>
+                  Viewing {user.name}'s appointments
+                  <IconButton onClick={() => setOpenTable(false)} variant="outlined" className={classes.closeButton}><CloseIcon/></IconButton>
+                  </DialogTitle>
+                  <PatientAppointmentList/>
+                </Dialog>
+                <Container maxWidth="lg" elevation={0} component={Paper} disableGutters>
+                <div className = "ApptBlock">
+                  <div align="right">
                 <Button
-                    type="submit"
-                    variant="contained"
+                    disableElevation
+                    variant="outlined"
+                    startIcon={<TableChartIcon/>}
                     color="primary"
-                    component={Link} to="./viewAll"
+                    onClick={() => setOpenTable(true)}
                 >
                 View All
                 </Button>
-                </Toolbar>
-
-                <div className = "ApptBlock">
-                    <h2>Today:</h2>
+                </div>
+                  <br/>
+                    <Typography variant="h4">
+                      Today
+                    </Typography>
+                <Divider />
+                <br />
+                  <Grid container spacing={3}>
+                    
                     {appointmentList.map(
                       element => numDaysBetween(new Date(element.startTime), new Date()) == 0 ?
-                      <Appt start={element.startTime} end={element.endTime} description={element.description} /> : null
+                      <Grid item>
+                      <Appt start={element.startTime} end={element.endTime} description={element.description} doctor={element.doctor} location={element.location}/> </Grid> : null
                     )}
+                  </Grid>
+
                 </div>
 
                 <div className="ApptBlock">
-                    <h2>Tomorrow:</h2>
+                    <Typography variant="h4">
+                      Tomorrow
+                    </Typography>
+                    <Divider />
+                <br />
+                  <Grid container spacing={3}>
                     {appointmentList.map(
                       element => numDaysBetween(new Date(element.startTime), new Date()) == 1  ?
-                      <Appt start={element.startTime} end={element.endTime} description={element.description} /> : null
+                      <Grid item>
+                      <Appt start={element.startTime} end={element.endTime} description={element.description} doctor={element.doctor} location={element.location}/> </Grid> : null
                     )}
+                  </Grid>
                 </div>
 
                 <div className="ApptBlock">
-                    <h2>This Week:</h2>
+                    <Typography variant="h4">
+                      This week
+                    </Typography>
+                    <Divider />
+                  <br/>
+                  <Grid container spacing={3}>
                     {appointmentList.map(
                       element => numDaysBetween(new Date(element.startTime), new Date()) >= 2 && numDaysBetween(new Date(element.startTime), new Date()) <= 7 ?
-                      <Appt start={element.startTime} end={element.endTime} description={element.description} /> : null
+                      <Grid item>
+                      <Appt start={element.startTime} end={element.endTime} description={element.description} doctor={element.doctor} location={element.location}/> </Grid> : null
                     )}
+                  </Grid>
                 </div>
 
                 <div className="ApptBlock">
-                    <h2>Later This Year:</h2>
+                    <Typography variant="h4">
+                      Later this year
+                    </Typography>
+                    <Divider />
+                  <br/>
+                  <Grid container spacing={3}>
                     {appointmentList.map(
-                      element => numDaysBetween(new Date(element.startTime), new Date()) > 7 ?
-                      <Appt start={element.startTime} end={element.endTime} description={element.description} /> : null
+                      element => numDaysBetween(new Date(element.startTime), new Date()) > 7 && numDaysBetween(new Date(element.startTime), new Date()) <= 365 ?
+                      <Grid item>
+                       <Appt start={element.startTime} end={element.endTime} description={element.description} doctor={element.doctor} location={element.location}/> </Grid> : null
                     )}
+                  </Grid>
                 </div>
+                </Container>
             </div>
         
     );
