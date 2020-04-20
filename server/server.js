@@ -25,8 +25,8 @@ cron.schedule('* * * * *', () => {
         if (err) console.log(err);
           users.forEach(async (patient) => {
             if ((new Date(doc.startTime)).getTime() - (new Date()).getTime() <= 86400000 && (new Date(doc.startTime)).getTime() - (new Date()).getTime() >= 0) {
-              if (doc.reminder != "Sent") {
-                doc.reminder = "Sent";
+              if (doc.reminder != "Sent Reminder") {
+                doc.reminder = "Sent Reminder";
                 patient.apptReminderId = doc._id;
                 console.log(patient);
                 doc.save();

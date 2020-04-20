@@ -46,7 +46,7 @@ const User = require('../models/user.js')
           if (err2) console.log(err);
           const twiml = new MessagingResponse();
           appts.forEach(appt => {
-            if (appt.reminder === "Sent") {
+            if (appt.reminder === "Sent Reminder") {
               if (req.body.Body === "YES") {
                 appt.reminder = "Confirmed"
                 twiml.message("Appointment confirmed!");
