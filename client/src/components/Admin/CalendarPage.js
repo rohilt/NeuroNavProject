@@ -1,6 +1,7 @@
 import "date-fns";
 import React, { useState, useEffect } from "react";
 import { createMuiTheme, ThemeProvider, makeStyles } from "@material-ui/core/styles"
+import MessageIcon from '@material-ui/icons/Message';
 import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
@@ -22,8 +23,16 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
+import TextField from '@material-ui/core/TextField'
 import Badge from '@material-ui/core/Badge'
 import axios from 'axios'
+import Dialog from '@material-ui/core/Dialog'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import Alert from '@material-ui/lab/Alert'
+import Snackbar from '@material-ui/core/Snackbar'
 import { CardActionArea, CardActions } from "@material-ui/core";
 
 const theme = createMuiTheme({
@@ -53,6 +62,10 @@ const CalendarPage = (props) => {
   const classes = useStyles();
   const [date, setDate] = useState(new Date());
   const [appointmentList, setAppointmentList] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const [number, setNumber] =useState("");
   useEffect(() => {
     axios.get('/appointment').then(response => {
       setAppointmentList(response.data);
@@ -93,6 +106,21 @@ const CalendarPage = (props) => {
                 </List>
               </Typography>
           </CardContent>
+          <CardActions>
+            <Button size="small" disableElevation variant="contained" color="primary" startIcon={<MessageIcon/>} onClick={
+              () => {
+                setMessage(appt.patientName + ', you have an upcoming appointment.');
+                setOpen(true);
+                axios.get('/patient').then(response => {
+    
+                  const result =  response.data.filter(patient=> 
+                    patient.name + ' ' + patient.lastName== appt.patientName
+                    );
+                  
+                  setNumber(result[0].phoneNumber);
+                })
+              }}> Remind </Button>
+          </CardActions>
           </Card>
           <br/>
           </div> : null
@@ -100,6 +128,39 @@ const CalendarPage = (props) => {
       </Grid>
     </Grid>
     </Container>
+    <Dialog open={open} onClose={() => setOpen(false)}>
+      <DialogTitle>Send a reminder</DialogTitle>
+      <DialogContent>
+      <DialogContentText>
+        Enter the message to send to the patient below. 
+      </DialogContentText>
+        <TextField autofocus margin="dense" multiline fullWidth maxWidth={'sm'} value={message} onChange={(e) => setMessage(e.target.value)} label="Message"/>
+      </DialogContent>
+      <DialogActions>
+        <Button color="primary" onClick={() => {
+          setOpen(false);
+          setMessage("");
+          fetch('/text', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({body: message, to: number})
+          }).then((res) => setShowAlert(true));
+        }}>Send</Button>
+      </DialogActions>
+    </Dialog>
+    <Snackbar className={classes.snackbar} 
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',}} 
+              open={showAlert} 
+              autoHideDuration={5000} 
+              onClose={() => setShowAlert(false)}>
+      <Alert severity="success">
+        Message sent!
+      </Alert>
+    </Snackbar>
     </ThemeProvider>
     </main>
   );

@@ -5,6 +5,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
 import Dialog from '@material-ui/core/Dialog';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -23,6 +25,9 @@ const useStyles = makeStyles(theme =>({
     marginLeft: theme.spacing(25),
     marginRight: theme.spacing(-4),
   },
+  snackbar: {
+    marginLeft: theme.spacing(28)
+  }
 }));
 
 
@@ -32,6 +37,7 @@ const AppointmentList = (props) => {
   const [appointmentList, setAppointmentList] = useState([]);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
   const [number, setNumber] =useState("");
   const [user, setUser] = useState({});
   useEffect(() => {
@@ -52,7 +58,7 @@ const AppointmentList = (props) => {
       ]}
       actions={[
         {
-          icon: 'phone',
+          icon: 'message',
           tooltip: 'Remind patient',
           onClick: (event, rowData) => {
             setUser(rowData);
@@ -67,7 +73,6 @@ const AppointmentList = (props) => {
               console.log(rowData.patientName)
               setNumber(result[0].phoneNumber)
               console.log(result[0].phoneNumber)
-              
 
 
       });
@@ -137,10 +142,21 @@ const AppointmentList = (props) => {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({body: message, to: number})
-          });
+          }).then((res) => setShowAlert(true));
         }}>Send</Button>
       </DialogActions>
     </Dialog>
+    <Snackbar className={classes.snackbar} 
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',}} 
+              open={showAlert} 
+              autoHideDuration={5000} 
+              onClose={() => setShowAlert(false)}>
+      <Alert severity="success">
+        Message sent!
+      </Alert>
+    </Snackbar>
     </Container>
     </main>
   )
