@@ -26,10 +26,9 @@ const User = require('../models/user.js')
   }
 
   exports.receiveText = (req, res) => {
-    console.log(req)
-    const twiml = new MessagingResponse();
-    const message = twiml.message();
-    message.body(`Incoming message from ${req.body.From}: ${req.body.Body}`);
+    // console.log(req)
+    // const message = twiml.message();
+    // message.body(`Incoming message from ${req.body.From}: ${req.body.Body}`);
     // twiml.message(JSON.stringify(req));
     // message.media('https://farm8.staticflickr.com/7090/6941316406_80b4d6d50e_z_d.jpg');
     // if (req.body.Body == 'hello') {
@@ -45,6 +44,7 @@ const User = require('../models/user.js')
       docs.forEach(user => {
         Appointment.find({_id: apptReminderId}, (err2, appts) => {
           if (err2) console.log(err);
+          const twiml = new MessagingResponse();
           appts.forEach(appt => {
             if (appt.reminder === "Sent") {
               if (req.body.Body === "YES") {
@@ -59,6 +59,8 @@ const User = require('../models/user.js')
                 twiml.message("I didn't understand your response");
               }
               appt.save();
+              res.writeHead(200, {'Content-Type': 'text/xml'});
+              res.end(twiml.toString());
             }
           })
         })
@@ -67,6 +69,5 @@ const User = require('../models/user.js')
     
     
 
-    res.writeHead(200, {'Content-Type': 'text/xml'});
-    res.end(twiml.toString());
+    
   }
