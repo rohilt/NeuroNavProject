@@ -1,6 +1,16 @@
-## _**UF NEURONAV WEB APPLICATION!**_
+## **UF NEURONAV WEB APPLICATION!**
  
 ## Introduction
+This is the final course project for CEN 3031 at the University of Florida. 
+ 
+### Contributors
+- Wesley Finch 
+- Alan Nguyen: alan.nguyen@ufl.edu
+- Christie Ruales: cruales@ufl.edu
+- Rohan Samanta
+- Andrew Sowinski
+- Rohil Tuli: rohil.tuli@ufl.edu
+- Megan Wolf: megan.wolf@ufl.edu
  
 ### Features
 - Patient Management System
@@ -21,6 +31,13 @@
   - Driving directions to the parking lot/garage
   - Walking directions to clinic
  
+### APIs Used
+- Google Maps API
+- Google Directions API
+- Google Geolocation API
+- Google Calendar API
+- CRUD Operations
+- User Authentication 
  
 ## Available Scripts
 Run `npm install` from the root and then run `npm run-script install-all` from the root. Use the second command to install all dependencies at any time. 
@@ -50,8 +67,6 @@ It correctly bundles React in production mode and optimizes the build for the be
  
 If deploying to heroku this does not need to be run since it is handled by the heroku-postbuild script<br>
  
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
- 
  
 ## File structure
 #### `client` - Holds the client application
@@ -74,10 +89,9 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 #### `.gitignore` - Tells git which files to ignore
 #### `README` - This file!
  
-## APIs Used
-- Google Maps API
-- Google Directions API
-- Google Geolocation API
-- Google Calendar API
-- CRUD Operations
-- User Authentication 
+## Deployment
+This project has been deployed with Heroku at the URL: https://arcane-plateau-92982.herokuapp.com/
+ 
+Follow the instructions on the website below to deploy to Heroku. 
+https://devcenter.heroku.com/articles/git
+To deploy, you need to add a remote to git called heroku, and then run `git push heroku master`. 
