@@ -47,12 +47,28 @@ const AddPatientPage = (props) => {
   const [description, setDescription] = useState("");
   const [patientSelected, setPatientSelected] = useState("");
   const [patientName, setPatientName] = useState("");
+  const [doctor, setDoctor] = useState("");
+  const [location, setLocation] = useState("");
+
+  const locationList = [
+    {location: 'Norman Fixel Institute'},
+    {location: 'Neuromedicine Hospital'}
+  ]
+ 
+
+
   useEffect(() => {
     axios.get('/patient').then(response => {
       setPatientList(response.data);
     });
+    
   }, [props.updated]);
+
+
   const handleSubmit = () => {
+    console.log(new Date().toLocaleDateString())
+    console.log(new Date(date))
+
     let startDate = new Date(date);
     startDate.setHours(time.getHours(), time.getMinutes());
     // console.log(startDate);
@@ -61,15 +77,14 @@ const AddPatientPage = (props) => {
     endDate.setHours(endTime.getHours(), endTime.getMinutes());
     // console.log(endDate);
     // console.log('/appointment?startTime=' + startDate.toISOString() + '&endTime=' + endDate.toISOString() + '&patientId=' + patientSelected + '&patientName=' + patientName + '&description=' + description);
-    axios.post('/appointment?startTime=' + startDate.toISOString() + '&endTime=' + endDate.toISOString() + '&patientId=' + patientSelected + '&patientName=' + patientName + '&description=' + description);
+    axios.post('/appointment?startTime=' + startDate.toISOString() + '&endTime=' + endDate.toISOString() + '&patientId=' + patientSelected + '&patientName=' + patientName + '&description=' + description + '&doctor=' + doctor + '&location=' + location);
     // axios.post('/patient?name=' + name + '&middleInitial=' + mi + '&lastName=' + lastName + '&dateOfBirth=' + dob.toISOString() + '&phoneNumber=' + phone + '&emailAddress=' + email + '&address=' + address).then(response => console.log(response));
     props.setUpdated(props.updated+1);
     setDate(new Date());
     setTime(new Date());
     setEndTime(new Date());
     setDescription("");
-    setPatientSelected("");
-    setPatientName("");
+    setDoctor("");
     setShowAlert(true);
   };
   return (
@@ -79,7 +94,7 @@ const AddPatientPage = (props) => {
     <Paper>
       <DialogTitle>Add a new appointment</DialogTitle>
       <Container>
-      <Autocomplete options={patientList} getOptionLabel={(patient) => patient.name} style={{width: 400}} renderInput={(params) => <TextField {...params} label="Select Patient" variant="standard" />}
+      <Autocomplete options={patientList} getOptionLabel={(patient) => (patient.name + ' ' + patient.lastName)} style={{width: 400}} renderInput={(params) => <TextField {...params} label="Select Patient" variant="standard" />}
       onChange={(event, value) => {
         if (!value) {
           setPatientName("");
@@ -127,6 +142,21 @@ const AddPatientPage = (props) => {
           }}
         />
       </MuiPickersUtilsProvider>
+      {/* <TextField fullWidth margin="dense" value={location} onChange={(e) => setLocation(e.target.value)} label="Location"/> */}
+      <Autocomplete options={locationList} getOptionLabel={(location) => location.location} style={{width: 400}} renderInput={(params) => <TextField {...params} label="Select Location" variant="standard" />}
+      onChange={(event, value) => {
+        if (!value) {
+          setLocation("");
+          
+        }
+        else {
+          setLocation(value.location);
+          
+        }
+      }}>
+
+      </Autocomplete>
+      <TextField style={{width: 400}} margin="dense" value={doctor} onChange={(e) => setDoctor(e.target.value)} label="Doctor"/>
       <TextField fullWidth margin="dense" value={description} onChange={(e) => setDescription(e.target.value)} label="Description"/>
       </Container>
       <DialogActions>

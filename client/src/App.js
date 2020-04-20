@@ -48,8 +48,16 @@ const App = () => {
         <Route path="/logout" render={(props) => {
               return <LogOut onLogOut={logOut} />
           }}/>
+
+          <Route path="/logout" render={(props) => {
+              return <LogOut onLogOut={logOut} />
+          }}/>
+
+          <Route path="/home" render={(props) => {
+              return <Home {...props} onLoginSuccess={onLoginSuccess} />
+          }} />
         
-        <Route exact path="/home" component={Home} />
+        {/* <Route exact path="/home" component={Home} /> */}
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>

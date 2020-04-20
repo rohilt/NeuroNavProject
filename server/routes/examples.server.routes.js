@@ -16,5 +16,7 @@ router.delete('/patient', db.deletePatient);
 router.put('/patient', db.editPatient);
 router.delete('/appointment', db.deleteAppointment);
 router.put('/appointment', db.editAppointment);
+router.get('/calendarId', db.getCalendarId);
+router.post('/calendarId', db.setCalendarId);
   
 module.exports = router;
