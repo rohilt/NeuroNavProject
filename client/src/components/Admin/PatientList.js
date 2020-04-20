@@ -59,7 +59,7 @@ const PatientList = (props) => {
         {title: "Address", field: "address"},
         {title: "Email Address", field: "email"},
         {title: "Phone Number", field: "phoneNumber"},
-        {title: "Time Needed", field: "timeToClinic"}
+        {title: "Time Needed", field: "timeToClinic"},
       ]}
       /*actions={[
         {

@@ -54,7 +54,8 @@ const AppointmentList = (props) => {
         {title: "End Time", field: "endTime", render: rowData => (new Date(rowData.endTime)).toLocaleTimeString([], {hour: '2-digit',minute: '2-digit'})},
         {title: "Doctor", field: "doctor"},
         {title: "Location", field: "location"},
-        {title: "Description", field: "description"}
+        {title: "Description", field: "description"},
+        {title: "Reminder", field: "reminder"}
       ]}
       actions={[
         {

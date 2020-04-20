@@ -6,6 +6,9 @@ const authToken = process.env.TWILIO_AUTH_TOKEN || require('../config/config.js'
 const client = require('twilio')(accountSid, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
+const Appointment = require('../models/AppointmentModel.js')
+const User = require('../models/user.js')
+
 
   exports.sendText = async (req, res) => {
     try {
@@ -37,6 +40,30 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
     //   twiml.message(
     //     'No Body param match, Twilio sends this in the request to your server.'
     //   );
+    User.find({phoneNumber: req.body.From}, (err, docs) => {
+      if (err) console.log(err);
+      docs.forEach(user => {
+        Appointment.find({_id: apptReminderId}, (err2, appts) => {
+          if (err2) console.log(err);
+          appts.forEach(appt => {
+            if (appt.reminder === "Sent") {
+              if (req.body.Body === "YES") {
+                appt.reminder = "Confirmed"
+                twiml.message("Appointment confirmed!");
+              }
+              else if (req.body.Body === "NO") {
+                appt.reminder = "Cancelled"
+                twiml.message("Appointment cancelled");
+              }
+              else {
+                twiml.message("I didn't understand your response");
+              }
+              appt.save();
+            }
+          })
+        })
+      })
+    })
     
     
 

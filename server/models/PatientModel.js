@@ -10,7 +10,7 @@ const patientModel = new mongoose.Schema({
   emailAddress: {type: String, required: true},
   address: {type: String, required: true},
   distanceToClinic: {type: String},
-  timeToClinic: {type: String}
+  timeToClinic: {type: String},
   // TODO: add unique, required flags as needed
 });
 

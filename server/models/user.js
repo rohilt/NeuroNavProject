@@ -12,7 +12,8 @@ const userSchema = new mongoose.Schema({
     phoneNumber: {type: String},
     address: {type: String, required: true},
     distanceToClinic: {type: String},
-    timeToClinic: {type: String}
+    timeToClinic: {type: String},
+    apptReminderId: {type: mongoose.Schema.ObjectId}
 });
 
 // adds method to user to create hashed password
