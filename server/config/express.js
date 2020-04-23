@@ -24,9 +24,11 @@ module.exports.init = () => {
 
     // body parsing middleware
     app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: false }))
+
 
     // add a router
-    app.use('/api/example', exampleRouter);
+    app.use(exampleRouter);
 
     if (process.env.NODE_ENV === 'production') {
         // Serve any static files

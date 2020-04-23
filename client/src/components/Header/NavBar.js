@@ -34,34 +34,23 @@ const NavBar = (props) => {
 
     return (
         <div className = {classes.root}>
-            {/* Logo */}
 
-            {/* <Link className = "nav-title" to="/">
-                <img className = "nav-logo" src={ "/logo192.png" } alt="React logo" />
-            </Link> */}
-
-            {/* Page Links */}
-            {/* <div className = "nav-items">
-                <Link className = "nav-link" to='/Home'>Home</Link>
-
-                <Link className = "nav-link" to='/Register'>Extra Page</Link>
-                <a className = "nav-link" target='_blank' rel="noopener noreferrer" href="https://reactjs.org/docs/getting-started.html">
-                    React Docs
-                </a>
-                <a className = "nav-link" target="_blank" rel="noopener noreferrer" href="https://reactjs.org/tutorial/tutorial.html">React Tutorial</a>
-                <a className = "nav-link" target="_blank" rel="noopener norefferer" href="https://nodejs.org/en/docs/">Node Docs</a>
-            </div> */}
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6"  className={classes.title} >Patient View</Typography>
+<<<<<<< HEAD
                     <div className={classes.butt}>
                     <Button component={Link} to="/profile" variant="contained" color="default">My Account</Button>
                     <Button component={Link} to="/login" variant="contained" color="default">Logout</Button>
                     </div>
+=======
+                    <Button component={Link} to="/logout" color="inherit">Logout</Button>
+>>>>>>> fbd61196016542db016e4a2c399cdb64ce55a603
                 </Toolbar>
                 <Tabs value={props.tabValue} onChange={(e, newValue) => props.setTabValue(newValue)}>
+                    <Tab label="View Profile"/>
+                    <Tab label="View Appointments"/>
                     <Tab label="Directions"/>
-                    <Tab label="My Appointments"/>
                     
                 </Tabs>
                 

@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import httpUser from '../../httpUser'
 
-const AddPatient = (props) => {
+const EditPatient = (props) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -32,7 +32,7 @@ const AddPatient = (props) => {
     <div>
     <Button variant="outlined" color="primary" onClick={() => setOpenDialog(true)}>Add patient</Button>
     <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-      <DialogTitle>Add a new patient</DialogTitle>
+      <DialogTitle>Edit</DialogTitle>
       <DialogContent>
         <TextField margin="dense" value={name} onChange={(e) => setName(e.target.value)} label="Name" fullWidth/>
         <TextField margin="dense" value={email} onChange={(e) => setEmail(e.target.value)} label="Email Address" fullWidth/>
@@ -40,7 +40,7 @@ const AddPatient = (props) => {
         <TextField margin="dense" value={password} onChange={(e) => setPassword(e.target.value)} label="Password" fullWidth/>
       </DialogContent>
       <DialogActions>
-        <Button onClick={ handleSubmit}>Add patient</Button>
+        <Button onClick={ handleSubmit}>Submit</Button>
       </DialogActions>
 
     </Dialog>
@@ -48,4 +48,4 @@ const AddPatient = (props) => {
   )
 }
 
-export default AddPatient;
+export default EditPatient;
