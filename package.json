@@ -34,7 +34,7 @@
     "google-distance-matrix": "^1.1.1",
     "google-maps-react": "^2.0.2",
     "googleapis": "^39.2.0",
-    "mocha": "^6.2.1",
+    "mocha": "^10.2.0",
     "mongoose": "^5.7.1",
     "morgan": "^1.9.1",
     "node-cron": "^2.0.3",
